@@ -1,0 +1,197 @@
+[
+	{
+		"id" : 0,
+		"type": "Engine",
+		"title": "Basic Engine",
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 0,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 1,
+		"type": "Engine",
+		"title": "Fair Engine",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 500,
+		"stackable": true,
+		"slug": "basic_engine"
+
+	},	
+	{
+		"id" : 2,
+		"type": "Engine",
+		"title": "Ok Engine",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 1000,
+		"stackable": true,
+		"slug": "basic_engine"
+
+	},
+	{
+		"id" : 3,
+		"type": "Engine",
+		"title": "Decent Engine",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 1500,
+		"stackable": true,
+		"slug": "basic_engine"
+
+	},
+	{
+		"id" : 4,
+		"type": " Engine",
+		"title": "Good Engine",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 2000,
+		"stackable": true,
+		"slug": "basic_engine"
+
+	},
+	{
+		"id" : 5,
+		"type": "Engine",
+		"title": "Better Engine",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 2500,
+		"stackable": true,
+		"slug": "basic_engine"
+
+	},
+	{
+		"id" : 6,
+		"type": "Engine",
+		"title": "Great Engine",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 3000,
+		"stackable": true,
+		"slug": "basic_engine"
+
+	},
+	{
+		"id" : 7,
+		"type": "Engine",
+		"title": "Super Engine",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 5000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 8,
+		"type": "Engine",
+		"title": "Awesome Engine",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 10000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 9,
+		"type": "Engine",
+		"title": "Dual Engine",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 20000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 10,
+		"type": "RCS",
+		"title": "Basic RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 0,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 11,
+		"type": "RCS",
+		"title": "Fair RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 500,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 12,
+		"type": "RCS",
+		"title": "Ok RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 1000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 13,
+		"type": "RCS",
+		"title": "Decent RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 1500,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 14,
+		"type": "RCS",
+		"title": "Good RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 2000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 15,
+		"type": "RCS",
+		"title": "High power RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 3000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 16,
+		"type": "RCS",
+		"title": "Low Power RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 4000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 17,
+		"type": "RCS",
+		"title": "Combat RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 5000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 18,
+		"type": "RCS",
+		"title": "Better RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 10000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 19,
+		"type": "RCS",
+		"title": "Best RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 20000,
+		"stackable": true,
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 20,
+		"type": "RCS",
+		"title": "Dual RCS",		
+		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 40000,
+		"stackable": true,
+		"slug": "basic_engine"
+	}
+]
