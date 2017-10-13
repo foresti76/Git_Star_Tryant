@@ -32,10 +32,11 @@ public class Loot : MonoBehaviour
         }
         lootPanel.SetActive(false);
         // remove once we can actually populate the inventory with real stuff
-        AddLoot(4);
+        /*AddLoot(4);
         AddLoot(5);
         AddLoot(6);
         AddLoot(6);
+        */
     }
 
     public void AddLoot(int id)

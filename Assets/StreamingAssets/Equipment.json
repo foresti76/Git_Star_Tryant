@@ -5,7 +5,14 @@
 		"title": "Basic Engine",
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 0,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
 	},
 	{
@@ -14,9 +21,15 @@
 		"title": "Fair Engine",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 500,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
-
 	},	
 	{
 		"id" : 2,
@@ -24,9 +37,15 @@
 		"title": "Ok Engine",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 1000,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
-
 	},
 	{
 		"id" : 3,
@@ -34,19 +53,31 @@
 		"title": "Decent Engine",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 1500,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
-
 	},
 	{
 		"id" : 4,
-		"type": " Engine",
+		"type": "Engine",
 		"title": "Good Engine",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 2000,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
-
 	},
 	{
 		"id" : 5,
@@ -54,9 +85,15 @@
 		"title": "Better Engine",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 2500,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
-
 	},
 	{
 		"id" : 6,
@@ -64,9 +101,15 @@
 		"title": "Great Engine",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 3000,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
-
 	},
 	{
 		"id" : 7,
@@ -74,7 +117,14 @@
 		"title": "Super Engine",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 5000,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
 	},
 	{
@@ -83,7 +133,14 @@
 		"title": "Awesome Engine",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 10000,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
 	},
 	{
@@ -92,7 +149,14 @@
 		"title": "Dual Engine",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 20000,
-		"stackable": true,
+		"stackable": false,
+		"combat_speed": 10,
+		"crusing_speed": 20,
+		"acceleration": 10,
+		"maneuver_bonus": 10,
+		"energy_cost": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
 	},
 	{
@@ -101,7 +165,10 @@
 		"title": "Basic RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 0,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -110,7 +177,10 @@
 		"title": "Fair RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 500,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -119,7 +189,10 @@
 		"title": "Ok RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 1000,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -128,7 +201,10 @@
 		"title": "Decent RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 1500,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -137,7 +213,10 @@
 		"title": "Good RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 2000,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -146,7 +225,10 @@
 		"title": "High power RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 3000,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -155,7 +237,10 @@
 		"title": "Low Power RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 4000,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -164,7 +249,10 @@
 		"title": "Combat RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 5000,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -173,7 +261,10 @@
 		"title": "Better RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 10000,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -182,7 +273,10 @@
 		"title": "Best RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 20000,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
 		"slug": "basic_engine"
 	},
 	{
@@ -191,7 +285,122 @@
 		"title": "Dual RCS",		
 		"description": "Basic Engine blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
 		"cost": 40000,
-		"stackable": true,
+		"stackable": false,
+		"rot": 10,
+		"acc_bonus": 10,
+		"energy_cost": 1,
+		"slug": "basic_engine"
+	},	
+	{
+		"id" : 21,
+		"type": "Ship",
+		"title": "Shuttle",
+		"description": "This is the ship you were given by your uncle.",
+		"cost": 0,
+		"stackable": false,
+		"size": "Tiny",
+		"mass": 10,
+		"hullpoints": 100,
+		"cargospace": 50,
+		"armor": 1,
+		"subsystems": 2,
+		"sm_hardpoints": 2,
+		"med_hardpoints": 0,
+		"lg_hardpoints": 0,
+		"faction": "all",
+		"slug": "basic_ship"
+	},
+	{
+		"id" : 22,
+		"type": "Shield",
+		"title": "Basic Shield",		
+		"description": "Basic shield blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 0,
+		"stackable": false,
+		"max_shield": 20,
+		"regen_rate": 5,
+		"regen_delay": 5,
+		"refresh_delay": 10,
+		"damage_mitigation": 10,
+		"maint_energy_cost": 1,
+		"recharge_energy_cost": 5,
+		"signature": 10,
+		"faction": "any",
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 23,
+		"type": "TractorBeam",
+		"title": "Basic Tractor Beam",		
+		"description": "Basic Tractor Beam blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 0,
+		"stackable": false,
+		"max_pull_mass": 100,
+		"pull_range": 1,
+		"pull_rate": 1,
+		"energy_cost": 1,
+		"faction": "any",
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 24,
+		"type": "ECM",
+		"title": "Basic ECM",		
+		"description": "Basic ECM blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 0,
+		"stackable": false,
+		"defense_type": "Jamming",
+		"defense_value": 5,
+		"energy_cost": 1,
+		"faction": "any",
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 25,
+		"type": "Radar",
+		"title": "Basic Radar",		
+		"description": "Basic Radar blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 0,
+		"stackable": false,
+		"range": 25,
+		"iff_level": 1,
+		"targeting_range": 10,
+		"targeting_speed": 1,
+		"energy_cost": 1,
+		"signature": 1,
+		"faction": "any",
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 26,
+		"type": "Weapon",
+		"title": "Basic Slug thrower",		
+		"description": "Basic ECM blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 0,
+		"stackable": false,
+		"mount_size": "small",
+		"weapon_type": "projectile",
+		"damage": 5,
+		"projectiles_per_shot": 1,
+		"ammo_capacity": 100,
+		"fire_rate": 1,
+		"energy_cost": 1,
+		"signature": 1,
+		"faction": "any",
+		"slug": "basic_engine"
+	},
+	{
+		"id" : 27,
+		"type": "Generator",
+		"title": "Basic Generator",		
+		"description": "Basic Generator blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 0,
+		"stackable": false,
+		"energy_generation": 25,
+		"storage_capacity": 10,
+		"signature": 10,
+		"faction": "any",
 		"slug": "basic_engine"
 	}
+
 ]

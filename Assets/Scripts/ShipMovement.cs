@@ -36,7 +36,10 @@ public class ShipMovement : MonoBehaviour {
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-            shot.GetComponent<Mover>().damage = shotDamage;
+            Mover shotScript = shot.GetComponent<Mover>();
+            shotScript.damage = shotDamage;
+            shotScript.firer = "player";
+
         }
     }
 	
