@@ -7,12 +7,10 @@ using UnityEngine.EventSystems;
 public class LootSlot : MonoBehaviour, IDropHandler {
     public int id;
 
-    private Inventory inv;
     private Loot loot;
 
     void Start()
     {
-        inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         loot = GameObject.Find("Loot").GetComponent<Loot>();
     }
 
@@ -20,15 +18,17 @@ public class LootSlot : MonoBehaviour, IDropHandler {
     {
         // todo make sure that if you do not drop the loot on a slot it jumps back to the loot panel.
         EquipmentData droppedEquipment = eventData.pointerDrag.GetComponent<EquipmentData>();
-        if (inv.equipments[id].ID == -1)
+
+        if(droppedEquipment.slotType != "Loot")
+        {
+            return;
+        }
+
+        if (loot.loot[id].ID == -1)
         {
             loot.loot[droppedEquipment.slot] = new Equipment();
-            inv.equipments[id] = droppedEquipment.equipment;
+            loot.loot[id] = droppedEquipment.equipment;
             droppedEquipment.slot = id;
-        }
-        else 
-        {
-            transform.localPosition = new Vector2(0, 0);
         }
     }
 }

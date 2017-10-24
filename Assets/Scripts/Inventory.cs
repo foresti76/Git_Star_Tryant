@@ -28,16 +28,16 @@ public class Inventory : MonoBehaviour {
             slots[i].GetComponent<InventorySlot>().id = i ;
         }
         // remove once we can actually populate the inventory with real stuff
-       /* AddEquipment(0);
+        AddEquipment(0);
         AddEquipment(3);
         AddEquipment(1);
         AddEquipment(1);
         AddEquipment(1);
         AddEquipment(1);
         AddEquipment(1);
-        AddEquipment(1);
+        AddEquipment(21);
         AddEquipment(3); 
-        */      
+           
     }
     public void AddEquipment(int id)
     {
@@ -57,12 +57,13 @@ public class Inventory : MonoBehaviour {
                     equipments[i] = equipmentToAdd;
                     GameObject equipmentObject = Instantiate(inventoryItem);
                     equipmentObject.transform.SetParent(slots[i].transform);
-                    InventorySlot invSlot = equipmentObject.transform.parent.GetComponent<InventorySlot>();
+                    //InventorySlot invSlot = equipmentObject.transform.parent.GetComponent<InventorySlot>();
                     equipmentObject.transform.localPosition = new Vector2(0,0);
                     equipmentObject.GetComponent<Image>().sprite = equipmentToAdd.Sprite;
                     equipmentObject.name = equipmentToAdd.Title;
                     EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
                     data.equipment = equipmentToAdd;
+                    data.slotType = "Inv";
                     data.ammount++;
                     data.slot = i;
                     break;

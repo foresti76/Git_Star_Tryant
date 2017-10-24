@@ -12,7 +12,8 @@ public class Loot : MonoBehaviour
     public GameObject lootItem;
 
     ItemDatabase equipmentDatbase;
-    private int slotAmmount;
+    private int lootAmmount;
+    private int currentLoot = 0;
     private Inventory inv;
 
     public List<Equipment> loot = new List<Equipment>();
@@ -22,26 +23,27 @@ public class Loot : MonoBehaviour
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         equipmentDatbase = GameObject.Find("Inventory").GetComponent<ItemDatabase>();
-        slotAmmount = 20;
-        for (int i = 0; i < slotAmmount; i++)
-        {
-            loot.Add(new Equipment());
-            slots.Add(Instantiate(lootSlot));
-            slots[i].transform.SetParent(slotPanel.transform);
-            slots[i].GetComponent<LootSlot>().id = i;
-        }
+
         lootPanel.SetActive(false);
         // remove once we can actually populate the inventory with real stuff
-        /*AddLoot(4);
+        AddLoot(4);
         AddLoot(5);
         AddLoot(6);
         AddLoot(6);
-        */
+        
     }
 
     public void AddLoot(int id)
     {
         lootPanel.SetActive(true);
+
+        //create a new slot for the loot
+        loot.Add(new Equipment());
+        slots.Add(Instantiate(lootSlot));
+        slots[currentLoot].transform.SetParent(slotPanel.transform);
+        slots[currentLoot].GetComponent<LootSlot>().id = currentLoot;
+        currentLoot ++;
+
         Equipment lootToAdd = equipmentDatbase.FetchEquipmentByID(id);
         if (lootToAdd.Stackable && (CheckIfEquipmentIsInLoot(lootToAdd) > -1))
         {
@@ -63,6 +65,7 @@ public class Loot : MonoBehaviour
                     equipmentObject.transform.localPosition = new Vector2(0,0);
                     EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
                     data.equipment = lootToAdd;
+                    data.slotType = "Loot";
                     data.ammount++;
                     data.slot = i;
                     break;
@@ -87,13 +90,11 @@ public class Loot : MonoBehaviour
     public void TakeAll()
     {
         //iterate through all the loot items and give them to the inventory
-        Debug.Log(" How much loot are we going through ?" + loot.Count);
         for(int i = 0; i < slots.Count ; i++)
         {
             //Just go through all the slots and give them to the inventory
             if (loot[i].ID != -1)
             {
-
                 inv.AddEquipment(loot[i].ID);
                 //check to see if there is more than one in the ammount field of the loot and add more.
                 EquipmentData data = slots[i].gameObject.transform.GetChild(0).GetComponent<EquipmentData>();
@@ -107,11 +108,12 @@ public class Loot : MonoBehaviour
                 }
                 //remove the current equipment and gameobject from loot and slots.
                 loot[i] = new Equipment();
-                GameObject equipmentToDestroy = slots[i].transform.GetChild(0).gameObject;
-                Destroy(equipmentToDestroy);
             }
+            GameObject slotToDestroy = slots[i].gameObject;
+            Destroy(slotToDestroy);
         }
-       lootPanel.SetActive(false);
+        currentLoot = 0;
+        lootPanel.SetActive(false);
     }
 }
 
