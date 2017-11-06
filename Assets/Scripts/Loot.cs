@@ -40,7 +40,7 @@ public class Loot : MonoBehaviour
         //create a new slot for the loot
         loot.Add(new Equipment());
         slots.Add(Instantiate(lootSlot));
-        slots[currentLoot].transform.SetParent(slotPanel.transform);
+        slots[currentLoot].transform.SetParent(slotPanel.transform, false);
         slots[currentLoot].GetComponent<LootSlot>().id = currentLoot;
         currentLoot ++;
 
@@ -59,7 +59,7 @@ public class Loot : MonoBehaviour
                 {
                     loot[i] = lootToAdd;
                     GameObject equipmentObject = Instantiate(lootItem);
-                    equipmentObject.transform.SetParent(slots[i].transform);             
+                    equipmentObject.transform.SetParent(slots[i].transform, false);             
                     equipmentObject.GetComponent<Image>().sprite = lootToAdd.Sprite;
                     equipmentObject.name = lootToAdd.Title;
                     equipmentObject.transform.localPosition = new Vector2(0,0);

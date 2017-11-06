@@ -17,6 +17,8 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     private Loot loot;
     private ToolTip toolTip;
     GameObject hullSlot;
+    GameObject weaponsLayout;
+    GameObject subsystemsLayout;
 
     void Start()
     {
@@ -24,6 +26,8 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         loot = GameObject.Find("Loot").GetComponent<Loot>();
         toolTip = inv.GetComponent<ToolTip>();
         hullSlot = GameObject.Find("Hull Slot");
+        weaponsLayout = GameObject.Find("WeaponsLayout");
+        subsystemsLayout = GameObject.Find("SubsystemsLayout");
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -65,6 +69,22 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         {
             this.transform.SetParent(loot.slots[slot].transform);
             this.transform.position = loot.slots[slot].transform.position;
+        }
+
+        if (slotType == "Weapon")
+        {
+            //todo figure out how I want to set this up
+            Transform weaponSlot = weaponsLayout.transform.GetChild(slot);
+            this.transform.SetParent(weaponSlot);
+            this.transform.position = weaponSlot.transform.position;
+        }
+
+        if (slotType == "Subsystem")
+        {
+            //todo figure out how I want to set this up
+            Transform subsystemSlot = subsystemsLayout.transform.GetChild(slot);
+            this.transform.SetParent(subsystemSlot);
+            this.transform.position = subsystemSlot.transform.position;
         }
 
         Debug.Log("Slot type " + slotType);

@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour {
         {
             equipments.Add(new Equipment());
             slots.Add(Instantiate(inventorySlot));
-            slots[i].transform.SetParent(slotPanel.transform);
+            slots[i].transform.SetParent(slotPanel.transform, false);
             slots[i].GetComponent<InventorySlot>().id = i ;
         }
         // remove once we can actually populate the inventory with real stuff
@@ -36,7 +36,7 @@ public class Inventory : MonoBehaviour {
         AddEquipment(1);
         AddEquipment(1);
         AddEquipment(21);
-        AddEquipment(3); 
+        AddEquipment(28); 
            
     }
     public void AddEquipment(int id)
@@ -56,7 +56,7 @@ public class Inventory : MonoBehaviour {
                 {
                     equipments[i] = equipmentToAdd;
                     GameObject equipmentObject = Instantiate(inventoryItem);
-                    equipmentObject.transform.SetParent(slots[i].transform);
+                    equipmentObject.transform.SetParent(slots[i].transform, false);
                     //InventorySlot invSlot = equipmentObject.transform.parent.GetComponent<InventorySlot>();
                     equipmentObject.transform.localPosition = new Vector2(0,0);
                     equipmentObject.GetComponent<Image>().sprite = equipmentToAdd.Sprite;

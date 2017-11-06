@@ -401,6 +401,24 @@
 		"signature": 10,
 		"faction": "any",
 		"slug": "basic_engine"
+	},	
+	{
+		"id" : 28,
+		"type": "Ship",
+		"title": "Runabout",
+		"description": "This is federation scout ship.",
+		"cost": 10,
+		"stackable": false,
+		"size": "Tiny",
+		"mass": 20,
+		"hullpoints": 200,
+		"cargospace": 100,
+		"armor": 2,
+		"subsystems": 2,
+		"sm_hardpoints": 3,
+		"med_hardpoints": 0,
+		"lg_hardpoints": 0,
+		"faction": "all",
+		"slug": "basic_engine"
 	}
-
 ]
