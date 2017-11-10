@@ -12,7 +12,6 @@ public class Loot : MonoBehaviour
     public GameObject lootItem;
 
     ItemDatabase equipmentDatbase;
-    private int lootAmmount;
     private int currentLoot = 0;
     private Inventory inv;
 
@@ -26,10 +25,10 @@ public class Loot : MonoBehaviour
 
         lootPanel.SetActive(false);
         // remove once we can actually populate the inventory with real stuff
-        AddLoot(4);
-        AddLoot(5);
-        AddLoot(6);
-        AddLoot(6);
+        //AddLoot(4);
+        //AddLoot(5);
+        //AddLoot(6);
+        //AddLoot(6);
         
     }
 

@@ -8,13 +8,13 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
     public string childName;
     public int id;
     public string weaponSlotSize;
+    
 
     private Inventory inv;
     private GameObject playerShip;
     private Weapon weaponData;
     private ItemDatabase itemDatabase;
- 
-
+    private WeaponController[] weaponControllerList;
     // Use this for initialization
     void Start()
     {
@@ -34,10 +34,13 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 // swap out the current ship object in this slot and send it back to the inventory
                 if (childName != "")
                 {
+                    //get the current weapon and send it back to the inventory in the slot that the dropped one was in
                     Transform equipment = this.transform.Find(childName);
                     EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                     currentEquipment.slot = droppedEquipment.slot;
                     currentEquipment.slotType = "Inv";
+
+                    //make the dropped equipment parent to this slot
                     equipment.transform.SetParent(inv.slots[currentEquipment.slot].transform);
                     equipment.transform.position = inv.slots[currentEquipment.slot].transform.position;
                 }
@@ -51,6 +54,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 if (playerShip != null)
                 {
                     //todo find the weapon associated with this slot and put in the data
+                    weaponControllerList = playerShip.GetComponentsInChildren<WeaponController>();
                 }
             }
         }

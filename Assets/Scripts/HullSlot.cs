@@ -71,11 +71,13 @@ public class HullSlot : MonoBehaviour, IDropHandler {
 
     void UpdatePanels()
     {
-        //todo destroy all the current children for weapons and subsystems and put the leftover items in the inventory.
+
         smWeaponSlotAmmount = shipData.Sm_Hardpoints;
         medWeaponSlotAmmount = shipData.Med_Hardpoints;
         lgWeaponSlotAmmount = shipData.Lg_Hardpoints;
         subsystemsSlotAmmount = shipData.Subsystems;
+
+        //todo destroy all the current children for weapons and subsystems and put the leftover items in the inventory.
 
         if (smWeaponSlotAmmount > 0) { 
             for (int i = 0; i < smWeaponSlotAmmount; i++)

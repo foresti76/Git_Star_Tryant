@@ -10,6 +10,8 @@ public class Inventory : MonoBehaviour {
     public GameObject inventorySlot;
     public GameObject inventoryItem;
 
+    //todo add in station inventory.
+
     ItemDatabase equipmentDatbase;
     private int slotAmmount;
 

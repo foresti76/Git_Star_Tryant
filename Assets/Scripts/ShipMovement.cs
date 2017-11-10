@@ -15,14 +15,10 @@ public class ShipMovement : MonoBehaviour {
     public ParticleSystem leftManuverJetLeft;
     public ParticleSystem leftManuverJetRight;
     public ParticleSystem frontJet;
-    public GameObject shot;
-    public int shotDamage;
-    //public float shotSpeed;
-    public Transform shotSpawn;
-    public float fireRate;
+
 
     private Rigidbody myRigidBody;
-    private float nextFire;
+
     
 
     // Use this for initialization
@@ -32,15 +28,7 @@ public class ShipMovement : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-            Mover shotScript = shot.GetComponent<Mover>();
-            shotScript.damage = shotDamage;
-            shotScript.firer = "player";
 
-        }
     }
 	
 	// Update is called once per frame
