@@ -15,18 +15,34 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
     private Weapon weaponData;
     private ItemDatabase itemDatabase;
     private WeaponController[] weaponControllerList;
+    private WeaponController myWeaponController;
     // Use this for initialization
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
+        //find the weapon associated with this slot and put in the data
+        if (playerShip != null)
+        {
+            weaponControllerList = playerShip.GetComponentsInChildren<WeaponController>();
+            for (int i = 0; i < weaponControllerList.Length; i++)
+            {
+                WeaponController currentWeaponController = weaponControllerList[i].GetComponent<WeaponController>();
+                if (currentWeaponController.slotID == id)
+                {
+                    myWeaponController = currentWeaponController;
+                    return;
+                }
+
+            }
+        }
     }
     public void OnDrop(PointerEventData eventData)
     {
         EquipmentData droppedEquipment = eventData.pointerDrag.GetComponent<EquipmentData>();
          if (droppedEquipment.equipment.Type == "Weapon")
-        {
+         {
             weaponData = itemDatabase.FetchWeaponByID(droppedEquipment.equipment.ID);
 
             if (weaponData.Mount_Size == weaponSlotSize)
@@ -51,11 +67,14 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 childName = weaponData.Title;
 
                 //set up all the things that are controlled by the weaponData
-                if (playerShip != null)
-                {
-                    //todo find the weapon associated with this slot and put in the data
-                    weaponControllerList = playerShip.GetComponentsInChildren<WeaponController>();
-                }
+                myWeaponController.shotDamage = weaponData.Damage;
+                myWeaponController.fireRate = weaponData.Fire_Rate;
+
+                //Todo Hook these up once strucutre is in place.
+                //myWeaponController.weaponType = weaponData.Weapon_Type;
+                //myWeaponController.ammoCapacity = weaponData.Ammo_Capacity;
+                //myWeaponController.energyCost = weaponData.Energy_Cost;
+                //myWeaponController.signature = weaponData.Singature;
             }
         }
     }

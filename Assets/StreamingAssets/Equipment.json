@@ -420,5 +420,23 @@
 		"lg_hardpoints": 0,
 		"faction": "all",
 		"slug": "basic_engine"
+	},
+	{
+		"id" : 29,
+		"type": "Weapon",
+		"title": "Better Slug thrower",		
+		"description": "Better than before blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"cost": 0,
+		"stackable": false,
+		"mount_size": "small",
+		"weapon_type": "projectile",
+		"damage": 30,
+		"projectiles_per_shot": 1,
+		"ammo_capacity": 100,
+		"fire_rate": 2,
+		"energy_cost": 1,
+		"signature": 1,
+		"faction": "any",
+		"slug": "basic_engine"
 	}
 ]
