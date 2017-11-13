@@ -24,14 +24,11 @@ public class Controls : MonoBehaviour {
         //call scripts based on keyboard input
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Debug.Log("I key press registered");
             if (showShipCustomization == true)
             {
-                Debug.Log("hiding stuff");
                 HideShipCustomization();
             } else
             {
-                Debug.Log("showing stuff");
                 ShowShipCustomization();
             }
         }

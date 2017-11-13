@@ -85,7 +85,8 @@ public class HullSlot : MonoBehaviour, IDropHandler {
                 weaponSlots.Add(Instantiate(weaponSlot));
                 weaponSlots[i].transform.SetParent(weaponsPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
-                weaponSlotScript.weaponSlotSize = "Small";
+                weaponSlotScript.weaponSlotSize = "small";
+                weaponSlotScript.id = i;
                 Text slotSize = weaponSlots[i].GetComponentInChildren<Text>();
                 slotSize.text = weaponSlotScript.weaponSlotSize;
             }
@@ -97,7 +98,8 @@ public class HullSlot : MonoBehaviour, IDropHandler {
                 weaponSlots.Add(Instantiate(weaponSlot));
                 weaponSlots[i].transform.SetParent(weaponsPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
-                weaponSlotScript.weaponSlotSize = "Medium";
+                weaponSlotScript.weaponSlotSize = "medium";
+                weaponSlotScript.id = i;
                 Text slotSize = weaponSlots[i].GetComponentInChildren<Text>();
                 slotSize.text = weaponSlotScript.weaponSlotSize;
             }
@@ -109,7 +111,8 @@ public class HullSlot : MonoBehaviour, IDropHandler {
                 weaponSlots.Add(Instantiate(weaponSlot));
                 weaponSlots[i].transform.SetParent(weaponsPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
-                weaponSlotScript.weaponSlotSize = "Large";
+                weaponSlotScript.weaponSlotSize = "large";
+                weaponSlotScript.id = i;
                 Text slotSize = weaponSlots[i].GetComponentInChildren<Text>();
                 slotSize.text = weaponSlotScript.weaponSlotSize;
             }

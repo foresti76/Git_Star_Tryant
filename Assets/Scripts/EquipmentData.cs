@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler {
+public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler {
 
     public Equipment equipment;
     public int ammount = 1;
@@ -100,5 +100,47 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     public void OnPointerExit(PointerEventData eventData)
     {
         toolTip.Deactivate();
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        //todo differnatiate between inv, loot and ship customiaztion panel and set correct parent
+        if (slotType == "Ship")
+        {
+            this.transform.SetParent(hullSlot.transform);
+            this.transform.position = hullSlot.transform.position;
+        }
+
+        if (slotType == "Inv")
+        {
+            this.transform.SetParent(inv.slots[slot].transform);
+            this.transform.position = inv.slots[slot].transform.position;
+        }
+
+        if (slotType == "Loot")
+        {
+            this.transform.SetParent(loot.slots[slot].transform);
+            this.transform.position = loot.slots[slot].transform.position;
+        }
+
+        if (slotType == "Weapon")
+        {
+            //todo figure out how I want to set this up
+            Transform weaponSlot = weaponsLayout.transform.GetChild(slot);
+            this.transform.SetParent(weaponSlot);
+            this.transform.position = weaponSlot.transform.position;
+        }
+
+        if (slotType == "Subsystem")
+        {
+            //todo figure out how I want to set this up
+            Transform subsystemSlot = subsystemsLayout.transform.GetChild(slot);
+            this.transform.SetParent(subsystemSlot);
+            this.transform.position = subsystemSlot.transform.position;
+        }
+
+        Debug.Log("Slot type " + slotType);
+
+        this.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 }

@@ -32,6 +32,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 if (currentWeaponController.slotID == id)
                 {
                     myWeaponController = currentWeaponController;
+                    Debug.Log("found my weaponcontroller" + myWeaponController);
                     return;
                 }
 
@@ -44,7 +45,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
          if (droppedEquipment.equipment.Type == "Weapon")
          {
             weaponData = itemDatabase.FetchWeaponByID(droppedEquipment.equipment.ID);
-
+            Debug.Log(weaponData.Mount_Size);
             if (weaponData.Mount_Size == weaponSlotSize)
             {
                 // swap out the current ship object in this slot and send it back to the inventory
@@ -62,6 +63,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 }
 
                 // set up thje current ship data based on the data from the object
+                Debug.Log("adding " + weaponData.Title);
                 droppedEquipment.slotType = "Weapon";
                 droppedEquipment.slot = id;
                 childName = weaponData.Title;
@@ -76,6 +78,10 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 //myWeaponController.energyCost = weaponData.Energy_Cost;
                 //myWeaponController.signature = weaponData.Singature;
             }
+        }
+        else
+        {
+            return;
         }
     }
 }
