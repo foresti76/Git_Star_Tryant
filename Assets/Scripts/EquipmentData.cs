@@ -87,7 +87,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
             this.transform.position = subsystemSlot.transform.position;
         }
 
-        Debug.Log("Slot type " + slotType);
+        //Debug.Log("Slot type " + slotType);
 
         this.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
@@ -139,7 +139,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
             this.transform.position = subsystemSlot.transform.position;
         }
 
-        Debug.Log("Slot type " + slotType);
+        //Debug.Log("Slot type " + slotType);
 
         this.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }

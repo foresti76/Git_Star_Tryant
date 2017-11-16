@@ -17,7 +17,7 @@ public class ItemDatabase : MonoBehaviour {
     public List<Weapon> weaponDatabase = new List<Weapon>();
 
     private JsonData equipmentData;
-     //todo subsystems, consumable
+     //todo subsystems, consumable, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon
 
     void Start()
     {
@@ -143,7 +143,7 @@ public class ItemDatabase : MonoBehaviour {
             }
         }
     }
-    //todo  subsystems, consumables
+    //todo  subsystems, consumables, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon
 
     public Equipment FetchEquipmentByID(int id)
     {
@@ -264,7 +264,7 @@ public class ItemDatabase : MonoBehaviour {
         }
         return null;
     }
-    //todo subsystems, consumables
+    //todo subsystems, consumables, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon
 }
 
 public class Equipment
@@ -584,5 +584,5 @@ public class Weapon
         //todo add in reference to 3d model from slug see equipment sprite reference
     }
 }
-//todo subsystems, consumables
+//todo subsystems, consumables, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon 
 
