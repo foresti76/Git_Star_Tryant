@@ -33,7 +33,7 @@ public class BackgroundController : MonoBehaviour {
 
         if (playerShip)
         {
-            this.transform.position = playerShip.transform.position; // Keep the background with the players ship
+            this.transform.position = new Vector3(playerShip.transform.position.x,-2 , playerShip.transform.position.z); // Keep the background with the players ship
         }
     }
 }
