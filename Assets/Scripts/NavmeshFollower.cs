@@ -9,7 +9,8 @@ public class NavmeshFollower : MonoBehaviour {
 
     NavMeshAgent agent;
     GameObject player;
-	// Use this for initialization
+    float speed;
+    // Use this for initialization
 	void Start () {
         agent = this.GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -19,5 +20,7 @@ public class NavmeshFollower : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         agent.SetDestination(target.transform.position);
+
+        //todo add in movement
 	}
 }

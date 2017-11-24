@@ -340,8 +340,8 @@
 		{
 		"id" : 21,
 		"type": "Shield",
-		"title": "Basic Shield",		
-		"description": "Basic shield blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah",
+		"title": "Second Shield",		
+		"description": "Is this the one that is busted?",
 		"cost": 0,
 		"stackable": false,
 		"max_shield": 20,
