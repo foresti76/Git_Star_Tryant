@@ -8,6 +8,8 @@ public class ShipMovement : MonoBehaviour {
     public float reverseThrust = 5f;
     public float maxSpeed = 10f;
     public float rotateThrust = 10f;
+    public float engineEnergyCost = 10f;
+    public float rcsEnergyCost = 10F;
     public ParticleSystem engineFlare;
     public ParticleSystem engineCore;
     public ParticleSystem rightManuverJetRight;
@@ -18,18 +20,15 @@ public class ShipMovement : MonoBehaviour {
 
 
     private Rigidbody myRigidBody;
-
+    private ShipGenerator myGenerator;
     
 
     // Use this for initialization
     void Start () {
         myRigidBody = GetComponent<Rigidbody>();
+        myGenerator = GetComponent<ShipGenerator>();
     }
 
-    void Update()
-    {
-
-    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -40,8 +39,9 @@ public class ShipMovement : MonoBehaviour {
         } 
         
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow) && myGenerator.currentPower >= engineEnergyCost)
         {
+            myGenerator.currentPower -= engineEnergyCost;
             myRigidBody.AddRelativeForce(Vector3.forward * engineThrust *Time.deltaTime);
             var coreMain = engineCore.main;
             var flareMain = engineFlare.main;
@@ -55,8 +55,9 @@ public class ShipMovement : MonoBehaviour {
             engineCore.gameObject.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow) && myGenerator.currentPower >= engineEnergyCost)
         {
+            myGenerator.currentPower -= engineEnergyCost;
             myRigidBody.AddRelativeForce(Vector3.back * reverseThrust * Time.deltaTime);
             var frontMain = frontJet.main;
             frontMain.startRotationZ = (transform.rotation.eulerAngles.y + 180) * Mathf.Deg2Rad;
@@ -66,8 +67,9 @@ public class ShipMovement : MonoBehaviour {
             frontJet.gameObject.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) && myGenerator.currentPower >= rcsEnergyCost)
         {
+            myGenerator.currentPower -= rcsEnergyCost;
             transform.Rotate(Vector3.up, rotateThrust * Time.deltaTime);
             var rjrMain = rightManuverJetRight.main;
             rjrMain.startRotationZ = (transform.rotation.eulerAngles.y - 90) * Mathf.Deg2Rad;
@@ -83,8 +85,9 @@ public class ShipMovement : MonoBehaviour {
             rightManuverJetLeft.gameObject.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) && myGenerator.currentPower >= rcsEnergyCost)
         {
+            myGenerator.currentPower -= rcsEnergyCost;
             transform.Rotate(Vector3.down, rotateThrust * Time.deltaTime);
             var ljlMain = leftManuverJetLeft.main;
             var ljrMain = leftManuverJetRight.main;
@@ -101,8 +104,9 @@ public class ShipMovement : MonoBehaviour {
         }
         
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && myGenerator.currentPower >= rcsEnergyCost)
         {
+            myGenerator.currentPower -= rcsEnergyCost;
             var curSpeed = myRigidBody.velocity.magnitude;
             var newSpeed = curSpeed - reverseThrust / 20 * Time.deltaTime;
 

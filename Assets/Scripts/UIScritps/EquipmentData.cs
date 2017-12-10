@@ -17,6 +17,8 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     private Loot loot;
     private ToolTip toolTip;
     GameObject hullSlot;
+    GameObject engineSlot;
+    GameObject generatorSlot;
     GameObject weaponsLayout;
     GameObject subsystemsLayout;
 
@@ -26,6 +28,8 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         loot = GameObject.Find("Loot").GetComponent<Loot>();
         toolTip = inv.GetComponent<ToolTip>();
         hullSlot = GameObject.Find("Hull Slot");
+        engineSlot = GameObject.Find("Engine Slot");
+        generatorSlot = GameObject.Find("Generator Slot");
         weaponsLayout = GameObject.Find("WeaponsLayout");
         subsystemsLayout = GameObject.Find("SubsystemsLayout");
     }
@@ -57,6 +61,18 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         {
             this.transform.SetParent(hullSlot.transform);
             this.transform.position = hullSlot.transform.position;
+        }
+
+        if (slotType == "Engine")
+        {
+            this.transform.SetParent(engineSlot.transform);
+            this.transform.position = engineSlot.transform.position;
+        }
+
+        if (slotType == "Generator")
+        {
+            this.transform.SetParent(generatorSlot.transform);
+            this.transform.position = generatorSlot.transform.position;
         }
 
         if (slotType == "Inv")

@@ -11,45 +11,60 @@ public class ShieldBehavior : MonoBehaviour {
     public float shieldRechageRate;
     public GameObject shieldObject;
     public float shieldDisplayDuration;
+    public float rechargeEnergyCost;
+    public float maintEnergyCost;
 
     private float shieldDisplayTime;
     private Renderer shieldRendere;
     private Collider shieldCollider;
     private bool shieldDown = false;
     private float shieldRechargeTime;
+    private ShipGenerator myShipGenerator;
     // Use this for initialization
     void Start () {
         currentShield = maxShield;
         shieldRendere = shieldObject.GetComponent<Renderer>();
         shieldRendere.enabled = false;
         shieldCollider = GetComponent<Collider>();
+        myShipGenerator = this.GetComponentInParent<ShipGenerator>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         // If the shield is reduced to zero it takes longer before it will start recharging
+        if (myShipGenerator.currentPower >= maintEnergyCost && !shieldDown)
+        {
+            myShipGenerator.currentPower -= maintEnergyCost;
+        }
+        else
+        {
+            ShieldDown();
+        }
+
 		if (currentShield <= 0 && !shieldDown)
         {
-            shieldDown = true;
-            currentShield = 0;
-            shieldRechargeTime = Time.time + shieldRefreshDuration;
-            shieldCollider.enabled = false;
+            ShieldDown();
         }
         // Start recharging the sheild if enough time has passed and it has taken damage.
         if (Time.time >= shieldRechargeTime  && currentShield < maxShield)
         {
-            if (shieldDown)
+            if (myShipGenerator.currentPower >= rechargeEnergyCost)
             {
-                shieldDown = false;
-                shieldRendere.enabled = true;
-                shieldDisplayTime = Time.time + shieldDisplayDuration;
+                myShipGenerator.currentPower -= rechargeEnergyCost;
+                currentShield += shieldRechageRate;
+                if (shieldDown)
+                {
+                    shieldDown = false;
+                    shieldRendere.enabled = true;
+                    shieldDisplayTime = Time.time + shieldDisplayDuration;
+                }
+
+                if (shieldCollider.enabled == false)
+                {
+                    shieldCollider.enabled = true;
+                }
             }
 
-            currentShield += shieldRechageRate;
-            if(shieldCollider.enabled == false)
-            {
-                shieldCollider.enabled = true;
-            }
             // Make sure the shield does not exceed its max value
             if (currentShield > maxShield)
             {
@@ -81,5 +96,13 @@ public class ShieldBehavior : MonoBehaviour {
         // set the time we can start recharging
         shieldRechargeTime = Time.time + shieldRechargeDuration;
         shieldDisplayTime = Time.time + shieldDisplayDuration;
+    }
+
+    private void ShieldDown()
+    {
+        shieldDown = true;
+        currentShield = 0;
+        shieldRechargeTime = Time.time + shieldRefreshDuration;
+        shieldCollider.enabled = false;
     }
 }

@@ -51,7 +51,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Engine")
             { 
-                engineDatabase.Add(new Engine((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], (int)equipmentData[i]["combat_speed"], (int)equipmentData[i]["crusing_speed"], (int)equipmentData[i]["acceleration"], (int)equipmentData[i]["maneuver_bonus"], (int)equipmentData[i]["energy_cost"], (int)equipmentData[i]["signature"], equipmentData[i]["slug"].ToString()));
+                engineDatabase.Add(new Engine((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], (int)equipmentData[i]["combat_speed"], (int)equipmentData[i]["crusing_speed"], (int)equipmentData[i]["acceleration"], (int)equipmentData[i]["energy_cost"], (int)equipmentData[i]["signature"], equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -306,12 +306,11 @@ public class Engine
         public int Combat_Speed { get; set; }
         public int Crusing_Speed { get; set; }
         public int Acceleration { get; set; }
-        public int Manuver_Bonus { get; set; }
         public int Energy_Cost { get; set; }
         public int Signature { get; set; }
         public string Slug { get; set; }
 
-    public Engine (int id, string type, string title, string description, int cost, int combat_speed, int crusing_speed, int acceleration, int maneuver_bonus, int energy_cost, int signature, string slug)
+    public Engine (int id, string type, string title, string description, int cost, int combat_speed, int crusing_speed, int acceleration, int energy_cost, int signature, string slug)
         {
             this.ID = id;
             this.Type = type;
@@ -321,7 +320,6 @@ public class Engine
             this.Combat_Speed = combat_speed;
             this.Crusing_Speed = crusing_speed;
             this.Acceleration = acceleration;
-            this.Manuver_Bonus = maneuver_bonus;
             this.Energy_Cost = energy_cost;
             this.Signature = signature;
             this.Slug = slug;
