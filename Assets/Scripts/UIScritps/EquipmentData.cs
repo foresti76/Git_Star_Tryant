@@ -21,6 +21,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     GameObject generatorSlot;
     GameObject rcsSlot;
     GameObject radarSlot;
+    GameObject shieldSlot;
     GameObject ecmSlot;
     GameObject tractorBeamSlot;
     GameObject weaponsLayout;
@@ -36,6 +37,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         generatorSlot = GameObject.Find("Generator Slot");
         rcsSlot = GameObject.Find("RCS Slot");
         radarSlot = GameObject.Find("Radar Slot");
+        shieldSlot = GameObject.Find("Shield Slot");
         ecmSlot = GameObject.Find("ECM Slot");
         tractorBeamSlot = GameObject.Find("Tractor Beam Slot");
         weaponsLayout = GameObject.Find("WeaponsLayout");
@@ -93,6 +95,12 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         {
             this.transform.SetParent(radarSlot.transform);
             this.transform.position = radarSlot.transform.position;
+        }
+
+        if (slotType == "Shield")
+        {
+            this.transform.SetParent(shieldSlot.transform);
+            this.transform.position = shieldSlot.transform.position;
         }
 
         if (slotType == "TractorBeam")
