@@ -229,7 +229,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public TractorBeam FetchTractoBeamByID(int id)
+    public TractorBeam FetchTractorBeamByID(int id)
     {
         for (int i = 0; i < tractorbeamDatabase.Count; i++)
         {

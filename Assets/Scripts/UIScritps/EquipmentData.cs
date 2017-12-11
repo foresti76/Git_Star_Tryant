@@ -19,6 +19,10 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     GameObject hullSlot;
     GameObject engineSlot;
     GameObject generatorSlot;
+    GameObject rcsSlot;
+    GameObject radarSlot;
+    GameObject ecmSlot;
+    GameObject tractorBeamSlot;
     GameObject weaponsLayout;
     GameObject subsystemsLayout;
 
@@ -30,6 +34,10 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         hullSlot = GameObject.Find("Hull Slot");
         engineSlot = GameObject.Find("Engine Slot");
         generatorSlot = GameObject.Find("Generator Slot");
+        rcsSlot = GameObject.Find("RCS Slot");
+        radarSlot = GameObject.Find("Radar Slot");
+        ecmSlot = GameObject.Find("ECM Slot");
+        tractorBeamSlot = GameObject.Find("Tractor Beam Slot");
         weaponsLayout = GameObject.Find("WeaponsLayout");
         subsystemsLayout = GameObject.Find("SubsystemsLayout");
     }
@@ -67,6 +75,30 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         {
             this.transform.SetParent(engineSlot.transform);
             this.transform.position = engineSlot.transform.position;
+        }
+
+        if (slotType == "RCS")
+        {
+            this.transform.SetParent(rcsSlot.transform);
+            this.transform.position = rcsSlot.transform.position;
+        }
+
+        if (slotType == "ECM")
+        {
+            this.transform.SetParent(ecmSlot.transform);
+            this.transform.position = ecmSlot.transform.position;
+        }
+
+        if (slotType == "Radar")
+        {
+            this.transform.SetParent(radarSlot.transform);
+            this.transform.position = radarSlot.transform.position;
+        }
+
+        if (slotType == "TractorBeam")
+        {
+            this.transform.SetParent(tractorBeamSlot.transform);
+            this.transform.position = tractorBeamSlot.transform.position;
         }
 
         if (slotType == "Generator")
