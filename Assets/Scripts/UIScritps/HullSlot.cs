@@ -14,7 +14,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
 
     private Inventory inv;
     private GameObject playerShip;
-    private Ship shipData;
+    private Ship hullData;
     private ItemDatabase itemDatabase;
     private int smWeaponSlotAmmount;
     private int medWeaponSlotAmmount;
@@ -39,7 +39,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
         {
             // swap out the current ship object in this slot and send it back to the inventory
             if (childName != "")
-            { 
+            {
                 Transform equipment = this.transform.Find(childName);
                 EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                 currentEquipment.slot = droppedEquipment.slot;
@@ -50,32 +50,51 @@ public class HullSlot : MonoBehaviour, IDropHandler {
 
             // set up thje current ship data based on the data from the object
             droppedEquipment.slotType = "Ship";
-            shipData = itemDatabase.FetchShipByID(droppedEquipment.equipment.ID);
-            childName = shipData.Title;
 
-            //set up all the things that are controlled by the shipData
-            if(playerShip != null)
-            { 
-            Hull hull = playerShip.GetComponent<Hull>();
-            hull.maxHull = shipData.Hullpoints;
-            hull.armor = shipData.Armor;
-            }
-            UpdatePanels();
-            // todo change the ship model to match the current ship using slug.
-
-        } else
-        {
-            return; //reject the object and send it back to the inventory slot it came from
+            UpdateHull(droppedEquipment.equipment.ID);
+            ShipData shipData = playerShip.GetComponent<ShipData>();
+            shipData.hull = hullData.ID;
         }
     }
 
-    void UpdatePanels()
+    public void UpdateHull(int id)
+    {
+        hullData = itemDatabase.FetchShipByID(id);
+
+        if (childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + hullData.Slug);
+            equipmentObject.name = hullData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(id);
+            data.slotType = "Ship";
+            data.ammount++;
+        }
+
+        childName = hullData.Title;
+
+        //set up all the things that are controlled by the shipData
+        if (playerShip != null)
+        {
+            Hull hull = playerShip.GetComponent<Hull>();
+            hull.maxHull = hullData.Hullpoints;
+            hull.armor = hullData.Armor;
+            // todo change the ship model to match the current ship using slug.
+        }
+
+        UpdatePanels();
+
+    }
+           void UpdatePanels()
     {
 
-        smWeaponSlotAmmount = shipData.Sm_Hardpoints;
-        medWeaponSlotAmmount = shipData.Med_Hardpoints;
-        lgWeaponSlotAmmount = shipData.Lg_Hardpoints;
-        subsystemsSlotAmmount = shipData.Subsystems;
+        smWeaponSlotAmmount = hullData.Sm_Hardpoints;
+        medWeaponSlotAmmount = hullData.Med_Hardpoints;
+        lgWeaponSlotAmmount = hullData.Lg_Hardpoints;
+        subsystemsSlotAmmount = hullData.Subsystems;
 
         //todo destroy all the current children for weapons and subsystems and put the leftover items in the inventory.
 
@@ -86,7 +105,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
                 weaponSlots[i].transform.SetParent(weaponsPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
                 weaponSlotScript.weaponSlotSize = "small";
-                weaponSlotScript.id = i;
+                weaponSlotScript.slotId = i;
                 Text slotSize = weaponSlots[i].GetComponentInChildren<Text>();
                 slotSize.text = weaponSlotScript.weaponSlotSize;
             }
@@ -99,7 +118,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
                 weaponSlots[i].transform.SetParent(weaponsPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
                 weaponSlotScript.weaponSlotSize = "medium";
-                weaponSlotScript.id = i;
+                weaponSlotScript.slotId = i;
                 Text slotSize = weaponSlots[i].GetComponentInChildren<Text>();
                 slotSize.text = weaponSlotScript.weaponSlotSize;
             }
@@ -112,7 +131,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
                 weaponSlots[i].transform.SetParent(weaponsPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
                 weaponSlotScript.weaponSlotSize = "large";
-                weaponSlotScript.id = i;
+                weaponSlotScript.slotId = i;
                 Text slotSize = weaponSlots[i].GetComponentInChildren<Text>();
                 slotSize.text = weaponSlotScript.weaponSlotSize;
             }

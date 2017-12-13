@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class WeaponSlot : MonoBehaviour, IDropHandler
 {
     public string childName;
-    public int id;
+    public int slotId;
     public string weaponSlotSize;
     
 
@@ -19,7 +20,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
 
     private WeaponSlot[] weaponSlotList;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         playerShip = GameObject.FindGameObjectWithTag("Player");
@@ -36,7 +37,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
             for (int i = 0; i < weaponControllerList.Length; i++)
             {
                 WeaponController currentWeaponController = weaponControllerList[i].GetComponent<WeaponController>();
-                if (currentWeaponController.slotID == id)
+                if (currentWeaponController.slotID == slotId)
                 {
                     myWeaponController = currentWeaponController;
                     return;
@@ -83,7 +84,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                         
                         //todo figure out a way to update the weapon controller to make the weaponslot update its data when the weapons are switched
                         WeaponSlot sendingWeaponSlot = weaponSlotList[droppedEquipment.slot];
-                        sendingWeaponSlot.UpdateData(currentEquipment.equipment.ID);
+                        sendingWeaponSlot.UpdateWeapon(currentEquipment.equipment.ID);
 
                     }
                 }
@@ -96,19 +97,35 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 // set up thje current ship data based on the data from the object
                 //Debug.Log("adding " + weaponData.Title);
                 droppedEquipment.slotType = "Weapon";
-                droppedEquipment.slot = id;
-                UpdateData(droppedEquipment.equipment.ID);
+                droppedEquipment.slot = slotId;
+                childName = weaponData.Title;
+                UpdateWeapon(droppedEquipment.equipment.ID);
             }
-        }
-        else
-        {
-            return;
+            ShipData shipData = playerShip.GetComponent<ShipData>();
+            shipData.UpdateWeaponList();
         }
     }
 
     //update all the data associated with the weapon that was just dropped in the slot
-    public void UpdateData(int id)
+    public void UpdateWeapon(int id)
     {
+        inv = GameObject.Find("Inventory").GetComponent<Inventory>();
+        itemDatabase = inv.GetComponent<ItemDatabase>();
+        weaponData = itemDatabase.FetchWeaponByID(id);
+
+        if (childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + weaponData.Slug);
+            equipmentObject.name = weaponData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(id);
+            data.slotType = "Weapon";
+            data.ammount++;
+        }
+
         weaponData = itemDatabase.FetchWeaponByID(id);
         myWeaponController.shotDamage = weaponData.Damage;
         myWeaponController.fireRate = weaponData.Fire_Rate;

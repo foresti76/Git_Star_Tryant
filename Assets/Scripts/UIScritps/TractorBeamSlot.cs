@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class TractorBeamSlot : MonoBehaviour, IDropHandler{
@@ -36,16 +37,37 @@ public class TractorBeamSlot : MonoBehaviour, IDropHandler{
                 equipment.transform.position = inv.slots[currentEquipment.slot].transform.position;
             }
 
-            // set up thje current ship data based on the data from the object
+            // set up the current TractorBeam data based on the data from the object
             droppedEquipment.slotType = "TractorBeam";
-            tractorBeamData = itemDatabase.FetchTractorBeamByID(droppedEquipment.equipment.ID);
-            childName = tractorBeamData.Title;
+            UpdateTractorBeam(droppedEquipment.equipment.ID);
+            // make sure the save data matches the current TractorBeam
+            ShipData shipData = playerShip.GetComponent<ShipData>();
+            shipData.tractorbeam = tractorBeamData.ID;
+        }
+    }
+    public void UpdateTractorBeam(int id)
+    {
+        tractorBeamData = itemDatabase.FetchTractorBeamByID(id);
 
-            //set up all the things that are controlled by the tractorBeamData
-            if (playerShip != null)
-            {
-                //Todo set up the data that makes an tractorBeam on the ship
-            }
+        if (childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + tractorBeamData.Slug);
+            equipmentObject.name = tractorBeamData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(id);
+            data.slotType = "TractorBeam";
+            data.ammount++;
+        }
+
+        childName = tractorBeamData.Title;
+
+        //set up all the things that are controlled by theTractorBeam
+        if (playerShip != null)
+        {
+
         }
     }
 }

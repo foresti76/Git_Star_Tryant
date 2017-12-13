@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class ECMSlot : MonoBehaviour, IDropHandler{
@@ -38,14 +39,38 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
 
             // set up thje current ecm data based on the data from the object
             droppedEquipment.slotType = "ECM";
-            ecmData = itemDatabase.FetchECMByID(droppedEquipment.equipment.ID);
-            childName = ecmData.Title;
+            UpdateECM(droppedEquipment.equipment.ID);
+            ShipData shipData = playerShip.GetComponent<ShipData>();
+            shipData.ecm = ecmData.ID;
+        }
+    }
 
-            //set up all the things that are controlled by the ecmData
-            if (playerShip != null)
+    public void UpdateECM(int id)
+    {
+        ecmData = itemDatabase.FetchECMByID(id);
+
+        if (childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + ecmData.Slug);
+            equipmentObject.name = ecmData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(id);
+            data.slotType = "ECM";
+            data.ammount++;
+        }
+
+        childName = ecmData.Title;
+
+        //set up all the things that are controlled by the ecmData
+        if (playerShip != null)
             {
-                //Todo set up the data that makes an ecm on the ship
-            }
+
+            // make sure the save data matches the current engine
+
+            //Todo set up the data that makes an ecm on the ship
         }
     }
 }

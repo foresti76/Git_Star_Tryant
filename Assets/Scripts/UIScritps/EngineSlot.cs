@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class EngineSlot : MonoBehaviour, IDropHandler{
 
@@ -38,21 +39,47 @@ public class EngineSlot : MonoBehaviour, IDropHandler{
 
             // set up thje current engine data based on the data from the object
             droppedEquipment.slotType = "Engine";
-            engineData = itemDatabase.FetchEngineByID(droppedEquipment.equipment.ID);
-            childName = engineData.Title;
 
             //set up all the things that are controlled by the engineData
-            if (playerShip != null)
-            {
-                ShipMovement engineScript = playerShip.GetComponent<ShipMovement>();
-                engineScript.engineThrust = engineData.Acceleration;
-                engineScript.reverseThrust = engineData.Acceleration / 2;
-                engineScript.maxSpeed = engineData.Combat_Speed;
-                engineScript.engineEnergyCost = engineData.Energy_Cost;
-               // todo add cruising speed engineScript.cruiseSpeed = engineData.Crusing_Speed;
-               // Todo use power from the generator when using the engine
-               //Todo create signature when using engine
-            }
+            UpdateEngine(droppedEquipment.equipment.ID);
+            // make sure the save data matches the current engine
+            ShipData shipData = playerShip.GetComponent<ShipData>();
+            shipData.engine = engineData.ID;
         }
     }
+
+    public void UpdateEngine(int id)
+    {
+        engineData = itemDatabase.FetchEngineByID(id);
+
+        if(childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + engineData.Slug);
+            equipmentObject.name = engineData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(id);
+            data.slotType = "Engine";
+            data.ammount++;
+        }
+
+        childName = engineData.Title;
+
+        if (playerShip != null)
+        {
+
+            //Set up the engine stuff
+            ShipMovement engineScript = playerShip.GetComponent<ShipMovement>();
+            engineScript.engineThrust = engineData.Acceleration;
+            engineScript.reverseThrust = engineData.Acceleration / 2;
+            engineScript.maxSpeed = engineData.Combat_Speed;
+            engineScript.engineEnergyCost = engineData.Energy_Cost;
+            // todo add cruising speed engineScript.cruiseSpeed = engineData.Crusing_Speed;
+            // Todo use power from the generator when using the engine
+            //Todo create signature when using engine
+        }
+    }
+
 }
