@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class AITurret : MonoBehaviour {
     public int turretRotationRate = 1;
     public float turretRotationLimit = 360;
     public float firingArc;
@@ -12,12 +12,13 @@ public class Enemy : MonoBehaviour {
     public int shotDamage = 10;
 
     private float nextFire;
-    private GameObject player;
+    private GameObject target;
     Quaternion targetRot;
+    
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        target = GameObject.FindGameObjectWithTag("Player");
     }
     // Update is called once per frame
     void Update()
@@ -45,7 +46,7 @@ public class Enemy : MonoBehaviour {
     void update_rotation_y()
     {
 
-        Vector3 playerPos = player.transform.position;
+        Vector3 playerPos = target.transform.position;
 
         Vector3 turretPos = transform.parent.position;
         Vector3 targetDir = playerPos - turretPos;
