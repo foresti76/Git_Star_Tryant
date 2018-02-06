@@ -42,6 +42,7 @@ public class AIBehavior : MonoBehaviour {
     {
         agent.SetDestination(target.transform.position);
 
+        //todo hook up the bools so that they are true when things are happening
         //set off the effects when you are turning
         if (movingForward)
         {

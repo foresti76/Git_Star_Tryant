@@ -10,15 +10,31 @@ public class EngineSlot : MonoBehaviour, IDropHandler{
     public string childName;
 
     private Inventory inv;
-    private GameObject playerShip;
-    private Engine engineData;
     private ItemDatabase itemDatabase;
+    ShipData shipData;
 
     // Use this for initialization
     void Start () {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        playerShip = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
+        shipData = playerShip.GetComponent<ShipData>();
+
+        Engine engineData = itemDatabase.FetchEngineByID(shipData.engine);
+
+        if (childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + engineData.Slug);
+            equipmentObject.name = engineData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(engineData.ID);
+            data.slotType = "Engine";
+            data.ammount++;
+            childName = engineData.Title;
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -37,49 +53,13 @@ public class EngineSlot : MonoBehaviour, IDropHandler{
                 equipment.transform.position = inv.slots[currentEquipment.slot].transform.position;
             }
 
-            // set up thje current engine data based on the data from the object
+            // set the equipment to be parented correctly
             droppedEquipment.slotType = "Engine";
+            childName = droppedEquipment.equipment.Title;
 
-            //set up all the things that are controlled by the engineData
-            UpdateEngine(droppedEquipment.equipment.ID);
             // make sure the save data matches the current engine
-            ShipData shipData = playerShip.GetComponent<ShipData>();
-            shipData.engine = engineData.ID;
+            shipData.engine = droppedEquipment.equipment.ID;
+            shipData.UpdateEngine(droppedEquipment.equipment.ID);
         }
     }
-
-    public void UpdateEngine(int id)
-    {
-        engineData = itemDatabase.FetchEngineByID(id);
-
-        if(childName == "")
-        {
-            GameObject equipmentObject = Instantiate(inv.inventoryItem);
-            equipmentObject.transform.SetParent(this.transform, false);
-            equipmentObject.transform.localPosition = new Vector2(0, 0);
-            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + engineData.Slug);
-            equipmentObject.name = engineData.Title;
-            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
-            data.equipment = itemDatabase.FetchEquipmentByID(id);
-            data.slotType = "Engine";
-            data.ammount++;
-        }
-
-        childName = engineData.Title;
-
-        if (playerShip != null)
-        {
-
-            //Set up the engine stuff
-            ShipMovement engineScript = playerShip.GetComponent<ShipMovement>();
-            engineScript.engineThrust = engineData.Acceleration;
-            engineScript.reverseThrust = engineData.Acceleration / 2;
-            engineScript.maxSpeed = engineData.Combat_Speed;
-            engineScript.engineEnergyCost = engineData.Energy_Cost;
-            // todo add cruising speed engineScript.cruiseSpeed = engineData.Crusing_Speed;
-            // Todo use power from the generator when using the engine
-            //Todo create signature when using engine
-        }
-    }
-
 }

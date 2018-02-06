@@ -9,16 +9,32 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
     public string childName;
 
     private Inventory inv;
-    private GameObject playerShip;
-    private ECM ecmData;
     private ItemDatabase itemDatabase;
+    ShipData shipData;
 
     // Use this for initialization
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        playerShip = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
+        shipData = playerShip.GetComponent<ShipData>();
+
+        ECM ecmData = itemDatabase.FetchECMByID(shipData.ecm);
+
+        if (childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + ecmData.Slug);
+            equipmentObject.name = ecmData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(ecmData.ID);
+            data.slotType = "ECM";
+            data.ammount++;
+            childName = ecmData.Title;
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -39,38 +55,10 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
 
             // set up thje current ecm data based on the data from the object
             droppedEquipment.slotType = "ECM";
-            UpdateECM(droppedEquipment.equipment.ID);
-            ShipData shipData = playerShip.GetComponent<ShipData>();
-            shipData.ecm = ecmData.ID;
-        }
-    }
+            childName = droppedEquipment.equipment.Title;
 
-    public void UpdateECM(int id)
-    {
-        ecmData = itemDatabase.FetchECMByID(id);
-
-        if (childName == "")
-        {
-            GameObject equipmentObject = Instantiate(inv.inventoryItem);
-            equipmentObject.transform.SetParent(this.transform, false);
-            equipmentObject.transform.localPosition = new Vector2(0, 0);
-            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + ecmData.Slug);
-            equipmentObject.name = ecmData.Title;
-            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
-            data.equipment = itemDatabase.FetchEquipmentByID(id);
-            data.slotType = "ECM";
-            data.ammount++;
-        }
-
-        childName = ecmData.Title;
-
-        //set up all the things that are controlled by the ecmData
-        if (playerShip != null)
-            {
-
-            // make sure the save data matches the current engine
-
-            //Todo set up the data that makes an ecm on the ship
+            shipData.ecm = droppedEquipment.equipment.ID;
+            shipData.UpdateECM(droppedEquipment.equipment.ID);
         }
     }
 }

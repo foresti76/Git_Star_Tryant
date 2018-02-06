@@ -10,16 +10,30 @@ public class RadarSlot : MonoBehaviour, IDropHandler
     public string childName;
 
     private Inventory inv;
-    private GameObject playerShip;
-    private Radar radarData;
     private ItemDatabase itemDatabase;
-
+    ShipData shipData;
     // Use this for initialization
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        playerShip = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
+        shipData = playerShip.GetComponent<ShipData>();
+        Radar radarData = itemDatabase.FetchRadarByID(shipData.radar);
+
+        if (childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + radarData.Slug);
+            equipmentObject.name = radarData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(radarData.ID);
+            data.slotType = "Radar";
+            data.ammount++;
+            childName = radarData.Title;
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -40,37 +54,11 @@ public class RadarSlot : MonoBehaviour, IDropHandler
 
 
             droppedEquipment.slotType = "Radar";
+            childName = droppedEquipment.equipment.Title;
             // set up thje current radar data based on the data from the object
-            UpdateRadar(droppedEquipment.equipment.ID);
-            ShipData shipData = playerShip.GetComponent<ShipData>();
-            shipData.radar = radarData.ID;
-        }
-    }
 
-    public void UpdateRadar(int id)
-    {
-        radarData = itemDatabase.FetchRadarByID(id);
-
-        if (childName == "")
-        {
-            GameObject equipmentObject = Instantiate(inv.inventoryItem);
-            equipmentObject.transform.SetParent(this.transform, false);
-            equipmentObject.transform.localPosition = new Vector2(0, 0);
-            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + radarData.Slug);
-            equipmentObject.name = radarData.Title;
-            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
-            data.equipment = itemDatabase.FetchEquipmentByID(id);
-            data.slotType = "Radar";
-            data.ammount++;
-        }
-
-        childName = radarData.Title;
-
-        //set up all the things that are controlled by the radarData
-        if (playerShip != null)
-        {
-            // make sure the save data matches the current radar
-
+            shipData.radar = droppedEquipment.equipment.ID;
+            shipData.UpdateRadar(droppedEquipment.equipment.ID);
         }
     }
 }

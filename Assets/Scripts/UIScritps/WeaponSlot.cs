@@ -8,23 +8,23 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
 {
     public string childName;
     public int slotId;
-    public string weaponSlotSize;
-    
+    public string weaponSlotSize;  
 
     private Inventory inv;
-    private GameObject playerShip;
-    private Weapon weaponData;
     private ItemDatabase itemDatabase;
-    private WeaponController[] weaponControllerList;
-    private WeaponController myWeaponController;
+    public WeaponController myWeaponController;
+    ShipData shipData;
 
     private WeaponSlot[] weaponSlotList;
+    WeaponController[] weaponControllerList;
     // Use this for initialization
     void Awake()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        playerShip = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
+        shipData = playerShip.GetComponent<ShipData>();
+
         //find the weapon associated with this slot and put in the data
         if (playerShip != null)
         {
@@ -32,8 +32,23 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
             GameObject weaponPanel = GameObject.Find("WeaponsLayout");
             weaponSlotList = weaponPanel.GetComponentsInChildren<WeaponSlot>();
 
-           // WeaponController currentWeaponController = weaponControllerList[id];
-            
+            // WeaponController currentWeaponController = weaponControllerList[id];
+            Weapon weaponData = itemDatabase.FetchWeaponByID(shipData.weaponList[slotId]);
+
+            if (childName == "")
+            {
+                GameObject equipmentObject = Instantiate(inv.inventoryItem);
+                equipmentObject.transform.SetParent(this.transform, false);
+                equipmentObject.transform.localPosition = new Vector2(0, 0);
+                equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + weaponData.Slug);
+                equipmentObject.name = weaponData.Title;
+                EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+                data.equipment = itemDatabase.FetchEquipmentByID(weaponData.ID);
+                data.slotType = "Weapon";
+                data.ammount++;
+                childName = weaponData.Title;
+            }
+
             for (int i = 0; i < weaponControllerList.Length; i++)
             {
                 WeaponController currentWeaponController = weaponControllerList[i].GetComponent<WeaponController>();
@@ -54,7 +69,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
         EquipmentData droppedEquipment = eventData.pointerDrag.GetComponent<EquipmentData>();
          if (droppedEquipment.equipment.Type == "Weapon")
          {
-            weaponData = itemDatabase.FetchWeaponByID(droppedEquipment.equipment.ID);
+            Weapon weaponData = itemDatabase.FetchWeaponByID(droppedEquipment.equipment.ID);
             //Debug.Log(weaponData.Mount_Size);
             if (weaponData.Mount_Size == weaponSlotSize)
             {
@@ -83,72 +98,28 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                         currentEquipment.transform.position = droppedEquipment.transform.parent.position;
                         
                         //todo figure out a way to update the weapon controller to make the weaponslot update its data when the weapons are switched
+                        //todo I see a potential exploit here where you can switch between different size slots.  Need to check to see if the recieveing slot is ok for the current weapon.
                         WeaponSlot sendingWeaponSlot = weaponSlotList[droppedEquipment.slot];
-                        sendingWeaponSlot.UpdateWeapon(currentEquipment.equipment.ID);
-
+                        sendingWeaponSlot.childName = currentEquipment.equipment.Title;
+                        sendingWeaponSlot.shipData.weaponList[sendingWeaponSlot.slotId] = currentEquipment.equipment.ID;
+                        sendingWeaponSlot.shipData.UpdateWeapon(currentEquipment.equipment.ID, sendingWeaponSlot.myWeaponController);
                     }
                 }
 
                 if(childName == "" && droppedEquipment.slotType == "Weapon")
                 {
                     WeaponSlot sendingWeaponSlot = weaponSlotList[droppedEquipment.slot];
-                    sendingWeaponSlot.ClearData();
+                    sendingWeaponSlot.shipData.ClearWeapon(sendingWeaponSlot.myWeaponController);
                 }
                 // set up thje current ship data based on the data from the object
                 //Debug.Log("adding " + weaponData.Title);
                 droppedEquipment.slotType = "Weapon";
                 droppedEquipment.slot = slotId;
-                childName = weaponData.Title;
-                UpdateWeapon(droppedEquipment.equipment.ID);
+                childName = droppedEquipment.equipment.Title;
+
+                shipData.weaponList[slotId] = droppedEquipment.equipment.ID;
+                shipData.UpdateWeapon(droppedEquipment.equipment.ID, myWeaponController);
             }
-            ShipData shipData = playerShip.GetComponent<ShipData>();
-            shipData.UpdateWeaponList();
         }
-    }
-
-    //update all the data associated with the weapon that was just dropped in the slot
-    public void UpdateWeapon(int id)
-    {
-        inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        itemDatabase = inv.GetComponent<ItemDatabase>();
-        weaponData = itemDatabase.FetchWeaponByID(id);
-
-        if (childName == "")
-        {
-            GameObject equipmentObject = Instantiate(inv.inventoryItem);
-            equipmentObject.transform.SetParent(this.transform, false);
-            equipmentObject.transform.localPosition = new Vector2(0, 0);
-            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + weaponData.Slug);
-            equipmentObject.name = weaponData.Title;
-            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
-            data.equipment = itemDatabase.FetchEquipmentByID(id);
-            data.slotType = "Weapon";
-            data.ammount++;
-        }
-
-        weaponData = itemDatabase.FetchWeaponByID(id);
-        myWeaponController.shotDamage = weaponData.Damage;
-        myWeaponController.fireRate = weaponData.Fire_Rate;
-        childName = weaponData.Title;
-        //Todo Hook these up once strucutre is in place.
-        //myWeaponController.weaponType = weaponData.Weapon_Type;
-        //myWeaponController.ammoCapacity = weaponData.Ammo_Capacity;
-        //myWeaponController.energyCost = weaponData.Energy_Cost;
-        //myWeaponController.signature = weaponData.Singature;
-    }
-
-    // clear out the data as there is no longer a weapon assigned to the slot
-    public void ClearData()
-    {
-        //todo get rid of the weapon as there is nothing in the slot anymore
-        myWeaponController.shotDamage = 0;
-        myWeaponController.fireRate = 0;
-        childName = "";
-
-        //Todo Hook these up once strucutre is in place.
-        //myWeaponController.weaponType = weaponData.Weapon_Type;
-        //myWeaponController.ammoCapacity = weaponData.Ammo_Capacity;
-        //myWeaponController.energyCost = weaponData.Energy_Cost;
-        //myWeaponController.signature = weaponData.Singature;
     }
 }

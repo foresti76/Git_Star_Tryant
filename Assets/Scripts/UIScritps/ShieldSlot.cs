@@ -12,6 +12,7 @@ public class ShieldSlot : MonoBehaviour, IDropHandler{
     private GameObject playerShip;
     private Shield shieldData;
     private ItemDatabase itemDatabase;
+    ShipData shipData;
 
     // Use this for initialization
     void Start()
@@ -19,6 +20,23 @@ public class ShieldSlot : MonoBehaviour, IDropHandler{
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
+        shipData = playerShip.GetComponent<ShipData>();
+
+        shieldData = itemDatabase.FetchShieldByID(shipData.shield);
+
+        if (childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + shieldData.Slug);
+            equipmentObject.name = shieldData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(shieldData.ID);
+            data.slotType = "Shield";
+            data.ammount++;
+            childName = shieldData.Title;
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -39,46 +57,12 @@ public class ShieldSlot : MonoBehaviour, IDropHandler{
 
             // set up thje current shield data based on the data from the object
             droppedEquipment.slotType = "Shield";
-            UpdateShield(droppedEquipment.equipment.ID);
+            childName = droppedEquipment.equipment.Title;
 
             // make sure the save data matches the current engine
-            ShipData shipData = playerShip.GetComponent<ShipData>();
-            shipData.shield = shieldData.ID;
+            shipData.shield = droppedEquipment.equipment.ID;
+            shipData.UpdateShield(droppedEquipment.equipment.ID);
 
-        }
-    }
-
-    public void UpdateShield(int id)
-    {
-        shieldData = itemDatabase.FetchShieldByID(id);
-
-        if (childName == "")
-        {
-            GameObject equipmentObject = Instantiate(inv.inventoryItem);
-            equipmentObject.transform.SetParent(this.transform, false);
-            equipmentObject.transform.localPosition = new Vector2(0, 0);
-            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + shieldData.Slug);
-            equipmentObject.name = shieldData.Title;
-            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
-            data.equipment = itemDatabase.FetchEquipmentByID(id);
-            data.slotType = "Shield";
-            data.ammount++;
-        }
-
-        childName = shieldData.Title;
-
-        //set up all the things that are controlled by the shieldData
-        if (playerShip != null)
-        {
-            ShieldBehavior shieldScript = playerShip.GetComponentInChildren<ShieldBehavior>();
-            shieldScript.maxShield = shieldData.Max_Shield;
-            shieldScript.shieldRechageRate = shieldData.Regen_Rate;
-            shieldScript.shieldRechargeDuration = shieldData.Regen_Delay;
-            shieldScript.shieldRefreshDuration = shieldData.Refresh_Delay;
-            shieldScript.rechargeEnergyCost = shieldData.Recharge_Energy_Cost;
-            shieldScript.maintEnergyCost = shieldData.Maint_Energy_Cost;
-
-            //Todo create signature when using shield
         }
     }
 }

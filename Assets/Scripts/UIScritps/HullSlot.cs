@@ -13,13 +13,12 @@ public class HullSlot : MonoBehaviour, IDropHandler {
     public string childName;
 
     private Inventory inv;
-    private GameObject playerShip;
-    private Ship hullData;
     private ItemDatabase itemDatabase;
     private int smWeaponSlotAmmount;
     private int medWeaponSlotAmmount;
     private int lgWeaponSlotAmmount;
     private int subsystemsSlotAmmount;
+    ShipData shipData;
 
     public List<GameObject> weaponSlots = new List<GameObject>();
     public List<GameObject> subsystemSlots = new List<GameObject>();
@@ -27,9 +26,27 @@ public class HullSlot : MonoBehaviour, IDropHandler {
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
-        //  Todo UpdatePanels(); once we have data loaded at the start for the ship
+
+        GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
+        shipData = playerShip.GetComponent<ShipData>();
+
+        Ship hullData = itemDatabase.FetchShipByID(shipData.hullID);
+
+        if (childName == "")
+        {
+            GameObject equipmentObject = Instantiate(inv.inventoryItem);
+            equipmentObject.transform.SetParent(this.transform, false);
+            equipmentObject.transform.localPosition = new Vector2(0, 0);
+            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + hullData.Slug);
+            equipmentObject.name = hullData.Title;
+            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
+            data.equipment = itemDatabase.FetchEquipmentByID(hullData.ID);
+            data.slotType = "Ship";
+            data.ammount++;
+            childName = hullData.Title;
+            UpdatePanels(hullData.ID);
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -48,48 +65,20 @@ public class HullSlot : MonoBehaviour, IDropHandler {
                 equipment.transform.position = inv.slots[currentEquipment.slot].transform.position;
             }
 
-            // set up thje current ship data based on the data from the object
+            // set up the equipment object to have the correct parent
             droppedEquipment.slotType = "Ship";
+            childName = droppedEquipment.equipment.Title;
 
-            UpdateHull(droppedEquipment.equipment.ID);
-            ShipData shipData = playerShip.GetComponent<ShipData>();
-            shipData.hull = hullData.ID;
+            // set up thje current ship data based on the data from the object
+            shipData.hullID = droppedEquipment.equipment.ID;
+            shipData.UpdateHull(droppedEquipment.equipment.ID);
+            UpdatePanels(droppedEquipment.equipment.ID);
         }
     }
 
-    public void UpdateHull(int id)
+           void UpdatePanels(int id)
     {
-        hullData = itemDatabase.FetchShipByID(id);
-
-        if (childName == "")
-        {
-            GameObject equipmentObject = Instantiate(inv.inventoryItem);
-            equipmentObject.transform.SetParent(this.transform, false);
-            equipmentObject.transform.localPosition = new Vector2(0, 0);
-            equipmentObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Equipment/" + hullData.Slug);
-            equipmentObject.name = hullData.Title;
-            EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
-            data.equipment = itemDatabase.FetchEquipmentByID(id);
-            data.slotType = "Ship";
-            data.ammount++;
-        }
-
-        childName = hullData.Title;
-
-        //set up all the things that are controlled by the shipData
-        if (playerShip != null)
-        {
-            Hull hull = playerShip.GetComponent<Hull>();
-            hull.maxHull = hullData.Hullpoints;
-            hull.armor = hullData.Armor;
-            // todo change the ship model to match the current ship using slug.
-        }
-
-        UpdatePanels();
-
-    }
-           void UpdatePanels()
-    {
+        Ship hullData = itemDatabase.FetchShipByID(id);
 
         smWeaponSlotAmmount = hullData.Sm_Hardpoints;
         medWeaponSlotAmmount = hullData.Med_Hardpoints;
@@ -137,10 +126,13 @@ public class HullSlot : MonoBehaviour, IDropHandler {
             }
         }
 
-        for (int i = 0; i < subsystemsSlotAmmount; i++)
+        if (subsystemsSlotAmmount > 0)
         {
-            subsystemSlots.Add(Instantiate(subsystemSlot));
-            subsystemSlots[i].transform.SetParent(subsystemPanel.transform, false);
+            for (int i = 0; i < subsystemsSlotAmmount; i++)
+            {
+                subsystemSlots.Add(Instantiate(subsystemSlot));
+                subsystemSlots[i].transform.SetParent(subsystemPanel.transform, false);
+            }
         }
     }
 }
