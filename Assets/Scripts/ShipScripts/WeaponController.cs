@@ -12,6 +12,10 @@ public class WeaponController : MonoBehaviour
     public float fireRate;
     public float energyCost;
     public int slotID;
+    public bool firing = false;
+    public int turretRotationRate = 1;
+    public float turretRotationLimit = 30;
+    public Vector3 turretPos;
 
     private float nextFire;
     private ShipGenerator myShipGenerator; 
@@ -24,7 +28,7 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time >= nextFire && myShipGenerator.currentPower >= energyCost)
+        if (firing && Time.time >= nextFire && myShipGenerator.currentPower >= energyCost)
         {
             myShipGenerator.currentPower -= energyCost;
             nextFire = Time.time + fireRate;

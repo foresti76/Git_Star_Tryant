@@ -190,12 +190,15 @@ public class ShipData : MonoBehaviour {
 
         myWeaponController.shotDamage = weaponData.Damage;
         myWeaponController.fireRate = weaponData.Fire_Rate;
-        //Todo Hook these up once strucutre is in place.
-        //myWeaponController.weaponType = weaponData.Weapon_Type;
-        //myWeaponController.ammoCapacity = weaponData.Ammo_Capacity;
-        //myWeaponController.energyCost = weaponData.Energy_Cost;
-        //myWeaponController.signature = weaponData.Singature;
-    }
+        //todo put this data into the weapon object
+        myWeaponController.turretRotationRate = 1;
+        myWeaponController.turretRotationLimit = 30;
+    //Todo Hook these up once strucutre is in place.
+    //myWeaponController.weaponType = weaponData.Weapon_Type;
+    //myWeaponController.ammoCapacity = weaponData.Ammo_Capacity;
+    //myWeaponController.energyCost = weaponData.Energy_Cost;
+    //myWeaponController.signature = weaponData.Singature;
+}
 
     public void UpdateSubsystem(int id)
     {

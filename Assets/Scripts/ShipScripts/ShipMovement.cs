@@ -10,6 +10,12 @@ public class ShipMovement : MonoBehaviour {
     public float rotateThrust = 10f;
     public float engineEnergyCost = 10f;
     public float rcsEnergyCost = 10F;
+    public bool acclerating = false;
+    public bool decelerating = false;
+    public bool turningRight = false;
+    public bool turningLeft = false;
+    public bool stopping = false;
+
     public ParticleSystem engineFlare;
     public ParticleSystem engineCore;
     public ParticleSystem rightManuverJetRight;
@@ -39,10 +45,13 @@ public class ShipMovement : MonoBehaviour {
         } 
         
 
-        if (Input.GetKey(KeyCode.UpArrow) && myGenerator.currentPower >= engineEnergyCost)
+        if (acclerating && myGenerator.currentPower >= engineEnergyCost)
         {
+            // consume energy
             myGenerator.currentPower -= engineEnergyCost;
-            myRigidBody.AddRelativeForce(Vector3.forward * engineThrust *Time.deltaTime);
+            // add thrust
+            myRigidBody.AddRelativeForce(Vector3.forward * engineThrust * Time.deltaTime);
+            // play VFX out the back
             var coreMain = engineCore.main;
             var flareMain = engineFlare.main;
             coreMain.startRotationZ = transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
@@ -55,7 +64,7 @@ public class ShipMovement : MonoBehaviour {
             engineCore.gameObject.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.DownArrow) && myGenerator.currentPower >= engineEnergyCost)
+        if (decelerating && myGenerator.currentPower >= engineEnergyCost)
         {
             myGenerator.currentPower -= engineEnergyCost;
             myRigidBody.AddRelativeForce(Vector3.back * reverseThrust * Time.deltaTime);
@@ -67,7 +76,7 @@ public class ShipMovement : MonoBehaviour {
             frontJet.gameObject.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.RightArrow) && myGenerator.currentPower >= rcsEnergyCost)
+        if (turningRight && myGenerator.currentPower >= rcsEnergyCost)
         {
             myGenerator.currentPower -= rcsEnergyCost;
             transform.Rotate(Vector3.up, rotateThrust * Time.deltaTime);
@@ -85,7 +94,7 @@ public class ShipMovement : MonoBehaviour {
             rightManuverJetLeft.gameObject.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow) && myGenerator.currentPower >= rcsEnergyCost)
+        if (turningLeft && myGenerator.currentPower >= rcsEnergyCost)
         {
             myGenerator.currentPower -= rcsEnergyCost;
             transform.Rotate(Vector3.down, rotateThrust * Time.deltaTime);
@@ -101,10 +110,9 @@ public class ShipMovement : MonoBehaviour {
         {
             leftManuverJetLeft.gameObject.SetActive(false);
             leftManuverJetRight.gameObject.SetActive(false);
-        }
-        
+        }      
 
-        if (Input.GetKey(KeyCode.Space) && myGenerator.currentPower >= rcsEnergyCost)
+        if (stopping && myGenerator.currentPower >= rcsEnergyCost)
         {
             myGenerator.currentPower -= rcsEnergyCost;
             var curSpeed = myRigidBody.velocity.magnitude;

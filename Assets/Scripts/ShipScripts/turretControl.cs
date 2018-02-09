@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class turretControl : MonoBehaviour {
-    public int turretRotationRate = 1;
-    public float turretRotationLimit = 30;
-    private Vector3 mousePos;
 
+   
+    WeaponController myWeaponController;
+
+
+    void Start()
+    {
+        myWeaponController = this.GetComponent<WeaponController>();
+    }
 	// Update is called once per frame
 	void Update () {
         this.update_rotation_y();
