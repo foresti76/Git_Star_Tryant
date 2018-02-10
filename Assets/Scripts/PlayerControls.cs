@@ -79,7 +79,11 @@ public class PlayerControls : MonoBehaviour {
 
         foreach (WeaponController weaponController in myWeaponControllers)
         {
-            weaponController.
+            Vector3 targetPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+            targetPos.x = targetPos.x * Screen.width;
+            targetPos.y = targetPos.y * Screen.height;
+
+            weaponController.targetPos = targetPos;
         }
 
 

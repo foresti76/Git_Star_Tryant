@@ -5,11 +5,13 @@ using UnityEngine;
 public class AIBehavior : MonoBehaviour {
 
     public GameObject target;
+    public float accuracy;
 
     Rigidbody targetRigidbody;
-    Vector3 targetPosition;
-    Vector3 distanceToTarget;
-
+    Vector3 targetPos;
+    Vector3 directionToTarget;
+    Quaternion targetRot;
+    WeaponController[] myWeaponControllers;
 
     UnityEngine.AI.NavMeshAgent agent;
     ShipMovement myShipMovement;
@@ -27,15 +29,17 @@ public class AIBehavior : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        agent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         UpdateTarget(player);
-        myShipMovement = this.GetComponent<ShipMovement>();
+        myShipMovement = GetComponent<ShipMovement>();
+        myWeaponControllers = GetComponentsInChildren<WeaponController>();
         //agent.speed;
     }
 
     void UpdateTarget(GameObject newTarget)
     {
+        target = newTarget;
         targetRigidbody = newTarget.GetComponent<Rigidbody>();
     }
     // Update is called once per frame
@@ -44,17 +48,60 @@ public class AIBehavior : MonoBehaviour {
         //agent.SetDestination(target.transform.position);
         if (target)
         {
-            targetPosition = target.transform.position;
-            distanceToTarget = target.transform.position - this.transform.position; 
+            targetPos = target.transform.position;
+            directionToTarget = target.transform.position - transform.position;
+            float angle = Vector3.Angle(transform.forward, directionToTarget);
+            Debug.Log("Angle: " + angle);
+            if(angle >= 20)
+            {
+                var rotateDir = Vector3.Cross(transform.forward, directionToTarget).y;
+                Debug.Log("Rotate Dir " + rotateDir);
+                if (rotateDir >= 0)
+                {
+                    turningRight = true; 
+                }
+
+                else if (rotateDir < 0)
+                {
+                    turningLeft = true;
+                }
+            }
+            else if(turningRight || turningLeft)
+            {
+                turningLeft = false;
+                turningRight = false;
+            }
+
+            // turn each turret toward the target. Also need to fire.
+            foreach (WeaponController weaponController in myWeaponControllers)
+            {
+                weaponController.targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
+                targetRot = Quaternion.LookRotation(directionToTarget);
+                float angleToGetTo = targetRot.eulerAngles.y;
+                float currentAngle = transform.rotation.eulerAngles.y;
+
+                if (angleToGetTo <= currentAngle + accuracy && angleToGetTo >= currentAngle - accuracy)
+                {
+                    weaponController.firing = true;
+                } else if (weaponController.firing == true)
+                {
+                    weaponController.firing = false;
+                }
+            }
         }
 
 
-        if (distanceToTarget.magnitude > agent.stoppingDistance)
+        if (directionToTarget.magnitude > agent.stoppingDistance)
         {
-
+           // speedingUp = true;
+        } else
+        {
+            speedingUp = false;
+            stopping = true;
         }
         //todo hook up the bools so that they are true when things are happening
         //set off the effects when you are turning
+        
         if (speedingUp)
         {
             myShipMovement.acclerating = true;
@@ -98,7 +145,8 @@ public class AIBehavior : MonoBehaviour {
         else if (myShipMovement.stopping)
         {
             myShipMovement.stopping = false;
-        }
+        } 
+
     }
 
            
