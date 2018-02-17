@@ -51,7 +51,7 @@ public class AIBehavior : MonoBehaviour {
             targetPos = target.transform.position;
             directionToTarget = target.transform.position - transform.position;
             float angle = Vector3.Angle(transform.forward, directionToTarget);
-            Debug.Log("Angle: " + angle);
+            //Debug.Log("Angle: " + angle);
             if (angle >= accuracy)
             {
                 var rotateDir = Vector3.Cross(transform.forward, directionToTarget).y;

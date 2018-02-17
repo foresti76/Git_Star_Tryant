@@ -151,6 +151,7 @@ public class ShipData : MonoBehaviour {
             shieldScript.rechargeEnergyCost = shieldData.Recharge_Energy_Cost;
             shieldScript.maintEnergyCost = shieldData.Maint_Energy_Cost;
             shieldScript.currentShield = shieldScript.maxShield;
+            shieldScript.shieldDisplayDuration = 0.5f;
             //Todo create signature when using shield
         }
     }
@@ -191,7 +192,7 @@ public class ShipData : MonoBehaviour {
         myWeaponController.shotDamage = weaponData.Damage;
         myWeaponController.fireRate = weaponData.Fire_Rate;
         //todo put this data into the weapon object
-        myWeaponController.turretRotationRate = 1;
+        myWeaponController.turretRotationRate = 50;
         myWeaponController.turretRotationLimit = 30;
     //Todo Hook these up once strucutre is in place.
     //myWeaponController.weaponType = weaponData.Weapon_Type;

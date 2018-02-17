@@ -7,12 +7,13 @@ public class Mover : MonoBehaviour {
     public float speed;
     public float timeOutTime = 5.0f;
     public float damage;
-    public string firer;
+    public GameObject firer;
+    public Rigidbody parentRidgidbody;
 	// Use this for initialization
 	void Start () {
         Rigidbody rigidbody = GetComponent<Rigidbody>();
-        GameObject playerShip = GameObject.Find("vehicle_playerShip");
-        Rigidbody shipRigidbody = playerShip.GetComponent<Rigidbody>();
+        //note this is uses the player ship for everything!!!
+        Rigidbody shipRigidbody = parentRidgidbody;
         rigidbody.velocity = shipRigidbody.velocity;
         rigidbody.velocity += transform.up * speed;
         timeOutTime = Time.time + timeOutTime;

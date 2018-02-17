@@ -35,8 +35,9 @@ public class WeaponController : MonoBehaviour
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
             Mover shotScript = shot.GetComponent<Mover>();
+            shotScript.parentRidgidbody = GetComponentInParent<Rigidbody>();
+            shotScript.firer = this.transform.parent.gameObject;
             shotScript.damage = shotDamage;
-            shotScript.firer = "player";
         }
         Update_Rotation_Y();
     }
