@@ -52,21 +52,23 @@ public class AIBehavior : MonoBehaviour {
             directionToTarget = target.transform.position - transform.position;
             float angle = Vector3.Angle(transform.forward, directionToTarget);
             Debug.Log("Angle: " + angle);
-            if(angle >= 20)
+            if (angle >= accuracy)
             {
                 var rotateDir = Vector3.Cross(transform.forward, directionToTarget).y;
-                Debug.Log("Rotate Dir " + rotateDir);
+                //Debug.Log("Rotate Dir " + rotateDir);
                 if (rotateDir >= 0)
                 {
-                    turningRight = true; 
+                    turningRight = true;
+                    turningLeft = false;
                 }
 
                 else if (rotateDir < 0)
                 {
+                    turningRight = false;
                     turningLeft = true;
                 }
             }
-            else if(turningRight || turningLeft)
+            else
             {
                 turningLeft = false;
                 turningRight = false;
@@ -76,10 +78,10 @@ public class AIBehavior : MonoBehaviour {
             foreach (WeaponController weaponController in myWeaponControllers)
             {
                 weaponController.targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
-                targetRot = Quaternion.LookRotation(directionToTarget);
-                float angleToGetTo = targetRot.eulerAngles.y;
-                float currentAngle = transform.rotation.eulerAngles.y;
-
+                float angleToGetTo = weaponController.fireAngle;
+                //Debug.Log("weapon Angle to get " + angleToGetTo);
+                float currentAngle = weaponController.transform.rotation.eulerAngles.y;
+                //Debug.Log("Weapon Current Angle " + currentAngle);
                 if (angleToGetTo <= currentAngle + accuracy && angleToGetTo >= currentAngle - accuracy)
                 {
                     weaponController.firing = true;
@@ -90,14 +92,24 @@ public class AIBehavior : MonoBehaviour {
             }
         }
 
-
+       // Debug.Log("Direction to target Magnatue " + directionToTarget.magnitude);
         if (directionToTarget.magnitude > agent.stoppingDistance)
         {
-           // speedingUp = true;
+           speedingUp = true;
+            stopping = false;
         } else
         {
             speedingUp = false;
+        }
+
+        //stop when you get close to the target
+        if (directionToTarget.magnitude <= agent.stoppingDistance && GetComponent<Rigidbody>().velocity.magnitude > 0)
+        {
             stopping = true;
+            speedingUp = false;
+        } else if (!speedingUp)
+        {
+            stopping = false;
         }
         //todo hook up the bools so that they are true when things are happening
         //set off the effects when you are turning

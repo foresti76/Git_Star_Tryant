@@ -28,24 +28,18 @@ public class Mover : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(firer == "player")
+        Debug.Log("Hitting " + other.name);
+        if (other.tag == "Shield")
         {
-            return;
+            other.GetComponent<ShieldBehavior>().DamageShield(damage);
+            Debug.Log("Hitting the shield");
+            Destroy(gameObject);
         }
-        if (firer != "player")
+        else
         {
-            if (other.tag == "Player")
-            {
-                other.GetComponent<Hull>().DoDamage(damage);
-                Debug.Log("Hitting the Hull");
-                Destroy(gameObject);
-            }
-            if (other.tag == "Shield")
-            {
-                other.GetComponent<ShieldBehavior>().DamageShield(damage);
-                Debug.Log("Hitting the shield");
-                Destroy(gameObject);
-            }
+            other.GetComponent<Hull>().DoDamage(damage);
+            Debug.Log("Hitting the Hull");
+            Destroy(gameObject);
         }
     }
 }

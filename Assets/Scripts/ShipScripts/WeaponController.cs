@@ -16,6 +16,7 @@ public class WeaponController : MonoBehaviour
     public int turretRotationRate;
     public float turretRotationLimit = 30;
     public Vector3 targetPos;
+    public float fireAngle;
 
     private float nextFire;
     private ShipGenerator myShipGenerator; 
@@ -63,9 +64,9 @@ public class WeaponController : MonoBehaviour
             angleDelta = -turretRotationLimit;
         }
 
-        angle = transform.parent.eulerAngles.y + angleDelta;
+        fireAngle = transform.parent.eulerAngles.y + angleDelta;
 
-        Quaternion targetRot = Quaternion.Euler(0, angle, 0);
+        Quaternion targetRot = Quaternion.Euler(0, fireAngle, 0);
         Quaternion rot = Quaternion.Euler(transform.eulerAngles);
 
         // turn the turret in the desired direction scaled by the turret rotation dampaning value.

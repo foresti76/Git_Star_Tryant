@@ -16,6 +16,9 @@ public class CameraControl : MonoBehaviour
 
     void Update()
     {
+        if (playerShip)
+        { 
         transform.position = playerShip.transform.position + offset;
+        }
     }
 }
