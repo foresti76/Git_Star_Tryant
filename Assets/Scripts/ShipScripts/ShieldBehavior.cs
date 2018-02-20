@@ -17,7 +17,7 @@ public class ShieldBehavior : MonoBehaviour {
     private float shieldDisplayTime;
     private Renderer shieldRendere;
     private Collider shieldCollider;
-    private bool shieldDown = false;
+    public bool shieldDown = false;
     private float shieldRechargeTime;
     private ShipGenerator myShipGenerator;
     // Use this for initialization
@@ -36,7 +36,7 @@ public class ShieldBehavior : MonoBehaviour {
         {
             myShipGenerator.currentPower -= maintEnergyCost;
         }
-        else
+        else if (!shieldDown)
         {
             ShieldDown();
         }
@@ -50,14 +50,15 @@ public class ShieldBehavior : MonoBehaviour {
         {
             if (myShipGenerator.currentPower >= rechargeEnergyCost)
             {
-                myShipGenerator.currentPower -= rechargeEnergyCost;
-                currentShield += shieldRechageRate;
                 if (shieldDown)
                 {
                     shieldDown = false;
                     shieldRendere.enabled = true;
                     shieldDisplayTime = Time.time + shieldDisplayDuration;
                 }
+                myShipGenerator.currentPower -= rechargeEnergyCost;
+                currentShield += shieldRechageRate;
+                shieldRechargeTime = Time.time + shieldRechargeDuration;
 
                 if (shieldCollider.enabled == false)
                 {
