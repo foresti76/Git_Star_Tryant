@@ -11,9 +11,10 @@ public class Mover : MonoBehaviour {
     public Rigidbody parentRidgidbody;
 	// Use this for initialization
 	void Start () {
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        //note this is uses the player ship for everything!!!
         Rigidbody shipRigidbody = parentRidgidbody;
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+
+        //note this is uses the player ship for everything!!!
         rigidbody.velocity = shipRigidbody.velocity;
         rigidbody.velocity += transform.up * speed;
         timeOutTime = Time.time + timeOutTime;

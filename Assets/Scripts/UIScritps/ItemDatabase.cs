@@ -15,6 +15,7 @@ public class ItemDatabase : MonoBehaviour {
     public List<TractorBeam> tractorbeamDatabase = new List<TractorBeam>();
     public List<Radar> radarDatabase = new List<Radar>();
     public List<Weapon> weaponDatabase = new List<Weapon>();
+    public List<Subsystem> subsystemDatabase = new List<Subsystem>();
 
     private JsonData equipmentData;
      //todo subsystems, consumable, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon
@@ -32,6 +33,7 @@ public class ItemDatabase : MonoBehaviour {
         ConstructTractorBeamDatabase();
         ConstructRadarDatabase();
         ConstructWeaponDatabase();
+        ConstructSubsystemDatabase();
         //todo  subsystems, comsumable
         // Debug.Log(engineDatabase.Count);
         //Debug.Log(equipmentDatabase[1].ID);
@@ -41,7 +43,12 @@ public class ItemDatabase : MonoBehaviour {
     {
         for (int i = 0; i < equipmentData.Count; i++)
         {
-            equipmentDatabase.Add(new Equipment((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], (bool)equipmentData[i]["stackable"], equipmentData[i]["slug"].ToString()));
+            equipmentDatabase.Add(new Equipment((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                             equipmentData[i]["title"].ToString(), 
+                                                                             equipmentData[i]["description"].ToString(), 
+                                                                             (int)equipmentData[i]["cost"], 
+                                                                             (bool)equipmentData[i]["stackable"], 
+                                                                             equipmentData[i]["slug"].ToString()));
         }
     }
 
@@ -51,7 +58,16 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Engine")
             { 
-                engineDatabase.Add(new Engine((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], (int)equipmentData[i]["combat_speed"], (int)equipmentData[i]["crusing_speed"], (int)equipmentData[i]["acceleration"], (int)equipmentData[i]["energy_cost"], (int)equipmentData[i]["signature"], equipmentData[i]["slug"].ToString()));
+                engineDatabase.Add(new Engine((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                           equipmentData[i]["title"].ToString(), 
+                                                                           equipmentData[i]["description"].ToString(), 
+                                                                           (int)equipmentData[i]["cost"], 
+                                                                           (int)equipmentData[i]["combat_speed"], 
+                                                                           (int)equipmentData[i]["crusing_speed"], 
+                                                                           (int)equipmentData[i]["acceleration"], 
+                                                                           (int)equipmentData[i]["energy_cost"], 
+                                                                           (int)equipmentData[i]["signature"], 
+                                                                           equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -62,7 +78,20 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Ship")
             {
-                shipDatabase.Add(new Ship((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], equipmentData[i]["size"].ToString(), (int)equipmentData[i]["mass"], (int)equipmentData[i]["hullpoints"], (int)equipmentData[i]["cargospace"], (int)equipmentData[i]["armor"], (int)equipmentData[i]["subsystems"], (int)equipmentData[i]["sm_hardpoints"], (int)equipmentData[i]["med_hardpoints"], (int)equipmentData[i]["lg_hardpoints"], equipmentData[i]["slug"].ToString()));
+                shipDatabase.Add(new Ship((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                       equipmentData[i]["title"].ToString(), 
+                                                                       equipmentData[i]["description"].ToString(), 
+                                                                       (int)equipmentData[i]["cost"], 
+                                                                       equipmentData[i]["size"].ToString(), 
+                                                                       (int)equipmentData[i]["mass"], 
+                                                                       (int)equipmentData[i]["hullpoints"], 
+                                                                       (int)equipmentData[i]["cargospace"], 
+                                                                       (int)equipmentData[i]["armor"], 
+                                                                       (int)equipmentData[i]["subsystems"], 
+                                                                       (int)equipmentData[i]["sm_hardpoints"], 
+                                                                       (int)equipmentData[i]["med_hardpoints"], 
+                                                                       (int)equipmentData[i]["lg_hardpoints"], 
+                                                                       equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -73,7 +102,19 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Shield")
             {
-                shieldDatabase.Add(new Shield((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], (int)equipmentData[i]["max_shield"], (int)equipmentData[i]["regen_rate"], (int)equipmentData[i]["regen_delay"], (int)equipmentData[i]["refresh_delay"], (int)equipmentData[i]["damage_mitigation"], (int)equipmentData[i]["maint_energy_cost"], (int)equipmentData[i]["recharge_energy_cost"], (int)equipmentData[i]["signature"], equipmentData[i]["slug"].ToString()));
+                shieldDatabase.Add(new Shield((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                           equipmentData[i]["title"].ToString(), 
+                                                                           equipmentData[i]["description"].ToString(), 
+                                                                           (int)equipmentData[i]["cost"], 
+                                                                           (int)equipmentData[i]["max_shield"], 
+                                                                           (int)equipmentData[i]["regen_rate"], 
+                                                                           (int)equipmentData[i]["regen_delay"], 
+                                                                           (int)equipmentData[i]["refresh_delay"], 
+                                                                           (int)equipmentData[i]["damage_mitigation"], 
+                                                                           (int)equipmentData[i]["maint_energy_cost"], 
+                                                                           (int)equipmentData[i]["recharge_energy_cost"], 
+                                                                           (int)equipmentData[i]["signature"], 
+                                                                           equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -84,7 +125,14 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "RCS")
             {
-                rcsDatabase.Add(new RCS((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], (int)equipmentData[i]["rot"], (int)equipmentData[i]["acc_bonus"], (int)equipmentData[i]["energy_cost"], equipmentData[i]["slug"].ToString()));
+                rcsDatabase.Add(new RCS((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                     equipmentData[i]["title"].ToString(), 
+                                                                     equipmentData[i]["description"].ToString(), 
+                                                                     (int)equipmentData[i]["cost"], 
+                                                                     (int)equipmentData[i]["rot"], 
+                                                                     (int)equipmentData[i]["acc_bonus"], 
+                                                                     (int)equipmentData[i]["energy_cost"], 
+                                                                     equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -95,7 +143,14 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Generator")
             {
-                generatorDatabase.Add(new Generator((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], (int)equipmentData[i]["energy_generation"], (int)equipmentData[i]["storage_capacity"], (int)equipmentData[i]["signature"], equipmentData[i]["slug"].ToString()));
+                generatorDatabase.Add(new Generator((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                                 equipmentData[i]["title"].ToString(), 
+                                                                                 equipmentData[i]["description"].ToString(), 
+                                                                                 (int)equipmentData[i]["cost"], 
+                                                                                 (int)equipmentData[i]["energy_generation"], 
+                                                                                 (int)equipmentData[i]["storage_capacity"], 
+                                                                                 (int)equipmentData[i]["signature"], 
+                                                                                 equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -106,7 +161,14 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "ECM")
             {
-                ecmDatabase.Add(new ECM((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], equipmentData[i]["defense_type"].ToString(), (int)equipmentData[i]["defense_value"], (int)equipmentData[i]["energy_cost"], equipmentData[i]["slug"].ToString()));
+                ecmDatabase.Add(new ECM((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                     equipmentData[i]["title"].ToString(), 
+                                                                     equipmentData[i]["description"].ToString(), 
+                                                                     (int)equipmentData[i]["cost"], 
+                                                                     equipmentData[i]["defense_type"].ToString(), 
+                                                                     (int)equipmentData[i]["defense_value"], 
+                                                                     (int)equipmentData[i]["energy_cost"], 
+                                                                     equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -117,7 +179,15 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "TractorBeam")
             {
-                tractorbeamDatabase.Add(new TractorBeam((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], (int)equipmentData[i]["max_pull_mass"], (int)equipmentData[i]["pull_range"], (int)equipmentData[i]["pull_rate"], (int)equipmentData[i]["energy_cost"], equipmentData[i]["slug"].ToString()));
+                tractorbeamDatabase.Add(new TractorBeam((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                                     equipmentData[i]["title"].ToString(), 
+                                                                                     equipmentData[i]["description"].ToString(), 
+                                                                                     (int)equipmentData[i]["cost"], 
+                                                                                     (int)equipmentData[i]["max_pull_mass"], 
+                                                                                     (int)equipmentData[i]["pull_range"], 
+                                                                                     (int)equipmentData[i]["pull_rate"], 
+                                                                                     (int)equipmentData[i]["energy_cost"], 
+                                                                                     equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -128,7 +198,17 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Radar")
             {
-                radarDatabase.Add(new Radar((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], (int)equipmentData[i]["range"], (int)equipmentData[i]["iff_level"], (int)equipmentData[i]["targeting_range"], (int)equipmentData[i]["targeting_speed"], (int)equipmentData[i]["energy_cost"], (int)equipmentData[i]["signature"], equipmentData[i]["slug"].ToString()));
+                radarDatabase.Add(new Radar((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                         equipmentData[i]["title"].ToString(), 
+                                                                         equipmentData[i]["description"].ToString(), 
+                                                                         (int)equipmentData[i]["cost"], 
+                                                                         (int)equipmentData[i]["range"], 
+                                                                         (int)equipmentData[i]["iff_level"], 
+                                                                         (int)equipmentData[i]["targeting_range"], 
+                                                                         (int)equipmentData[i]["targeting_speed"], 
+                                                                         (int)equipmentData[i]["energy_cost"], 
+                                                                         (int)equipmentData[i]["signature"], 
+                                                                         equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -139,7 +219,36 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Weapon")
             {
-                weaponDatabase.Add(new Weapon((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), equipmentData[i]["title"].ToString(), equipmentData[i]["description"].ToString(), (int)equipmentData[i]["cost"], equipmentData[i]["mount_size"].ToString(), equipmentData[i]["weapon_type"].ToString(), (int)equipmentData[i]["damage"], (int)equipmentData[i]["projectiles_per_shot"], (int)equipmentData[i]["ammo_capacity"], (int)equipmentData[i]["fire_rate"], (int)equipmentData[i]["energy_cost"], (int)equipmentData[i]["signature"], equipmentData[i]["slug"].ToString()));
+                weaponDatabase.Add(new Weapon((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                           equipmentData[i]["title"].ToString(), 
+                                                                           equipmentData[i]["description"].ToString(), 
+                                                                           (int)equipmentData[i]["cost"], 
+                                                                           equipmentData[i]["mount_size"].ToString(), 
+                                                                           equipmentData[i]["weapon_type"].ToString(), 
+                                                                           (int)equipmentData[i]["damage"], 
+                                                                           (int)equipmentData[i]["projectiles_per_shot"], 
+                                                                           (int)equipmentData[i]["ammo_capacity"], 
+                                                                           (int)equipmentData[i]["fire_rate"], 
+                                                                           (int)equipmentData[i]["energy_cost"], 
+                                                                           (int)equipmentData[i]["signature"], 
+                                                                           equipmentData[i]["slug"].ToString()));
+            }
+        }
+    }
+
+    void ConstructSubsystemDatabase()
+    {
+        for (int i = 0; i < equipmentData.Count; i++)
+        {
+            if (equipmentData[i]["type"].ToString() == "Subsystem")
+            {
+                subsystemDatabase.Add(new Subsystem((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                                                                                 equipmentData[i]["title"].ToString(), 
+                                                                                 equipmentData[i]["description"].ToString(), 
+                                                                                 (int)equipmentData[i]["cost"], 
+                                                                                 (int)equipmentData[i]["energy_cost"], 
+                                                                                 (int)equipmentData[i]["signature"], 
+                                                                                 equipmentData[i]["slug"].ToString()));
             }
         }
     }
@@ -264,6 +373,18 @@ public class ItemDatabase : MonoBehaviour {
         }
         return null;
     }
+
+    public Subsystem FetchSubsytemByID(int id)
+    {
+        for (int i = 0; i < subsystemDatabase.Count; i++)
+        {
+            if (subsystemDatabase[i].ID == id)
+            {
+                return subsystemDatabase[i];
+            }
+        }
+        return null;
+    }
     //todo subsystems, consumables, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon
 }
 
@@ -278,7 +399,9 @@ public class Equipment
         public string Slug { get; set; }
         public Sprite Sprite { get; set; }
 
-        public Equipment(int id, string type, string title, string description, int cost, bool stackable, string slug)
+        public Equipment(int id, string type, string title, string description, int cost, 
+                                                                                bool stackable, 
+                                                                                string slug)
         {
             this.ID = id;
             this.Type = type;
@@ -310,7 +433,13 @@ public class Engine
         public int Signature { get; set; }
         public string Slug { get; set; }
 
-    public Engine (int id, string type, string title, string description, int cost, int combat_speed, int crusing_speed, int acceleration, int energy_cost, int signature, string slug)
+    public Engine (int id, string type, string title, string description, int cost, 
+                                                                          int combat_speed, 
+                                                                          int crusing_speed, 
+                                                                          int acceleration, 
+                                                                          int energy_cost, 
+                                                                          int signature, 
+                                                                          string slug)
         {
             this.ID = id;
             this.Type = type;
@@ -345,7 +474,17 @@ public class Ship
     public int Lg_Hardpoints { get; set; }
     public string Slug { get; set; }
 
-    public Ship(int id, string type, string title, string description, int cost, string size, int mass, int hullpoints, int cargospace, int armor, int subsystems, int sm_hardpoints, int med_hardpoints, int lg_hardpoints, string slug)
+    public Ship(int id, string type, string title, string description, int cost, 
+                                                                       string size, 
+                                                                       int mass, 
+                                                                       int hullpoints, 
+                                                                       int cargospace, 
+                                                                       int armor, 
+                                                                       int subsystems, 
+                                                                       int sm_hardpoints, 
+                                                                       int med_hardpoints, 
+                                                                       int lg_hardpoints, 
+                                                                       string slug)
     {
         this.ID = id;
         this.Type = type;
@@ -383,7 +522,16 @@ public class Shield
         public int Signature { get; set; }
         public string Slug { get; set; }
 
-        public Shield(int id, string type, string title, string description, int cost, int max_shield, int regen_rate, int regen_delay, int refresh_delay, int damage_mitigation, int maint_energy_cost, int recharge_energy_cost, int signature, string slug)
+        public Shield(int id, string type, string title, string description, int cost, 
+                                                                             int max_shield, 
+                                                                             int regen_rate, 
+                                                                             int regen_delay, 
+                                                                             int refresh_delay, 
+                                                                             int damage_mitigation, 
+                                                                             int maint_energy_cost, 
+                                                                             int recharge_energy_cost, 
+                                                                             int signature, 
+                                                                             string slug)
         {
             this.ID = id;
             this.Type = type;
@@ -415,7 +563,11 @@ public class RCS
     public int Energy_Cost { get; set; }
     public string Slug { get; set; }
 
-    public RCS(int id, string type, string title, string description, int cost, int rot, int acc_bonus, int energy_cost, string slug)
+    public RCS(int id, string type, string title, string description, int cost, 
+                                                                      int rot, 
+                                                                      int acc_bonus, 
+                                                                      int energy_cost, 
+                                                                      string slug)
     {
         this.ID = id;
         this.Type = type;
@@ -442,7 +594,11 @@ public class Generator
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public Generator(int id, string type, string title, string description, int cost, int energy_generation, int storage_capacity, int signature, string slug)
+    public Generator(int id, string type, string title, string description, int cost, 
+                                                                            int energy_generation, 
+                                                                            int storage_capacity, 
+                                                                            int signature, 
+                                                                            string slug)
     {
         this.ID = id;
         this.Type = type;
@@ -469,7 +625,11 @@ public class ECM
     public int Energy_Cost { get; set; }
     public string Slug { get; set; }
 
-    public ECM(int id, string type, string title, string description, int cost, string defense_type, int defense_value, int energy_cost, string slug)
+    public ECM(int id, string type, string title, string description, int cost, 
+                                                                      string defense_type, 
+                                                                      int defense_value, 
+                                                                      int energy_cost, 
+                                                                      string slug)
     {
         this.ID = id;
         this.Type = type;
@@ -497,7 +657,12 @@ public class TractorBeam
     public int Energy_Cost { get; set; }
     public string Slug { get; set; }
 
-    public TractorBeam(int id, string type, string title, string description, int cost, int max_pull_mass, int pull_range, int pull_rate, int energy_cost, string slug)
+    public TractorBeam(int id, string type, string title, string description, int cost, 
+                                                                              int max_pull_mass, 
+                                                                              int pull_range, 
+                                                                              int pull_rate, 
+                                                                              int energy_cost, 
+                                                                              string slug)
     {
         this.ID = id;
         this.Type = type;
@@ -528,7 +693,13 @@ public class Radar
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public Radar(int id, string type, string title, string description, int cost, int range, int iff_level, int targeting_range, int targeting_speed, int energy_cost, int signature, string slug)
+    public Radar(int id, string type, string title, string description, int cost, int range, 
+                                                                                  int iff_level, 
+                                                                                  int targeting_range, 
+                                                                                  int targeting_speed, 
+                                                                                  int energy_cost, 
+                                                                                  int signature, 
+                                                                                  string slug)
     {
         this.ID = id;
         this.Type = type;
@@ -563,7 +734,15 @@ public class Weapon
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public Weapon(int id, string type, string title, string description, int cost, string mount_size, string weapon_type, int damage, int proectiles_per_shot, int ammo_capacity, int fire_rate, int energy_cost, int signature, string slug)
+    public Weapon(int id, string type, string title, string description, int cost, string mount_size,
+                                                                                    string weapon_type,
+                                                                                    int damage,
+                                                                                    int proectiles_per_shot,
+                                                                                    int ammo_capacity,
+                                                                                    int fire_rate,
+                                                                                    int energy_cost,
+                                                                                    int signature,
+                                                                                    string slug)
     {
         this.ID = id;
         this.Type = type;
@@ -576,6 +755,34 @@ public class Weapon
         this.Projectiles_per_Shot = proectiles_per_shot;
         this.Ammo_Capacity = ammo_capacity;
         this.Fire_Rate = fire_rate;
+        this.Energy_Cost = energy_cost;
+        this.Signature = signature;
+        this.Slug = slug;
+        //todo add in reference to 3d model from slug see equipment sprite reference
+    }
+}
+
+public class Subsystem
+{
+    public int ID { get; set; }
+    public string Type { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public int Cost { get; set; }
+    public int Energy_Cost { get; set; }
+    public int Signature { get; set; }
+    public string Slug { get; set; }
+
+    public Subsystem(int id, string type, string title, string description, int cost, 
+                                                                            int energy_cost, 
+                                                                            int signature, 
+                                                                            string slug)
+    {
+        this.ID = id;
+        this.Type = type;
+        this.Title = title;
+        this.Cost = cost;
+        this.Description = description;
         this.Energy_Cost = energy_cost;
         this.Signature = signature;
         this.Slug = slug;
