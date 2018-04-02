@@ -224,9 +224,12 @@ public class ItemDatabase : MonoBehaviour {
                                                                            equipmentData[i]["description"].ToString(), 
                                                                            (int)equipmentData[i]["cost"], 
                                                                            equipmentData[i]["mount_size"].ToString(), 
-                                                                           equipmentData[i]["weapon_type"].ToString(), 
+                                                                           equipmentData[i]["weapon_type"].ToString(),
+                                                                           (int)equipmentData[i]["turret_rotation_rate"],
+                                                                           (int)equipmentData[i]["turret_rotation_limit"],
                                                                            (int)equipmentData[i]["damage"], 
-                                                                           (int)equipmentData[i]["projectiles_per_shot"], 
+                                                                           (int)equipmentData[i]["projectiles_per_shot"],
+                                                                           (int)equipmentData[i]["laser_length"],
                                                                            (int)equipmentData[i]["ammo_capacity"], 
                                                                            (int)equipmentData[i]["fire_rate"], 
                                                                            (int)equipmentData[i]["energy_cost"], 
@@ -727,7 +730,10 @@ public class Weapon
     public string Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
+    public int Turret_Rotation_Rate { get; set; }
+    public int Turret_Rotation_Limit { get; set; }
     public int Projectiles_per_Shot { get; set; }
+    public int Laser_Length { get; set; }
     public int Ammo_Capacity { get; set; }
     public int Fire_Rate { get; set; }
     public int Energy_Cost { get; set; }
@@ -736,8 +742,11 @@ public class Weapon
 
     public Weapon(int id, string type, string title, string description, int cost, string mount_size,
                                                                                     string weapon_type,
+                                                                                    int turret_rotation_rate,
+                                                                                    int turret_rotation_limit,
                                                                                     int damage,
-                                                                                    int proectiles_per_shot,
+                                                                                    int projectiles_per_shot,
+                                                                                    int laser_length,
                                                                                     int ammo_capacity,
                                                                                     int fire_rate,
                                                                                     int energy_cost,
@@ -751,8 +760,11 @@ public class Weapon
         this.Description = description;
         this.Mount_Size = mount_size;
         this.Weapon_Type = weapon_type;
+        this.Turret_Rotation_Rate = turret_rotation_rate;
+        this.Turret_Rotation_Limit = turret_rotation_limit;
         this.Damage = damage;
-        this.Projectiles_per_Shot = proectiles_per_shot;
+        this.Projectiles_per_Shot = projectiles_per_shot;
+        this.Laser_Length = laser_length;
         this.Ammo_Capacity = ammo_capacity;
         this.Fire_Rate = fire_rate;
         this.Energy_Cost = energy_cost;
