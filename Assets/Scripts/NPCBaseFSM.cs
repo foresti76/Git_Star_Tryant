@@ -7,6 +7,7 @@ public class NPCBaseFSM : StateMachineBehaviour {
 
     public GameObject NPC;
     public bool IsAggro;
+    public bool IsPatrolling;
     public GameObject target;
     public float accuracy;
     public AIBehavior Ai;

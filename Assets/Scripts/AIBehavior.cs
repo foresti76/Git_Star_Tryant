@@ -12,11 +12,9 @@ public class AIBehavior : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        UpdateTarget(player);
-
         //agent.speed;
         anim = GetComponent<Animator>();
+        anim.SetBool("IsPatrolling", true);
     }
 
     void UpdateTarget(GameObject newTarget)

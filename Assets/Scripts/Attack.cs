@@ -5,9 +5,6 @@ using UnityEngine;
 public class Attack : NPCBaseFSM {
 
     Rigidbody targetRigidbody;
-    Vector3 targetPos;
-    Vector3 directionToTarget;
-    Quaternion targetRot;
     WeaponController[] myWeaponControllers;
     ShipMovement myShipMovement;
 
@@ -23,12 +20,7 @@ public class Attack : NPCBaseFSM {
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (target)
         {
@@ -149,6 +141,12 @@ public class Attack : NPCBaseFSM {
         {
             animator.SetBool("IsAggro", false);
         }
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        
 
     }
 
