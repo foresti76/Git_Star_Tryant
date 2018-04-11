@@ -8,6 +8,8 @@ public class Laser : MonoBehaviour
     public Transform shotSpawn;
     public int laserLength;
     public float fireRate;
+    public float damage;
+    public GameObject shooter;
     float fireTime;
 
     LineRenderer lr;
@@ -21,7 +23,7 @@ public class Laser : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (Time.time >= fireTime)
         {
@@ -37,6 +39,17 @@ public class Laser : MonoBehaviour
             if (hit.collider)
             {
                 lr.SetPosition(1, hit.point);
+            }
+           // Debug.Log("Hitting " + hit.collider.name);
+            if (hit.collider.tag == "Shield")
+            {
+                hit.collider.GetComponent<ShieldBehavior>().DamageShield(damage, shooter);
+          //      Debug.Log("Hitting the shield");
+            }
+            else if(hit.collider.tag == "AIShip" || hit.collider.tag == "Player")
+            {
+                hit.collider.GetComponent<Hull>().DoDamage(damage, shooter);
+          //      Debug.Log("Hitting the Hull");
             }
         }
         else

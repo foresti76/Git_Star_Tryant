@@ -16,6 +16,7 @@ public class NPCBaseFSM : StateMachineBehaviour {
     public bool turningRight;
     public bool slowingDown;
     public bool stopping;
+    public ShipMovement myShipMovement;
     public UnityEngine.AI.NavMeshAgent agent;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,5 +25,6 @@ public class NPCBaseFSM : StateMachineBehaviour {
         accuracy = 15.0f;
         Ai = NPC.GetComponent<AIBehavior>();
         agent = NPC.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        myShipMovement = NPC.GetComponent<ShipMovement>();
     }
 }

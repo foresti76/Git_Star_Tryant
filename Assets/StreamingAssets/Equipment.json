@@ -1430,7 +1430,7 @@
 		"weapon_type": "laser",
 		"turret_rotation_rate": 50,
 		"turret_rotation_limit": 30,
-		"damage": 30,
+		"damage": 3,
 		"projectiles_per_shot": 1,
 		"laser_length": 3,
 		"ammo_capacity": 100,

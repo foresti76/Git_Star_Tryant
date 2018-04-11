@@ -7,7 +7,7 @@ public class Mover : MonoBehaviour {
     public float speed;
     public float timeOutTime = 5.0f;
     public float damage;
-    public GameObject firer;
+    public GameObject shooter;
     public Rigidbody parentRidgidbody;
 	// Use this for initialization
 	void Start () {
@@ -33,13 +33,13 @@ public class Mover : MonoBehaviour {
         Debug.Log("Hitting " + other.name);
         if (other.tag == "Shield")
         {
-            other.GetComponent<ShieldBehavior>().DamageShield(damage);
+            other.GetComponent<ShieldBehavior>().DamageShield(damage, shooter);
             Debug.Log("Hitting the shield");
             Destroy(gameObject);
         }
-        else
+        else if (other.tag == "AIShip" || other.tag == "Player")
         {
-            other.GetComponent<Hull>().DoDamage(damage);
+            other.GetComponent<Hull>().DoDamage(damage, shooter);
             Debug.Log("Hitting the Hull");
             Destroy(gameObject);
         }

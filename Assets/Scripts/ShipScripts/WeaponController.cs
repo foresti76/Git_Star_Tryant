@@ -26,17 +26,17 @@ public class WeaponController : MonoBehaviour
     private float nextFire;
     private ShipGenerator myShipGenerator;
     LineRenderer currentLaser;
+    LayerMask myLayerMask;
     // Use this for initialization
     void Start()
     {
         myShipGenerator = this.GetComponentInParent<ShipGenerator>();
+        myLayerMask = gameObject.layer;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        Debug.DrawRay(shotSpawn.transform.position, shotSpawn.transform.up, Color.red);
 
         if (firing && Time.time >= nextFire && myShipGenerator.currentPower >= energyCost)
         {
@@ -98,44 +98,51 @@ public class WeaponController : MonoBehaviour
         Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
         Mover shotScript = shot.GetComponent<Mover>();
         shotScript.parentRidgidbody = GetComponentInParent<Rigidbody>();
-        shotScript.firer = this.transform.parent.gameObject;
+        shotScript.shooter = transform.parent.gameObject;
         shotScript.damage = shotDamage;
     }
 
     public void FireLaser()
     {
         nextFire = Time.time + fireRate;
-        RaycastHit hit;
+        //RaycastHit hit;
         currentLaser = Instantiate(lr, shotSpawn.transform.position, shotSpawn.rotation, shotSpawn.transform);
-        currentLaser.GetComponent<Laser>().fireRate = fireRate;
-        currentLaser.GetComponent<Laser>().shotSpawn = shotSpawn;
-        currentLaser.GetComponent<Laser>().laserLength = laserLength;
+        Laser laserScript = currentLaser.GetComponent<Laser>();
+        laserScript.damage = shotDamage;
+        laserScript.fireRate = fireRate;
+        laserScript.shotSpawn = shotSpawn;
+        laserScript.laserLength = laserLength;
+        laserScript.shooter = transform.parent.gameObject;
 
-        // not sure if this should be in a new object the laser itself
-        if (Physics.Raycast(shotSpawn.transform.position, transform.up, out hit)){
-             if (hit.collider)
-            {
-                currentLaser.SetPosition(1, hit.point);
-                //if I hit something do damage to it
-                if (hit.collider.tag == "Shield")
-                {
-                    hit.collider.GetComponent<ShieldBehavior>().DamageShield(shotDamage);
-                }
-                else if (hit.collider.tag == "AIShip" || hit.collider.tag == "Player")
-                {
-                    hit.collider.GetComponent<Hull>().DoDamage(shotDamage);
-                }
-            }
-        }            
+        Debug.DrawRay(shotSpawn.transform.position, shotSpawn.transform.up * laserLength, Color.red, fireRate);
+        // todo for some reason this is extending out past the laserLength if I hit something
+        //if (Physics.Raycast(shotSpawn.transform.position, shotSpawn.transform.up, out hit, laserLength, myLayerMask)){
+        //    //Debug.Log(hit);
+        //     if (hit.collider)
+        //    {
+        //        //Debug.Log("I hit something");
+        //        currentLaser.SetPosition(1, hit.point);
+        //        //if I hit something do damage to it
+        //        if (hit.collider.tag == "Shield")
+        //        {
+        //            hit.collider.GetComponent<ShieldBehavior>().DamageShield(shotDamage, transform.parent.gameObject);
+        //        }
+        //        else if (hit.collider.tag == "AIShip" || hit.collider.tag == "Player")
+        //        {
+        //            hit.collider.GetComponent<Hull>().DoDamage(shotDamage, transform.parent.gameObject);
+        //        }
+        //    }
+        //}            
     }
 
+    //not yet implemented
     public void FireMissile()
     {
-        nextFire = Time.time + fireRate;
-        Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-        Mover shotScript = shot.GetComponent<Mover>();
-        shotScript.parentRidgidbody = GetComponentInParent<Rigidbody>();
-        shotScript.firer = this.transform.parent.gameObject;
-        shotScript.damage = shotDamage;
+        //    nextFire = Time.time + fireRate;
+        //    Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+        //    Mover shotScript = shot.GetComponent<Mover>();
+        //    shotScript.parentRidgidbody = GetComponentInParent<Rigidbody>();
+        //    shotScript.firer = this.transform.parent.gameObject;
+        //    shotScript.damage = shotDamage;
     }
 }

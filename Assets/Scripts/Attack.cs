@@ -6,7 +6,7 @@ public class Attack : NPCBaseFSM {
 
     Rigidbody targetRigidbody;
     WeaponController[] myWeaponControllers;
-    ShipMovement myShipMovement;
+    float targetAngle;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
@@ -14,7 +14,6 @@ public class Attack : NPCBaseFSM {
         base.OnStateEnter(animator, stateinfo, layerindex);
         target = NPC.GetComponent<AIBehavior>().target;
         targetRigidbody = target.GetComponent<Rigidbody>();
-        myShipMovement = NPC.GetComponent<ShipMovement>();
         myWeaponControllers = NPC.GetComponentsInChildren<WeaponController>();
 
     }
@@ -26,9 +25,9 @@ public class Attack : NPCBaseFSM {
         {
             Vector3 targetPos = target.transform.position;
             Vector3 directionToTarget = target.transform.position - NPC.transform.position;
-            float angle = Vector3.Angle(NPC.transform.forward, directionToTarget);
+            targetAngle = Vector3.Angle(NPC.transform.forward, directionToTarget);
             //Debug.Log("Angle: " + angle);
-            if (angle >= accuracy)
+            if (targetAngle >= accuracy)
             {
                 var rotateDir = Vector3.Cross(NPC.transform.forward, directionToTarget).y;
                 //Debug.Log("Rotate Dir " + rotateDir);
@@ -69,26 +68,27 @@ public class Attack : NPCBaseFSM {
             }
 
             // Debug.Log("Direction to target Magnatue " + directionToTarget.magnitude);
-            if (directionToTarget.magnitude > agent.stoppingDistance)
+            if (directionToTarget.magnitude > agent.stoppingDistance && targetAngle <= accuracy)
             {
                 speedingUp = true;
                 stopping = false;
             }
             else
             {
+                stopping = true;
                 speedingUp = false;
             }
 
             //stop when you get close to the target
-            if (directionToTarget.magnitude <= agent.stoppingDistance && NPC.GetComponent<Rigidbody>().velocity.magnitude > 0)
-            {
-                stopping = true;
-                speedingUp = false;
-            }
-            else if (!speedingUp)
-            {
-                stopping = false;
-            }
+            //if (directionToTarget.magnitude <= agent.stoppingDistance && NPC.GetComponent<Rigidbody>().velocity.magnitude > 0)
+            //{
+            //    stopping = true;
+            //    speedingUp = false;
+            //}
+            //else if (!speedingUp)
+            //{
+            //    stopping = false;
+            //}
             //todo hook up the bools so that they are true when things are happening
             //set off the effects when you are turning
 

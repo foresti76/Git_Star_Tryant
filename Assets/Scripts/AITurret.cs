@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AITurret : MonoBehaviour {
+    //note this is not actually used by anything
+
     public int turretRotationRate = 1;
     public float turretRotationLimit = 360;
     public float firingArc;

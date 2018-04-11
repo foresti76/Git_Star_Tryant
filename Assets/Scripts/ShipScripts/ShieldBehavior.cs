@@ -88,7 +88,7 @@ public class ShieldBehavior : MonoBehaviour {
         return false;
     }
     //damage the shield
-    public void DamageShield(float damage)
+    public void DamageShield(float damage, GameObject attacker)
     {
         //display the shield object
         shieldRendere.enabled = true;
@@ -97,6 +97,12 @@ public class ShieldBehavior : MonoBehaviour {
         // set the time we can start recharging
         shieldRechargeTime = Time.time + shieldRechargeDuration;
         shieldDisplayTime = Time.time + shieldDisplayDuration;
+        if (transform.GetComponentInParent<AIBehavior>())
+        {
+            Debug.Log("Setting the AI to aggro");
+            AIBehavior myAIBehavior = transform.GetComponentInParent<AIBehavior>();
+            myAIBehavior.UpdateTarget(attacker);
+        }
     }
 
     private void ShieldDown()

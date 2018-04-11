@@ -1,1 +1,1 @@
-{"hull":1,"shield":21,"engine":60,"ecm":50,"radar":40,"rcs":30,"tractorbeam":70,"generator":10,"weaponList":[80,80,80],"subsystemList":[]}
+{"hull":1,"shield":21,"engine":60,"ecm":50,"radar":40,"rcs":30,"tractorbeam":70,"generator":10,"weaponList":[90,90,90],"subsystemList":[]}

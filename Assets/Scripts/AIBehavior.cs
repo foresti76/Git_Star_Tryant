@@ -17,10 +17,10 @@ public class AIBehavior : MonoBehaviour {
         anim.SetBool("IsPatrolling", true);
     }
 
-    void UpdateTarget(GameObject newTarget)
+    public void UpdateTarget(GameObject newTarget)
     {
         target = newTarget;
-         anim.SetBool("IsAggro", true);
+        anim.SetBool("IsAggro", true);
     }
     // Update is called once per frame
     void Update()

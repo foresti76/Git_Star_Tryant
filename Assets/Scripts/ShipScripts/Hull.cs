@@ -18,8 +18,13 @@ public class Hull : MonoBehaviour {
         }
 	}
 
-    public void DoDamage(float dam)
+    public void DoDamage(float dam, GameObject attacker)
     {
             curHull -= (dam - armor);
+        if (GetComponent<AIBehavior>())
+        {
+            AIBehavior myAIBehavior = transform.GetComponentInParent<AIBehavior>();
+            myAIBehavior.UpdateTarget(attacker);
+        }
     }
 }
