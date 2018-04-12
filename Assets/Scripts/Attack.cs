@@ -6,12 +6,11 @@ public class Attack : NPCBaseFSM {
 
     Rigidbody targetRigidbody;
     WeaponController[] myWeaponControllers;
-    float targetAngle;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateinfo, int LayerIndex)
     {
-        base.OnStateEnter(animator, stateinfo, layerindex);
+        base.OnStateEnter(animator, stateinfo, LayerIndex);
         target = NPC.GetComponent<AIBehavior>().target;
         targetRigidbody = target.GetComponent<Rigidbody>();
         myWeaponControllers = NPC.GetComponentsInChildren<WeaponController>();
@@ -23,9 +22,8 @@ public class Attack : NPCBaseFSM {
     {
         if (target)
         {
-            Vector3 targetPos = target.transform.position;
             Vector3 directionToTarget = target.transform.position - NPC.transform.position;
-            targetAngle = Vector3.Angle(NPC.transform.forward, directionToTarget);
+            float targetAngle = Vector3.Angle(NPC.transform.forward, directionToTarget);
             //Debug.Log("Angle: " + angle);
             if (targetAngle >= accuracy)
             {
@@ -79,18 +77,6 @@ public class Attack : NPCBaseFSM {
                 speedingUp = false;
             }
 
-            //stop when you get close to the target
-            //if (directionToTarget.magnitude <= agent.stoppingDistance && NPC.GetComponent<Rigidbody>().velocity.magnitude > 0)
-            //{
-            //    stopping = true;
-            //    speedingUp = false;
-            //}
-            //else if (!speedingUp)
-            //{
-            //    stopping = false;
-            //}
-            //todo hook up the bools so that they are true when things are happening
-            //set off the effects when you are turning
 
             if (speedingUp)
             {
@@ -146,7 +132,10 @@ public class Attack : NPCBaseFSM {
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        foreach (WeaponController weaponController in myWeaponControllers)
+        {
+                 weaponController.firing = false;
+        }
 
     }
 

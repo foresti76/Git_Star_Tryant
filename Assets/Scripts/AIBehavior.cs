@@ -7,6 +7,8 @@ public class AIBehavior : MonoBehaviour {
     public GameObject target;
     public float accuracy;
 
+
+    Hull hull;
     Animator anim;
 
     // Use this for initialization
@@ -15,6 +17,7 @@ public class AIBehavior : MonoBehaviour {
         //agent.speed;
         anim = GetComponent<Animator>();
         anim.SetBool("IsPatrolling", true);
+        hull = GetComponent<Hull>();
     }
 
     public void UpdateTarget(GameObject newTarget)
@@ -25,7 +28,12 @@ public class AIBehavior : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //agent.SetDestination(target.transform.position)
+
+        anim.SetFloat("Hull", hull.curHull / hull.maxHull);
+        if(!target && anim.GetBool("IsAggro"))
+        {
+            anim.SetBool("IsAggro", false);
+        }
     }
         
 }

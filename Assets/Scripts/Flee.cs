@@ -2,47 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Patrol : NPCBaseFSM {
+public class Flee : NPCBaseFSM {
 
-    GameObject[] waypoints;
-    int currentWP;
-
-    private void Awake()
-    {
-        waypoints = GameObject.FindGameObjectsWithTag("waypoint");
-    }
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //todo make it so that it just uses the regular movement fucntionality like in attack to do this.
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-
-        currentWP = 0;
+        target = Ai.target;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (waypoints.Length == 0) return;
-
-        if (Vector3.Distance(waypoints[currentWP].transform.position, NPC.transform.position) <= agent.stoppingDistance)
+        if (!target)
         {
-            currentWP++;
-            if (currentWP >= waypoints.Length)
-            {
-                currentWP = 0;
-            }
+            return;
         }
+        Vector3 directionToFlee = NPC.transform.position - target.transform.position;
 
-        Vector3 targetPos = waypoints[currentWP].transform.position;
-        Vector3 directionToTarget = targetPos - NPC.transform.position;
-        float targetAngle = Vector3.Angle(NPC.transform.forward, directionToTarget);
-        //Debug.Log("Angle: " + angle);
+        float targetAngle = Vector3.Angle(NPC.transform.forward, directionToFlee);
+  
         if (targetAngle >= accuracy)
         {
-            var rotateDir = Vector3.Cross(NPC.transform.forward, directionToTarget).y;
-            //Debug.Log("Rotate Dir " + rotateDir);
+            var rotateDir = Vector3.Cross(NPC.transform.forward, directionToFlee).y;
             if (rotateDir >= 0)
             {
                 turningRight = true;
@@ -61,7 +44,7 @@ public class Patrol : NPCBaseFSM {
             turningRight = false;
         }
 
-        if (directionToTarget.magnitude > agent.stoppingDistance && targetAngle <= accuracy)
+        if (directionToFlee.magnitude < agent.stoppingDistance*10 && targetAngle <= accuracy)
         {
             speedingUp = true;
             stopping = false;
@@ -116,7 +99,7 @@ public class Patrol : NPCBaseFSM {
         {
             myShipMovement.stopping = false;
         }
-        //agent.SetDestination(waypoints[currentWP].transform.position);
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
