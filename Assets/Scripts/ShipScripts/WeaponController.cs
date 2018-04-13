@@ -8,7 +8,6 @@ public class WeaponController : MonoBehaviour
     public GameObject shot;
     public int shotDamage;
     public LineRenderer lr;
-    //public float shotSpeed;
     public Transform shotSpawn;
     public float fireRate;
     public float energyCost;
@@ -27,6 +26,7 @@ public class WeaponController : MonoBehaviour
     private ShipGenerator myShipGenerator;
     LineRenderer currentLaser;
     LayerMask myLayerMask;
+
     // Use this for initialization
     void Start()
     {
@@ -64,9 +64,7 @@ public class WeaponController : MonoBehaviour
     {  
         Vector3 turretPos = Camera.main.WorldToScreenPoint(transform.position);
         Vector3 targetDir = targetPos - turretPos;
-       // Debug.Log("Target Dir:" + targetDir);
         float angle = Mathf.Atan2(targetDir.x, targetDir.y) * Mathf.Rad2Deg;
-        //get angle of ship and compare and clamp
         float angleDelta = angle - transform.parent.eulerAngles.y;
 
         if (angleDelta < -180)
@@ -113,26 +111,7 @@ public class WeaponController : MonoBehaviour
         laserScript.shotSpawn = shotSpawn;
         laserScript.laserLength = laserLength;
         laserScript.shooter = transform.parent.gameObject;
-
-        Debug.DrawRay(shotSpawn.transform.position, shotSpawn.transform.up * laserLength, Color.red, fireRate);
-        // todo for some reason this is extending out past the laserLength if I hit something
-        //if (Physics.Raycast(shotSpawn.transform.position, shotSpawn.transform.up, out hit, laserLength, myLayerMask)){
-        //    //Debug.Log(hit);
-        //     if (hit.collider)
-        //    {
-        //        //Debug.Log("I hit something");
-        //        currentLaser.SetPosition(1, hit.point);
-        //        //if I hit something do damage to it
-        //        if (hit.collider.tag == "Shield")
-        //        {
-        //            hit.collider.GetComponent<ShieldBehavior>().DamageShield(shotDamage, transform.parent.gameObject);
-        //        }
-        //        else if (hit.collider.tag == "AIShip" || hit.collider.tag == "Player")
-        //        {
-        //            hit.collider.GetComponent<Hull>().DoDamage(shotDamage, transform.parent.gameObject);
-        //        }
-        //    }
-        //}            
+   
     }
 
     //not yet implemented

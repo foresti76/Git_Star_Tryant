@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Flee : NPCBaseFSM {
-
+    bool hasStartedFleeing = false;
+    float fleeStartTime;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         target = Ai.target;
+        float fleeStartTime = Time.time;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -20,6 +22,8 @@ public class Flee : NPCBaseFSM {
             return;
         }
         Vector3 directionToFlee = NPC.transform.position - target.transform.position;
+        
+        // Note the time we are starting to flee
 
         float targetAngle = Vector3.Angle(NPC.transform.forward, directionToFlee);
   
@@ -100,6 +104,12 @@ public class Flee : NPCBaseFSM {
             myShipMovement.stopping = false;
         }
 
+        //if we have been running for a while and our enemy is not near stop running
+        if(fleeStartTime +20.0f >+Time.time && directionToFlee.magnitude >= agent.stoppingDistance * 10)
+        {
+            target = null;
+            animator.SetBool("IsFleeing", false);
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -6,7 +6,7 @@ public class AIBehavior : MonoBehaviour {
 
     public GameObject target;
     public float accuracy;
-
+    public float fleeValue;
 
     Hull hull;
     Animator anim;
@@ -29,7 +29,11 @@ public class AIBehavior : MonoBehaviour {
     void Update()
     {
 
-        anim.SetFloat("Hull", hull.curHull / hull.maxHull);
+        if(target && hull.curHull / hull.maxHull <= fleeValue)
+        {
+            anim.SetBool("IsFleeing", true);
+        }
+
         if(!target && anim.GetBool("IsAggro"))
         {
             anim.SetBool("IsAggro", false);

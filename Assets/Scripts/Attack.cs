@@ -50,6 +50,7 @@ public class Attack : NPCBaseFSM {
             // turn each turret toward the target. Also need to fire.
             foreach (WeaponController weaponController in myWeaponControllers)
             {
+                //todo this seems to just fire all the time and not wait until it is within the accuracy number.
                 weaponController.targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
                 float angleToGetTo = weaponController.fireAngle;
                 //Debug.Log("weapon Angle to get " + angleToGetTo);
