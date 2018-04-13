@@ -9,13 +9,13 @@ public class Mover : MonoBehaviour {
     public float damage;
     public GameObject shooter;
     public Rigidbody parentRidgidbody;
+
 	// Use this for initialization
 	void Start () {
-        Rigidbody shipRigidbody = parentRidgidbody;
         Rigidbody rigidbody = GetComponent<Rigidbody>();
 
         //note this is uses the player ship for everything!!!
-        rigidbody.velocity = shipRigidbody.velocity;
+        rigidbody.velocity = parentRidgidbody.velocity;
         rigidbody.velocity += transform.up * speed;
         timeOutTime = Time.time + timeOutTime;
 	}

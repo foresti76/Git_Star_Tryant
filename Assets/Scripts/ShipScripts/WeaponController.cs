@@ -95,7 +95,11 @@ public class WeaponController : MonoBehaviour
         nextFire = Time.time + fireRate;
         Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
         Mover shotScript = shot.GetComponent<Mover>();
-        shotScript.parentRidgidbody = GetComponentInParent<Rigidbody>();
+        shotScript.parentRidgidbody = GetComponentInParent<Rigidbody>(); 
+        if(shotScript.parentRidgidbody == null)
+        {
+            Debug.LogError("Shot is missing its parent rigidbody reference");
+        }
         shotScript.shooter = transform.parent.gameObject;
         shotScript.damage = shotDamage;
     }
