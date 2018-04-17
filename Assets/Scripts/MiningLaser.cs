@@ -8,7 +8,7 @@ public class MiningLaser : MonoBehaviour {
     public GameObject target;
     public int firingTime;
 
-    bool firingLaser = false;
+    public bool firingLaser = false;
     LineRenderer currentLaser;
     // Use this for initialization
     void Start () {
@@ -17,25 +17,12 @@ public class MiningLaser : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.Keypad0) && firingLaser == false && GetComponentInParent<Rigidbody>().velocity.magnitude == 0)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit)) 
-            {
-                if (hit.transform.CompareTag("Asteroid"))
-                {
-                    target = hit.transform.gameObject;
-                    firingLaser = true;
-                    ActivateLaser();
-                }
-            }
-        }
 	}
 
-    void ActivateLaser()
+    public void ActivateLaser(GameObject target)
     {
+        firingLaser = true;
         currentLaser = Instantiate(lr, transform.parent);
         currentLaser.SetPosition(0, transform.position);
         currentLaser.SetPosition(1, target.transform.position);
@@ -52,6 +39,6 @@ public class MiningLaser : MonoBehaviour {
 
     void AwardStuff()
     {
-
+        //todo give stuff after mining is complete
     }
 }

@@ -22,9 +22,9 @@ public class NPCBaseFSM : StateMachineBehaviour {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         NPC = animator.gameObject;
-        accuracy = 15.0f;
         Ai = NPC.GetComponent<AIBehavior>();
         agent = NPC.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        accuracy = Ai.accuracy;
         myShipMovement = NPC.GetComponent<ShipMovement>();
     }
 }

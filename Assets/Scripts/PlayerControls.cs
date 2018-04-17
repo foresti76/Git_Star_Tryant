@@ -6,19 +6,21 @@ public class PlayerControls : MonoBehaviour {
     GameObject playerShip;
     ShipMovement shipMovement;
     WeaponController[] myWeaponControllers;
+    MiningLaser miningLaser;
 	// Use this for initialization
 	void Start () {
         playerShip = GameObject.FindGameObjectWithTag("Player");
         shipMovement = playerShip.GetComponent<ShipMovement>();
         // todo set up fire groups
         myWeaponControllers = playerShip.GetComponentsInChildren<WeaponController>();
+        miningLaser = GetComponent<MiningLaser>();
     }
 	
 	// Update is called once per frame
 	void Update () {
 
         // movement controls
-        if(Input.GetKey(KeyCode.UpArrow))
+        if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
         {
             shipMovement.acclerating = true;
         }
@@ -27,7 +29,7 @@ public class PlayerControls : MonoBehaviour {
             shipMovement.acclerating = false;
         }
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
             shipMovement.decelerating = true;
         }
@@ -36,7 +38,7 @@ public class PlayerControls : MonoBehaviour {
             shipMovement.decelerating = false;
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             shipMovement.turningRight = true;
         }
@@ -45,7 +47,7 @@ public class PlayerControls : MonoBehaviour {
             shipMovement.turningRight = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             shipMovement.turningLeft = true;
         }
@@ -85,9 +87,35 @@ public class PlayerControls : MonoBehaviour {
 
             weaponController.targetPos = targetPos;
         }
+        //todo this should be set to use a generic subsystem type and not hard coded to the mining laser
+        if (Input.GetKey(KeyCode.Keypad1) && miningLaser.firingLaser == false && GetComponentInParent<Rigidbody>().velocity.magnitude == 0)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.CompareTag("Asteroid"))
+                {
+                    GameObject target = hit.transform.gameObject;
+                    miningLaser.ActivateLaser(target);
+                }
+            }
+        }
+        //Todo Lock onto a target
+        if (Input.GetKey(KeyCode.R))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-
-
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.CompareTag(""))
+                {
+                    GameObject target = hit.transform.gameObject;
+                    //Radar.SetTarget(target);
+                }
+            }
+        }
     }
 }

@@ -50,14 +50,13 @@ public class Attack : NPCBaseFSM {
             // turn each turret toward the target. Also need to fire.
             foreach (WeaponController weaponController in myWeaponControllers)
             {
-                //todo this seems to just fire all the time and not wait until it is within the accuracy number.
                 weaponController.targetPos = Camera.main.WorldToScreenPoint(target.transform.position);
                 float angleToGetTo = weaponController.fireAngle;
-                //Debug.Log("weapon Angle to get " + angleToGetTo);
+               
                 float currentAngle = weaponController.transform.rotation.eulerAngles.y;
-                //Debug.Log("Weapon Current Angle " + currentAngle);
                 if (angleToGetTo <= currentAngle + accuracy && angleToGetTo >= currentAngle - accuracy)
                 {
+                    Debug.Log("Firing");
                     weaponController.firing = true;
                 }
                 else if (weaponController.firing == true)
@@ -66,7 +65,6 @@ public class Attack : NPCBaseFSM {
                 }
             }
 
-            // Debug.Log("Direction to target Magnatue " + directionToTarget.magnitude);
             if (directionToTarget.magnitude > agent.stoppingDistance && targetAngle <= accuracy)
             {
                 speedingUp = true;
