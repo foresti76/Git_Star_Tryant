@@ -37,8 +37,8 @@ public class Inventory : MonoBehaviour {
         AddEquipment(1);
         AddEquipment(26);
         AddEquipment(29);
-        AddEquipment(21);
-        AddEquipment(28); 
+        AddEquipment(90);
+        AddEquipment(90); 
            
     }
     public void AddEquipment(int id)

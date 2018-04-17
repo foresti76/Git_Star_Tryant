@@ -15,24 +15,28 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
     public WeaponController myWeaponController;
     ShipData shipData;
 
-    private WeaponSlot[] weaponSlotList;
-    WeaponController[] weaponControllerList;
+    public WeaponSlot[] weaponSlotList;
+    public WeaponController[] weaponControllerList;
     // Use this for initialization
-    void Awake()
+    void Start()
     {
-        inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
+        inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         itemDatabase = inv.GetComponent<ItemDatabase>();
-        shipData = playerShip.GetComponent<ShipData>();
+        GameObject weaponPanel = GameObject.Find("WeaponsLayout");
+        weaponSlotList = weaponPanel.GetComponentsInChildren<WeaponSlot>();
 
         //find the weapon associated with this slot and put in the data
         if (playerShip != null)
         {
-            weaponControllerList = playerShip.GetComponentsInChildren<WeaponController>();
-            GameObject weaponPanel = GameObject.Find("WeaponsLayout");
-            weaponSlotList = weaponPanel.GetComponentsInChildren<WeaponSlot>();
+ 
 
-            // WeaponController currentWeaponController = weaponControllerList[id];
+            shipData = playerShip.GetComponent<ShipData>();
+
+            weaponControllerList = playerShip.GetComponentsInChildren<WeaponController>();
+
+
+            //WeaponController currentWeaponController = weaponControllerList[id];
             Weapon weaponData = itemDatabase.FetchWeaponByID(shipData.weaponList[slotId]);
 
             if (childName == "")
@@ -48,23 +52,14 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 data.ammount++;
                 childName = weaponData.Title;
             }
-
-            for (int i = 0; i < weaponControllerList.Length; i++)
-            {
-                WeaponController currentWeaponController = weaponControllerList[i].GetComponent<WeaponController>();
-                if (currentWeaponController.slotID == slotId)
-                {
-                    myWeaponController = currentWeaponController;
-                    return;
-                }
-
-            }
+           myWeaponController = weaponControllerList[slotId].GetComponent<WeaponController>();   
         }
     }
 
     //when a weapon is dropped on a slot do all the things to update the weapon perameters
     public void OnDrop(PointerEventData eventData)
     {
+
         //Debug.Log(eventData);
         EquipmentData droppedEquipment = eventData.pointerDrag.GetComponent<EquipmentData>();
          if (droppedEquipment.equipment.Type == "Weapon")

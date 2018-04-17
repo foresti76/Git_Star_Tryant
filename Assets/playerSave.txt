@@ -1,1 +1,1 @@
-{"hull":1,"shield":21,"engine":60,"ecm":50,"radar":40,"rcs":30,"tractorbeam":70,"generator":10,"weaponList":[90,90,90],"subsystemList":[]}
+{"hullID":0,"shield":20,"engine":60,"ecm":51,"radar":40,"rcs":30,"tractorbeam":70,"generator":10,"weaponList":[81,81,80],"subsystemList":[],"PlayerShip":false}

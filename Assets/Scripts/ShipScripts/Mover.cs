@@ -30,17 +30,17 @@ public class Mover : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hitting " + other.name);
+        //Debug.Log("Hitting " + other.name);
         if (other.tag == "Shield")
         {
             other.GetComponent<ShieldBehavior>().DamageShield(damage, shooter);
-            Debug.Log("Hitting the shield");
+           // Debug.Log("Hitting the shield");
             Destroy(gameObject);
         }
         else if (other.tag == "AIShip" || other.tag == "Player")
         {
             other.GetComponent<Hull>().DoDamage(damage, shooter);
-            Debug.Log("Hitting the Hull");
+          //  Debug.Log("Hitting the Hull");
             Destroy(gameObject);
         }
     }
