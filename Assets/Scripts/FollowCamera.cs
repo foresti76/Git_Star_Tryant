@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCamera : MonoBehaviour {
-
     public Transform playerShip;
 	// Use this for initialization
 	void Start () {

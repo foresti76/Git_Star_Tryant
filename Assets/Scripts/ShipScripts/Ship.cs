@@ -171,12 +171,32 @@ public class Ship : MonoBehaviour {
 
     public void UpdateECM(int id)
     {
+        ECM ecmScript = GetComponent<ECM>();
+        ECMData ecmData = itemDatabase.FetchECMByID(id);
 
+        if (ecmScript != null)
+        {
+            ecmScript.lockDefense = ecmData.Lock_Defense;
+            ecmScript.detectionDefense = ecmData.Detection_Defense;
+            ecmScript.energyCost = ecmData.Energy_Cost;
+        }
     }
 
     public void UpdateRadar(int id)
     {
+        Radar radarScript = GetComponent<Radar>();
+        RadarData radarData = itemDatabase.FetchRadarByID(id);
 
+        if(radarScript != null && radarData != null)
+        {
+            radarScript.range = radarData.Range;
+            radarScript.level = radarData.IFF_Level;
+            radarScript.targetingRange = radarData.Targeting_Range;
+            radarScript.targetingSpeed = radarData.Targeting_Speed;
+            radarScript.energyCost = radarData.Energy_Cost;
+            radarScript.signature = radarData.Signature;
+            radarScript.UpdateMinimap();
+        }
     }
 
     public void UpdateTractorBeam(int id)

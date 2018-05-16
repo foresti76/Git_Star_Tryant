@@ -15,26 +15,17 @@ public class SaveData : MonoBehaviour
     {
         filePath = Path.Combine (Application.dataPath, "playerSave.txt");
         playerShip = GameObject.FindGameObjectWithTag("Player");
-        ship = playerShip.GetComponent<Ship>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Save();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Load();
-        }
     }
 
     public void Save()
     {
-        string jsonString = JsonUtility.ToJson(ship);
-        File.WriteAllText(filePath, jsonString);
+
+        ship = playerShip.GetComponent<Ship>();
+        if (ship != null)
+        {
+            string jsonString = JsonUtility.ToJson(ship);
+            File.WriteAllText(filePath, jsonString);
+        }
     }
 
     public void Load()

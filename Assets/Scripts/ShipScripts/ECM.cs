@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ECM : MonoBehaviour {
+    public int lockDefense;
+    public int detectionDefense;
+    public int energyCost;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	// ToDo maybe put in some power use here.
 }

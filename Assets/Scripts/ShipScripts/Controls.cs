@@ -13,11 +13,15 @@ public class Controls : MonoBehaviour {
 
     public bool showInventory;
     public bool showShipCustomization;
+    GameObject miniMap;
+    SaveData saveData;
 
     void Start () {
         //find the objects with those scripts
         HideShipCustomization();
-	}
+        miniMap = GameObject.Find("Minimap");
+        saveData = GameObject.FindObjectOfType<SaveData>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,10 +31,22 @@ public class Controls : MonoBehaviour {
             if (showShipCustomization == true)
             {
                 HideShipCustomization();
+                miniMap.SetActive(true);
             } else
             {
                 ShowShipCustomization();
+                miniMap.SetActive(false);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+                saveData.Save();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            saveData.Load();
         }
 
     }
@@ -39,6 +55,7 @@ public class Controls : MonoBehaviour {
     {
         inventoryPanel.SetActive(true);
         showInventory = true;
+
     }
 
     void HideInventory()

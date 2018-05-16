@@ -165,8 +165,8 @@ public class ItemDatabase : MonoBehaviour {
                                                                      equipmentData[i]["title"].ToString(), 
                                                                      equipmentData[i]["description"].ToString(), 
                                                                      (int)equipmentData[i]["cost"], 
-                                                                     equipmentData[i]["defense_type"].ToString(), 
-                                                                     (int)equipmentData[i]["defense_value"], 
+                                                                     (int)equipmentData[i]["lock_defense"], 
+                                                                     (int)equipmentData[i]["detection_defense"], 
                                                                      (int)equipmentData[i]["energy_cost"], 
                                                                      equipmentData[i]["slug"].ToString()));
             }
@@ -623,14 +623,14 @@ public class ECMData
     public string Title { get; set; }
     public string Description { get; set; }
     public int Cost { get; set; }
-    public string Defense_Type { get; set; }
-    public int Defense_Value { get; set; }
+    public int Lock_Defense { get; set; }
+    public int Detection_Defense { get; set; }
     public int Energy_Cost { get; set; }
     public string Slug { get; set; }
 
     public ECMData(int id, string type, string title, string description, int cost, 
-                                                                      string defense_type, 
-                                                                      int defense_value, 
+                                                                      int lock_defense, 
+                                                                      int detection_defense, 
                                                                       int energy_cost, 
                                                                       string slug)
     {
@@ -639,8 +639,8 @@ public class ECMData
         this.Title = title;
         this.Cost = cost;
         this.Description = description;
-        this.Defense_Type = defense_type;
-        this.Defense_Value = defense_value;
+        this.Lock_Defense = lock_defense;
+        this.Detection_Defense = detection_defense;
         this.Energy_Cost = energy_cost;
         this.Slug = slug;
         //todo add in reference to 3d model from slug see equipment sprit reference

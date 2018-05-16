@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour {
     ShipMovement shipMovement;
     WeaponController[] myWeaponControllers;
     MiningLaser miningLaser;
+
 	// Use this for initialization
 	void Start () {
         playerShip = GameObject.FindGameObjectWithTag("Player");
@@ -14,6 +15,7 @@ public class PlayerControls : MonoBehaviour {
         // todo set up fire groups
         myWeaponControllers = playerShip.GetComponentsInChildren<WeaponController>();
         miningLaser = GetComponent<MiningLaser>();
+
     }
 	
 	// Update is called once per frame
@@ -117,5 +119,7 @@ public class PlayerControls : MonoBehaviour {
                 }
             }
         }
+
+
     }
 }
