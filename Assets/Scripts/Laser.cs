@@ -43,7 +43,7 @@ public class Laser : MonoBehaviour
            // Debug.Log("Hitting " + hit.collider.name);
             if (hit.collider.tag == "Shield")
             {
-                hit.collider.GetComponent<ShieldBehavior>().DamageShield(damage, shooter);
+                hit.collider.GetComponent<Shield>().DamageShield(damage, shooter);
           //      Debug.Log("Hitting the shield");
             }
             else if(hit.collider.tag == "AIShip" || hit.collider.tag == "Player")

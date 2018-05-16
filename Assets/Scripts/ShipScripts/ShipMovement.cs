@@ -26,13 +26,13 @@ public class ShipMovement : MonoBehaviour {
 
 
     private Rigidbody myRigidBody;
-    private ShipGenerator myGenerator;
+    private Generator myGenerator;
     
 
     // Use this for initialization
     void Start () {
         myRigidBody = GetComponent<Rigidbody>();
-        myGenerator = GetComponent<ShipGenerator>();
+        myGenerator = GetComponent<Generator>();
     }
 
 	

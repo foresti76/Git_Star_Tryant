@@ -8,14 +8,14 @@ public class SaveData : MonoBehaviour
 {
 
     private GameObject playerShip;
-    private ShipData shipData;
+    private Ship ship;
     private string filePath;
 
     void Start()
     {
         filePath = Path.Combine (Application.dataPath, "playerSave.txt");
         playerShip = GameObject.FindGameObjectWithTag("Player");
-        shipData = playerShip.GetComponent<ShipData>();
+        ship = playerShip.GetComponent<Ship>();
     }
 
     private void Update()
@@ -33,14 +33,14 @@ public class SaveData : MonoBehaviour
 
     public void Save()
     {
-        string jsonString = JsonUtility.ToJson(shipData);
+        string jsonString = JsonUtility.ToJson(ship);
         File.WriteAllText(filePath, jsonString);
     }
 
     public void Load()
     {
         string jsonString = File.ReadAllText(filePath);
-        JsonUtility.FromJsonOverwrite(jsonString, shipData);
-        shipData.BuildShip();
+        JsonUtility.FromJsonOverwrite(jsonString, ship);
+        ship.BuildShip();
     }
 }

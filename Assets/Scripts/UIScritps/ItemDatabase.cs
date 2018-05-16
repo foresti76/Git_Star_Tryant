@@ -6,16 +6,16 @@ using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour {
     public List<Equipment> equipmentDatabase = new List<Equipment>();
-    public List<Engine> engineDatabase = new List<Engine>();
-    public List<Ship> shipDatabase = new List<Ship>();
-    public List<Shield> shieldDatabase = new List<Shield>();
-    public List<RCS> rcsDatabase = new List<RCS>();
-    public List<Generator> generatorDatabase = new List<Generator>();
-    public List<ECM> ecmDatabase = new List<ECM>();
-    public List<TractorBeam> tractorbeamDatabase = new List<TractorBeam>();
-    public List<Radar> radarDatabase = new List<Radar>();
-    public List<Weapon> weaponDatabase = new List<Weapon>();
-    public List<Subsystem> subsystemDatabase = new List<Subsystem>();
+    public List<EngineData> engineDatabase = new List<EngineData>();
+    public List<HullData> shipDatabase = new List<HullData>();
+    public List<ShieldData> shieldDatabase = new List<ShieldData>();
+    public List<RCSData> rcsDatabase = new List<RCSData>();
+    public List<GeneratorData> generatorDatabase = new List<GeneratorData>();
+    public List<ECMData> ecmDatabase = new List<ECMData>();
+    public List<TractorBeamData> tractorbeamDatabase = new List<TractorBeamData>();
+    public List<RadarData> radarDatabase = new List<RadarData>();
+    public List<WeaponData> weaponDatabase = new List<WeaponData>();
+    public List<SubsystemData> subsystemDatabase = new List<SubsystemData>();
 
     private JsonData equipmentData;
      //todo subsystems, consumable, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon
@@ -58,7 +58,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Engine")
             { 
-                engineDatabase.Add(new Engine((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                engineDatabase.Add(new EngineData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                            equipmentData[i]["title"].ToString(), 
                                                                            equipmentData[i]["description"].ToString(), 
                                                                            (int)equipmentData[i]["cost"], 
@@ -78,7 +78,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Ship")
             {
-                shipDatabase.Add(new Ship((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                shipDatabase.Add(new HullData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                        equipmentData[i]["title"].ToString(), 
                                                                        equipmentData[i]["description"].ToString(), 
                                                                        (int)equipmentData[i]["cost"], 
@@ -102,7 +102,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Shield")
             {
-                shieldDatabase.Add(new Shield((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                shieldDatabase.Add(new ShieldData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                            equipmentData[i]["title"].ToString(), 
                                                                            equipmentData[i]["description"].ToString(), 
                                                                            (int)equipmentData[i]["cost"], 
@@ -125,7 +125,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "RCS")
             {
-                rcsDatabase.Add(new RCS((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                rcsDatabase.Add(new RCSData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                      equipmentData[i]["title"].ToString(), 
                                                                      equipmentData[i]["description"].ToString(), 
                                                                      (int)equipmentData[i]["cost"], 
@@ -143,7 +143,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Generator")
             {
-                generatorDatabase.Add(new Generator((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                generatorDatabase.Add(new GeneratorData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                                  equipmentData[i]["title"].ToString(), 
                                                                                  equipmentData[i]["description"].ToString(), 
                                                                                  (int)equipmentData[i]["cost"], 
@@ -161,7 +161,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "ECM")
             {
-                ecmDatabase.Add(new ECM((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                ecmDatabase.Add(new ECMData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                      equipmentData[i]["title"].ToString(), 
                                                                      equipmentData[i]["description"].ToString(), 
                                                                      (int)equipmentData[i]["cost"], 
@@ -179,7 +179,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "TractorBeam")
             {
-                tractorbeamDatabase.Add(new TractorBeam((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                tractorbeamDatabase.Add(new TractorBeamData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                                      equipmentData[i]["title"].ToString(), 
                                                                                      equipmentData[i]["description"].ToString(), 
                                                                                      (int)equipmentData[i]["cost"], 
@@ -198,7 +198,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Radar")
             {
-                radarDatabase.Add(new Radar((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                radarDatabase.Add(new RadarData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                          equipmentData[i]["title"].ToString(), 
                                                                          equipmentData[i]["description"].ToString(), 
                                                                          (int)equipmentData[i]["cost"], 
@@ -219,7 +219,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Weapon")
             {
-                weaponDatabase.Add(new Weapon((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                weaponDatabase.Add(new WeaponData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                            equipmentData[i]["title"].ToString(), 
                                                                            equipmentData[i]["description"].ToString(), 
                                                                            (int)equipmentData[i]["cost"], 
@@ -245,7 +245,7 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Subsystem")
             {
-                subsystemDatabase.Add(new Subsystem((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
+                subsystemDatabase.Add(new SubsystemData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
                                                                                  equipmentData[i]["title"].ToString(), 
                                                                                  equipmentData[i]["description"].ToString(), 
                                                                                  (int)equipmentData[i]["cost"], 
@@ -269,7 +269,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public Engine FetchEngineByID(int id)
+    public EngineData FetchEngineByID(int id)
     {
         for (int i = 0; i < engineDatabase.Count; i++)
         {
@@ -281,7 +281,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public Ship FetchShipByID(int id)
+    public HullData FetchShipByID(int id)
     {
         for (int i = 0; i < shipDatabase.Count; i++)
         {
@@ -293,7 +293,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public Shield FetchShieldByID(int id)
+    public ShieldData FetchShieldByID(int id)
     {
         for (int i = 0; i < shieldDatabase.Count; i++)
         {
@@ -305,7 +305,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public RCS FetchRCSByID(int id)
+    public RCSData FetchRCSByID(int id)
     {
         for (int i = 0; i < rcsDatabase.Count; i++)
         {
@@ -317,7 +317,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public Generator FetchGeneratorByID(int id)
+    public GeneratorData FetchGeneratorByID(int id)
     {
         for (int i = 0; i < generatorDatabase.Count; i++)
         {
@@ -329,7 +329,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
     
-    public ECM FetchECMByID(int id)
+    public ECMData FetchECMByID(int id)
     {
         for (int i = 0; i < ecmDatabase.Count; i++)
         {
@@ -341,7 +341,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public TractorBeam FetchTractorBeamByID(int id)
+    public TractorBeamData FetchTractorBeamByID(int id)
     {
         for (int i = 0; i < tractorbeamDatabase.Count; i++)
         {
@@ -353,7 +353,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public Radar FetchRadarByID(int id)
+    public RadarData FetchRadarByID(int id)
     {
         for (int i = 0; i < radarDatabase.Count; i++)
         {
@@ -365,7 +365,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public Weapon FetchWeaponByID(int id)
+    public WeaponData FetchWeaponByID(int id)
     {
         for (int i = 0; i < weaponDatabase.Count; i++)
         {
@@ -377,7 +377,7 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public Subsystem FetchSubsytemByID(int id)
+    public SubsystemData FetchSubsytemByID(int id)
     {
         for (int i = 0; i < subsystemDatabase.Count; i++)
         {
@@ -422,7 +422,7 @@ public class Equipment
     }
 }
 
-public class Engine
+public class EngineData
     {
         public int ID { get; set; }
         public string Type { get; set; }
@@ -436,7 +436,7 @@ public class Engine
         public int Signature { get; set; }
         public string Slug { get; set; }
 
-    public Engine (int id, string type, string title, string description, int cost, 
+    public EngineData (int id, string type, string title, string description, int cost, 
                                                                           int combat_speed, 
                                                                           int crusing_speed, 
                                                                           int acceleration, 
@@ -459,7 +459,7 @@ public class Engine
         }
     }
 
-public class Ship
+public class HullData
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -477,7 +477,7 @@ public class Ship
     public int Lg_Hardpoints { get; set; }
     public string Slug { get; set; }
 
-    public Ship(int id, string type, string title, string description, int cost, 
+    public HullData(int id, string type, string title, string description, int cost, 
                                                                        string size, 
                                                                        int mass, 
                                                                        int hullpoints, 
@@ -508,7 +508,7 @@ public class Ship
     }
 }
 
-public class Shield
+public class ShieldData
     {
         public int ID { get; set; }
         public string Type { get; set; }
@@ -525,7 +525,7 @@ public class Shield
         public int Signature { get; set; }
         public string Slug { get; set; }
 
-        public Shield(int id, string type, string title, string description, int cost, 
+        public ShieldData(int id, string type, string title, string description, int cost, 
                                                                              int max_shield, 
                                                                              int regen_rate, 
                                                                              int regen_delay, 
@@ -554,7 +554,7 @@ public class Shield
         }
     }
 
-public class RCS
+public class RCSData
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -566,7 +566,7 @@ public class RCS
     public int Energy_Cost { get; set; }
     public string Slug { get; set; }
 
-    public RCS(int id, string type, string title, string description, int cost, 
+    public RCSData(int id, string type, string title, string description, int cost, 
                                                                       int rot, 
                                                                       int acc_bonus, 
                                                                       int energy_cost, 
@@ -585,7 +585,7 @@ public class RCS
     }
 }
 
-public class Generator
+public class GeneratorData
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -597,7 +597,7 @@ public class Generator
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public Generator(int id, string type, string title, string description, int cost, 
+    public GeneratorData(int id, string type, string title, string description, int cost, 
                                                                             int energy_generation, 
                                                                             int storage_capacity, 
                                                                             int signature, 
@@ -616,7 +616,7 @@ public class Generator
     }
 }
 
-public class ECM
+public class ECMData
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -628,7 +628,7 @@ public class ECM
     public int Energy_Cost { get; set; }
     public string Slug { get; set; }
 
-    public ECM(int id, string type, string title, string description, int cost, 
+    public ECMData(int id, string type, string title, string description, int cost, 
                                                                       string defense_type, 
                                                                       int defense_value, 
                                                                       int energy_cost, 
@@ -647,7 +647,7 @@ public class ECM
     }
 }
 
-public class TractorBeam
+public class TractorBeamData
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -660,7 +660,7 @@ public class TractorBeam
     public int Energy_Cost { get; set; }
     public string Slug { get; set; }
 
-    public TractorBeam(int id, string type, string title, string description, int cost, 
+    public TractorBeamData(int id, string type, string title, string description, int cost, 
                                                                               int max_pull_mass, 
                                                                               int pull_range, 
                                                                               int pull_rate, 
@@ -681,7 +681,7 @@ public class TractorBeam
     }
 }
 
-public class Radar
+public class RadarData
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -696,7 +696,7 @@ public class Radar
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public Radar(int id, string type, string title, string description, int cost, int range, 
+    public RadarData(int id, string type, string title, string description, int cost, int range, 
                                                                                   int iff_level, 
                                                                                   int targeting_range, 
                                                                                   int targeting_speed, 
@@ -720,7 +720,7 @@ public class Radar
     }
 }
 
-public class Weapon
+public class WeaponData
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -740,7 +740,7 @@ public class Weapon
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public Weapon(int id, string type, string title, string description, int cost, string mount_size,
+    public WeaponData(int id, string type, string title, string description, int cost, string mount_size,
                                                                                     string weapon_type,
                                                                                     int turret_rotation_rate,
                                                                                     int turret_rotation_limit,
@@ -774,7 +774,7 @@ public class Weapon
     }
 }
 
-public class Subsystem
+public class SubsystemData
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -785,7 +785,7 @@ public class Subsystem
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public Subsystem(int id, string type, string title, string description, int cost, 
+    public SubsystemData(int id, string type, string title, string description, int cost, 
                                                                             int energy_cost, 
                                                                             int signature, 
                                                                             string slug)

@@ -10,9 +10,9 @@ public class ShieldSlot : MonoBehaviour, IDropHandler{
 
     private Inventory inv;
     private GameObject playerShip;
-    private Shield shieldData;
+    private ShieldData shieldData;
     private ItemDatabase itemDatabase;
-    ShipData shipData;
+    Ship shipData;
 
     // Use this for initialization
     void Start()
@@ -20,7 +20,7 @@ public class ShieldSlot : MonoBehaviour, IDropHandler{
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
-        shipData = playerShip.GetComponent<ShipData>();
+        shipData = playerShip.GetComponent<Ship>();
 
         shieldData = itemDatabase.FetchShieldByID(shipData.shield);
 

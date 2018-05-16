@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldBehavior : MonoBehaviour {
+public class Shield : MonoBehaviour {
 
     public float currentShield;
     public float shieldRechargeDuration;
@@ -19,14 +19,14 @@ public class ShieldBehavior : MonoBehaviour {
     private Collider shieldCollider;
     public bool shieldDown = false;
     private float shieldRechargeTime;
-    private ShipGenerator myShipGenerator;
+    private Generator myShipGenerator;
     // Use this for initialization
     void Start () {
         currentShield = maxShield;
         shieldRendere = shieldObject.GetComponent<Renderer>();
         shieldRendere.enabled = false;
         shieldCollider = GetComponent<Collider>();
-        myShipGenerator = this.GetComponentInParent<ShipGenerator>();
+        myShipGenerator = this.GetComponentInParent<Generator>();
     }
 	
 	// Update is called once per frame

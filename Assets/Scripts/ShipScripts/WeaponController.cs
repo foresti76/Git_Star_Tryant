@@ -23,14 +23,14 @@ public class WeaponController : MonoBehaviour
     delegate void FiringMode();
     FiringMode firingMode;
     private float nextFire;
-    private ShipGenerator myShipGenerator;
+    private Generator myShipGenerator;
     LineRenderer currentLaser;
     LayerMask myLayerMask;
 
     // Use this for initialization
     void Start()
     {
-        myShipGenerator = this.GetComponentInParent<ShipGenerator>();
+        myShipGenerator = this.GetComponentInParent<Generator>();
         myLayerMask = gameObject.layer;
     }
 

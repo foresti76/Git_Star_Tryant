@@ -33,7 +33,7 @@ public class Mover : MonoBehaviour {
         //Debug.Log("Hitting " + other.name);
         if (other.tag == "Shield")
         {
-            other.GetComponent<ShieldBehavior>().DamageShield(damage, shooter);
+            other.GetComponent<Shield>().DamageShield(damage, shooter);
            // Debug.Log("Hitting the shield");
             Destroy(gameObject);
         }

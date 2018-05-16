@@ -11,7 +11,7 @@ public class RCSSlot : MonoBehaviour, IDropHandler
 
     private Inventory inv;
     private ItemDatabase itemDatabase;
-    ShipData shipData;
+    Ship shipData;
 
     // Use this for initialization
     void Start()
@@ -19,9 +19,9 @@ public class RCSSlot : MonoBehaviour, IDropHandler
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
-        shipData = playerShip.GetComponent<ShipData>();
+        shipData = playerShip.GetComponent<Ship>();
 
-        RCS rcsData = itemDatabase.FetchRCSByID(shipData.rcs);
+        RCSData rcsData = itemDatabase.FetchRCSByID(shipData.rcs);
         if (childName == "")
         {
             GameObject equipmentObject = Instantiate(inv.inventoryItem);

@@ -18,7 +18,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
     private int medWeaponSlotAmmount;
     private int lgWeaponSlotAmmount;
     private int subsystemsSlotAmmount;
-    ShipData shipData;
+    Ship shipData;
 
     public List<GameObject> weaponSlots = new List<GameObject>();
     public List<GameObject> subsystemSlots = new List<GameObject>();
@@ -29,9 +29,9 @@ public class HullSlot : MonoBehaviour, IDropHandler {
         itemDatabase = inv.GetComponent<ItemDatabase>();
 
         GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
-        shipData = playerShip.GetComponent<ShipData>();
+        shipData = playerShip.GetComponent<Ship>();
 
-        Ship hullData = itemDatabase.FetchShipByID(shipData.hullID);
+        HullData hullData = itemDatabase.FetchShipByID(shipData.hullID);
 
         if (childName == "")
         {
@@ -78,7 +78,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
 
            void UpdatePanels(int id)
     {
-        Ship hullData = itemDatabase.FetchShipByID(id);
+        HullData hullData = itemDatabase.FetchShipByID(id);
 
         smWeaponSlotAmmount = hullData.Sm_Hardpoints;
         medWeaponSlotAmmount = hullData.Med_Hardpoints;

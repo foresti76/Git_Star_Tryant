@@ -10,7 +10,7 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
 
     private Inventory inv;
     private ItemDatabase itemDatabase;
-    ShipData shipData;
+    Ship ship;
 
     // Use this for initialization
     void Start()
@@ -18,9 +18,9 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
-        shipData = playerShip.GetComponent<ShipData>();
+        ship = playerShip.GetComponent<Ship>();
 
-        ECM ecmData = itemDatabase.FetchECMByID(shipData.ecm);
+        ECMData ecmData = itemDatabase.FetchECMByID(ship.ecm);
 
         if (childName == "")
         {
@@ -57,8 +57,8 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
             droppedEquipment.slotType = "ECM";
             childName = droppedEquipment.equipment.Title;
 
-            shipData.ecm = droppedEquipment.equipment.ID;
-            shipData.UpdateECM(droppedEquipment.equipment.ID);
+            ship.ecm = droppedEquipment.equipment.ID;
+            ship.UpdateECM(droppedEquipment.equipment.ID);
         }
     }
 }

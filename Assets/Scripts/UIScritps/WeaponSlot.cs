@@ -13,7 +13,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
     private Inventory inv;
     private ItemDatabase itemDatabase;
     public WeaponController myWeaponController;
-    ShipData shipData;
+    Ship shipData;
 
     public WeaponSlot[] weaponSlotList;
     public WeaponController[] weaponControllerList;
@@ -31,13 +31,13 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
         {
  
 
-            shipData = playerShip.GetComponent<ShipData>();
+            shipData = playerShip.GetComponent<Ship>();
 
             weaponControllerList = playerShip.GetComponentsInChildren<WeaponController>();
 
 
             //WeaponController currentWeaponController = weaponControllerList[id];
-            Weapon weaponData = itemDatabase.FetchWeaponByID(shipData.weaponList[slotId]);
+            WeaponData weaponData = itemDatabase.FetchWeaponByID(shipData.weaponList[slotId]);
 
             if (childName == "")
             {
@@ -64,7 +64,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
         EquipmentData droppedEquipment = eventData.pointerDrag.GetComponent<EquipmentData>();
          if (droppedEquipment.equipment.Type == "Weapon")
          {
-            Weapon weaponData = itemDatabase.FetchWeaponByID(droppedEquipment.equipment.ID);
+            WeaponData weaponData = itemDatabase.FetchWeaponByID(droppedEquipment.equipment.ID);
             //Debug.Log(weaponData.Mount_Size);
             if (weaponData.Mount_Size == weaponSlotSize)
             {

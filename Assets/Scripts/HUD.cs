@@ -11,8 +11,8 @@ public class HUD : MonoBehaviour {
 
     GameObject player;
     Hull hull;
-    ShipGenerator generator;
-    ShieldBehavior shield;
+    Generator generator;
+    Shield shield;
     float shieldDisplayValue;
     float hullDisplayValue;
     float powerDisplayValue;
@@ -21,8 +21,8 @@ public class HUD : MonoBehaviour {
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
         hull = player.GetComponent<Hull>();
-        generator = player.GetComponent<ShipGenerator>();
-        shield = player.GetComponentInChildren<ShieldBehavior>();
+        generator = player.GetComponent<Generator>();
+        shield = player.GetComponentInChildren<Shield>();
 	}
 	
 	// Update is called once per frame

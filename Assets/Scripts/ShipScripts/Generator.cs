@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipGenerator : MonoBehaviour {
+public class Generator : MonoBehaviour {
 
     public float currentPower;
     public float maxPower;

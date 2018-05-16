@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipData : MonoBehaviour {
+public class Ship : MonoBehaviour {
 
     public int hullID;
     public int shield;
@@ -92,8 +92,8 @@ public class ShipData : MonoBehaviour {
     public void UpdateGenerator(int id)
     {
 
-        ShipGenerator generatorScript = this.GetComponent<ShipGenerator>();
-        Generator generatorData = itemDatabase.FetchGeneratorByID(id);
+        Generator generatorScript = this.GetComponent<Generator>();
+        GeneratorData generatorData = itemDatabase.FetchGeneratorByID(id);
         //set up all the things that are controlled by the radarData
         if (generatorScript != null)
         {
@@ -107,7 +107,7 @@ public class ShipData : MonoBehaviour {
     public void UpdateHull(int id)
     {
         Hull hull = this.GetComponent<Hull>();
-        Ship hullData = itemDatabase.FetchShipByID(id);
+        HullData hullData = itemDatabase.FetchShipByID(id);
 
         if (hull != null)
         {
@@ -120,7 +120,7 @@ public class ShipData : MonoBehaviour {
     public void UpdateEngine(int id)
     {
         ShipMovement engineScript = this.GetComponent<ShipMovement>();
-        Engine engineData = itemDatabase.FetchEngineByID(id);
+        EngineData engineData = itemDatabase.FetchEngineByID(id);
 
         if (engineScript != null)
         {
@@ -138,8 +138,8 @@ public class ShipData : MonoBehaviour {
 
     public void UpdateShield(int id)
     {
-        ShieldBehavior shieldScript = this.GetComponentInChildren<ShieldBehavior>();
-        Shield shieldData = itemDatabase.FetchShieldByID(id);
+        Shield shieldScript = this.GetComponentInChildren<Shield>();
+        ShieldData shieldData = itemDatabase.FetchShieldByID(id);
 
         //set up all the things that are controlled by the shieldData
         if (shieldScript != null)
@@ -159,7 +159,7 @@ public class ShipData : MonoBehaviour {
     public void UpdateRCS(int id)
     {
         ShipMovement rcsScript = this.GetComponent<ShipMovement>();
-        RCS rcsData = itemDatabase.FetchRCSByID(id);
+        RCSData rcsData = itemDatabase.FetchRCSByID(id);
 
         if (rcsScript != null)
         {
@@ -187,7 +187,7 @@ public class ShipData : MonoBehaviour {
     public void UpdateWeapon(int id, WeaponController myWeaponController)
     {
 
-        Weapon weaponData = itemDatabase.FetchWeaponByID(id);
+        WeaponData weaponData = itemDatabase.FetchWeaponByID(id);
 
         myWeaponController.shotDamage = weaponData.Damage;
         myWeaponController.fireRate = weaponData.Fire_Rate;

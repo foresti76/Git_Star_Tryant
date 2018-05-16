@@ -10,7 +10,7 @@ public class GeneratorSlot : MonoBehaviour, IDropHandler{
 
     private Inventory inv;
     private ItemDatabase itemDatabase;
-    private ShipData shipData;
+    private Ship shipData;
 
     // Use this for initialization
     void Start()
@@ -18,8 +18,8 @@ public class GeneratorSlot : MonoBehaviour, IDropHandler{
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
         itemDatabase = inv.GetComponent<ItemDatabase>();
-        shipData = playerShip.GetComponent<ShipData>();
-        Generator generatorData = itemDatabase.FetchGeneratorByID(shipData.generator);
+        shipData = playerShip.GetComponent<Ship>();
+        GeneratorData generatorData = itemDatabase.FetchGeneratorByID(shipData.generator);
 
         if (childName == "")
         {
