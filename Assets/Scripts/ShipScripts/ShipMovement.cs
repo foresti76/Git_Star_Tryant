@@ -27,12 +27,13 @@ public class ShipMovement : MonoBehaviour {
 
     private Rigidbody myRigidBody;
     private Generator myGenerator;
-    
+    private float myYPos;
 
     // Use this for initialization
     void Start () {
         myRigidBody = GetComponent<Rigidbody>();
         myGenerator = GetComponent<Generator>();
+        myYPos = transform.position.y;
     }
 
 	
@@ -124,9 +125,19 @@ public class ShipMovement : MonoBehaviour {
             }
 
             myRigidBody.velocity = myRigidBody.velocity.normalized * newSpeed;
+            myRigidBody.angularVelocity = myRigidBody.angularVelocity * newSpeed;
         }
 
         //Debug.Log ("Speed = " + myRigidBody.velocity.magnitude);
 
+    }
+
+    private void LateUpdate()
+    {
+        transform.position = new Vector3(transform.position.x , myYPos, transform.position.z);
+        if (transform.rotation.eulerAngles.x != 0)
+        {
+            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class CameraControl : MonoBehaviour
 {
     public GameObject playerShip;
-
+   
     private Vector3 offset;
 
 
