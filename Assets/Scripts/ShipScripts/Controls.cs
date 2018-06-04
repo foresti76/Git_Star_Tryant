@@ -49,6 +49,8 @@ public class Controls : MonoBehaviour {
             saveData.Load();
         }
 
+        if (Input.GetKey("escape"))
+            Application.Quit();
     }
 
     void ShowInventory()
