@@ -10,17 +10,20 @@ public class Controls : MonoBehaviour {
     //mainly ship movement/shields/inventory/shipcustomization
     public GameObject inventoryPanel;
     public GameObject shipCustomizationPanel;
-
     public bool showInventory;
     public bool showShipCustomization;
+
     GameObject miniMap;
     SaveData saveData;
+    public PlayerControls playerControls;
 
     void Start () {
         //find the objects with those scripts
-        HideShipCustomization();
+
         miniMap = GameObject.Find("Minimap");
-        saveData = GameObject.FindObjectOfType<SaveData>();
+        saveData = FindObjectOfType<SaveData>();
+        playerControls = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
+        HideShipCustomization();
     }
 	
 	// Update is called once per frame
@@ -57,13 +60,14 @@ public class Controls : MonoBehaviour {
     {
         inventoryPanel.SetActive(true);
         showInventory = true;
-
+        Pause();
     }
 
     void HideInventory()
     {
         inventoryPanel.SetActive(false);
         showInventory = false;
+        UnPause();
     }
 
     void ShowShipCustomization()
@@ -71,6 +75,7 @@ public class Controls : MonoBehaviour {
         inventoryPanel.SetActive(true);
         shipCustomizationPanel.SetActive(true);
         showShipCustomization = true;
+        Pause();
     }
 
     void HideShipCustomization()
@@ -78,5 +83,18 @@ public class Controls : MonoBehaviour {
         inventoryPanel.SetActive(false);
         shipCustomizationPanel.SetActive(false);
         showShipCustomization = false;
+        UnPause();
+    }
+
+    private void Pause()
+    {
+        playerControls.uiOpen = true;
+        Time.timeScale = 0;
+    }
+
+    private void UnPause()
+    {
+        playerControls.uiOpen = false;
+        Time.timeScale = 1;
     }
 }

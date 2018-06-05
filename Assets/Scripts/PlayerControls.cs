@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour {
     ShipMovement shipMovement;
     WeaponController[] myWeaponControllers;
     MiningLaser miningLaser;
+    public bool uiOpen = false;
 
 	// Use this for initialization
 	void Start () {
@@ -21,105 +22,108 @@ public class PlayerControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        // movement controls
-        if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+        if (!uiOpen)
         {
-            shipMovement.acclerating = true;
-        }
-        else if (shipMovement.acclerating)
-        {
-            shipMovement.acclerating = false;
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-        {
-            shipMovement.decelerating = true;
-        }
-        else if (shipMovement.decelerating)
-        {
-            shipMovement.decelerating = false;
-        }
-
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        {
-            shipMovement.turningRight = true;
-        }
-        else if (shipMovement.turningRight)
-        {
-            shipMovement.turningRight = false;
-        }
-
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        {
-            shipMovement.turningLeft = true;
-        }
-        else if (shipMovement.turningLeft)
-        {
-            shipMovement.turningLeft = false;
-        }
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            shipMovement.stopping = true;
-        }
-        else if (shipMovement.stopping)
-        {
-            shipMovement.stopping = false;
-        }
-
-        if (Input.GetButton("Fire1"))
-        {
-            foreach (WeaponController weaponController in myWeaponControllers)
+            // movement controls
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
-                weaponController.firing = true;
+                shipMovement.acclerating = true;
             }
-        } else
-        {
-            foreach (WeaponController weaponController in myWeaponControllers)
+            else if (shipMovement.acclerating)
             {
-                weaponController.firing = false;
+                shipMovement.acclerating = false;
             }
-        }
 
-        foreach (WeaponController weaponController in myWeaponControllers)
-        {
-            Vector3 targetPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-            targetPos.x = targetPos.x * Screen.width;
-            targetPos.y = targetPos.y * Screen.height;
-
-            weaponController.targetPos = targetPos;
-        }
-        //todo this should be set to use a generic subsystem type and not hard coded to the mining laser
-        if (Input.GetKey(KeyCode.Keypad1) && miningLaser.firingLaser == false && GetComponentInParent<Rigidbody>().velocity.magnitude == 0)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
-                if (hit.transform.CompareTag("Asteroid"))
+                shipMovement.decelerating = true;
+            }
+            else if (shipMovement.decelerating)
+            {
+                shipMovement.decelerating = false;
+            }
+
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                shipMovement.turningRight = true;
+            }
+            else if (shipMovement.turningRight)
+            {
+                shipMovement.turningRight = false;
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                shipMovement.turningLeft = true;
+            }
+            else if (shipMovement.turningLeft)
+            {
+                shipMovement.turningLeft = false;
+            }
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                shipMovement.stopping = true;
+            }
+            else if (shipMovement.stopping)
+            {
+                shipMovement.stopping = false;
+            }
+
+            //firing
+            if (Input.GetButton("Fire1"))
+            {
+                foreach (WeaponController weaponController in myWeaponControllers)
                 {
-                    GameObject target = hit.transform.gameObject;
-                    miningLaser.ActivateLaser(target);
+                    weaponController.firing = true;
+                }
+            } else
+            {
+                foreach (WeaponController weaponController in myWeaponControllers)
+                {
+                    weaponController.firing = false;
                 }
             }
-        }
-        //Todo Lock onto a target
-        if (Input.GetKey(KeyCode.R))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            foreach (WeaponController weaponController in myWeaponControllers)
             {
-                if (hit.transform.CompareTag(""))
+                Vector3 targetPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                targetPos.x = targetPos.x * Screen.width;
+                targetPos.y = targetPos.y * Screen.height;
+
+                weaponController.targetPos = targetPos;
+            }
+            //todo this should be set to use a generic subsystem type and not hard coded to the mining laser
+            if (Input.GetKey(KeyCode.Keypad1) && miningLaser.firingLaser == false && GetComponentInParent<Rigidbody>().velocity.magnitude == 0)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
                 {
-                    GameObject target = hit.transform.gameObject;
-                    //Radar.SetTarget(target);
+                    if (hit.transform.CompareTag("Asteroid"))
+                    {
+                        GameObject target = hit.transform.gameObject;
+                        miningLaser.ActivateLaser(target);
+                    }
                 }
             }
+            //Todo Lock onto a target
+            if (Input.GetKey(KeyCode.R))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform.CompareTag(""))
+                    {
+                        GameObject target = hit.transform.gameObject;
+                        //Radar.SetTarget(target);
+                    }
+                }
+            }
+
         }
-
-
     }
 }
