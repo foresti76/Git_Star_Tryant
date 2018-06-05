@@ -34,11 +34,11 @@ public class Inventory : MonoBehaviour {
         AddEquipment(3);
         AddEquipment(1);
         AddEquipment(60);
-        AddEquipment(1);
+        AddEquipment(90);
         AddEquipment(26);
         AddEquipment(29);
         AddEquipment(40);
-        AddEquipment(41); 
+        AddEquipment(90); 
            
     }
     public void AddEquipment(int id)

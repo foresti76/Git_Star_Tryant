@@ -1432,7 +1432,7 @@
 		"turret_rotation_limit": 30,
 		"damage": 3,
 		"projectiles_per_shot": 1,
-		"laser_length": 3,
+		"laser_length": 10,
 		"ammo_capacity": 100,
 		"fire_rate": 2,
 		"energy_cost": 1,
