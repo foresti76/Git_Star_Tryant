@@ -10,19 +10,24 @@ public class Mover : MonoBehaviour {
     public GameObject shooter;
     public Rigidbody parentRidgidbody;
 
-	// Use this for initialization
-	void Start () {
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
+    private Rigidbody rigidbody;
 
-        //note this is uses the player ship for everything!!!
+	// Use this for initialization
+	void Awake ()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+	}
+
+    void Start()
+    {
         rigidbody.velocity = parentRidgidbody.velocity;
         rigidbody.velocity += transform.up * speed;
         timeOutTime = Time.time + timeOutTime;
-	}
-	
+    }
+
     void Update()
     {
-        if(Time.time >= timeOutTime)
+        if (Time.time >= timeOutTime)
         {
             Destroy(this.gameObject);
         }
