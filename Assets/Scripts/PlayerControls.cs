@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour {
     ShipMovement shipMovement;
     WeaponController[] myWeaponControllers;
     MiningLaser miningLaser;
+    Radar myRadar;
     public bool uiOpen = false;
 
 	// Use this for initialization
@@ -16,7 +17,7 @@ public class PlayerControls : MonoBehaviour {
         // todo set up fire groups
         myWeaponControllers = playerShip.GetComponentsInChildren<WeaponController>();
         miningLaser = GetComponent<MiningLaser>();
-
+        myRadar = GetComponent<Radar>();
     }
 	
 	// Update is called once per frame
@@ -101,10 +102,9 @@ public class PlayerControls : MonoBehaviour {
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (hit.transform.CompareTag("Asteroid"))
+                    if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
                     {
-                        GameObject target = hit.transform.gameObject;
-                        miningLaser.ActivateLaser(target);
+                        myRadar.target= hit.transform.gameObject;
                     }
                 }
             }
@@ -114,12 +114,14 @@ public class PlayerControls : MonoBehaviour {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity,0))
                 {
-                    if (hit.transform.CompareTag(""))
+                    Debug.DrawRay(Input.mousePosition, Vector3.forward, Color.red, 5.0f);
+                    if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
                     {
-                        GameObject target = hit.transform.gameObject;
-                        //Radar.SetTarget(target);
+                        myRadar.target = hit.transform.gameObject;
+                        myRadar.RadarLock();
+                        Debug.Log("I hit something: " + hit.transform.gameObject.name);
                     }
                 }
             }

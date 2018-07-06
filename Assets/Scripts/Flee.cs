@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Flee : NPCBaseFSM {
-    bool hasStartedFleeing = false;
     float fleeStartTime;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -11,7 +10,7 @@ public class Flee : NPCBaseFSM {
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         target = Ai.target;
-        float fleeStartTime = Time.time;
+        fleeStartTime = Time.time;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -208,21 +208,63 @@ public class Ship : MonoBehaviour {
     {
 
         WeaponData weaponData = itemDatabase.FetchWeaponByID(id);
+        if(weaponData.Weapon_Type == "projectile")
+        {
+            ProjectileData projectileData = itemDatabase.FetchProjectileByID(id);
 
-        myWeaponController.shotDamage = weaponData.Damage;
-        myWeaponController.fireRate = weaponData.Fire_Rate;
-        myWeaponController.weaponType = weaponData.Weapon_Type;
-        myWeaponController.turretRotationRate = weaponData.Turret_Rotation_Rate;
-        myWeaponController.turretRotationLimit = weaponData.Turret_Rotation_Limit;
-        myWeaponController.energyCost = weaponData.Energy_Cost;
-        myWeaponController.laserLength = weaponData.Laser_Length;
+            myWeaponController.shotDamage = projectileData.Damage;
+            myWeaponController.fireRate = projectileData.Fire_Rate;
+            myWeaponController.weaponType = projectileData.Weapon_Type;
+            myWeaponController.turretRotationRate = projectileData.Turret_Rotation_Rate;
+            myWeaponController.turretRotationLimit = projectileData.Turret_Rotation_Limit;
+            myWeaponController.energyCost = projectileData.Energy_Cost;
+            // todo myWeaponController.projectilesPerShot = projectileData.Projectiles_per_Shot;
+        }
+        else if (weaponData.Weapon_Type == "laser")
+        {
+            LaserData laserData = itemDatabase.FetchLaserByID(id);
+
+            myWeaponController.shotDamage = laserData.Damage;
+            myWeaponController.fireRate = laserData.Fire_Rate;
+            myWeaponController.weaponType = laserData.Weapon_Type;
+            myWeaponController.turretRotationRate = laserData.Turret_Rotation_Rate;
+            myWeaponController.turretRotationLimit = laserData.Turret_Rotation_Limit;
+            myWeaponController.energyCost = laserData.Energy_Cost;
+            myWeaponController.laserLength = laserData.Laser_Length;
+        }
+        else if (weaponData.Weapon_Type == "missile")
+        {
+            MissileData missileData = itemDatabase.FetchMissileByID(id);
+
+            myWeaponController.shotDamage = missileData.Damage;
+            myWeaponController.fireRate = missileData.Fire_Rate;
+            myWeaponController.weaponType = missileData.Weapon_Type;
+            myWeaponController.turretRotationRate = missileData.Turret_Rotation_Rate;
+            myWeaponController.turretRotationLimit = missileData.Turret_Rotation_Limit;
+            myWeaponController.energyCost = missileData.Energy_Cost;
+            myWeaponController.speed = missileData.Speed;
+            myWeaponController.seek_rate = missileData.Seek_Rate;
+        }
+        /*else if (weaponData.Weapon_Type == "Mine")
+        {
+            MineData mineData = itemDatabase.FetchMineByID(id);
+
+            myWeaponController.shotDamage = mineData.Damage;
+            myWeaponController.fireRate = mineData.Fire_Rate;
+            myWeaponController.weaponType = mineData.Weapon_Type;
+            myWeaponController.turretRotationRate = mineData.Turret_Rotation_Rate;
+            myWeaponController.turretRotationLimit = mineData.Turret_Rotation_Limit;
+            myWeaponController.energyCost = mineData.Energy_Cost;
+        }
+        */
+
         myWeaponController.SetFiringType();
         //Todo Hook these up once strucutre is in place.
-        
-       
-    //myWeaponController.ammoCapacity = weaponData.Ammo_Capacity;
-    //myWeaponController.signature = weaponData.Singature;
-}
+
+
+        //myWeaponController.ammoCapacity = weaponData.Ammo_Capacity;
+        //myWeaponController.signature = weaponData.Singature;
+    }
 
     public void UpdateSubsystem(int id)
     {

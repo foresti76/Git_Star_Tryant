@@ -15,6 +15,10 @@ public class ItemDatabase : MonoBehaviour {
     public List<TractorBeamData> tractorbeamDatabase = new List<TractorBeamData>();
     public List<RadarData> radarDatabase = new List<RadarData>();
     public List<WeaponData> weaponDatabase = new List<WeaponData>();
+    public List<ProjectileData> projectileDatabase = new List<ProjectileData>();
+    public List<LaserData> laserDatabase = new List<LaserData>();
+    public List<MissileData> missileDatabase = new List<MissileData>();
+    //public List<MineData> mineDatabase = new List<MineData>();
     public List<SubsystemData> subsystemDatabase = new List<SubsystemData>();
 
     private JsonData equipmentData;
@@ -33,6 +37,10 @@ public class ItemDatabase : MonoBehaviour {
         ConstructTractorBeamDatabase();
         ConstructRadarDatabase();
         ConstructWeaponDatabase();
+        ConstructLaserDatabase();
+        ConstructProjectileDatabase();
+        ConstructMissileDatabase();
+        //ConstructMineDatabase();
         ConstructSubsystemDatabase();
         //todo  subsystems, comsumable
         // Debug.Log(engineDatabase.Count);
@@ -225,19 +233,127 @@ public class ItemDatabase : MonoBehaviour {
                                                                            (int)equipmentData[i]["cost"], 
                                                                            equipmentData[i]["mount_size"].ToString(), 
                                                                            equipmentData[i]["weapon_type"].ToString(),
-                                                                           (int)equipmentData[i]["turret_rotation_rate"],
-                                                                           (int)equipmentData[i]["turret_rotation_limit"],
-                                                                           (int)equipmentData[i]["damage"], 
-                                                                           (int)equipmentData[i]["projectiles_per_shot"],
-                                                                           (int)equipmentData[i]["laser_length"],
-                                                                           (int)equipmentData[i]["ammo_capacity"], 
-                                                                           (int)equipmentData[i]["fire_rate"], 
-                                                                           (int)equipmentData[i]["energy_cost"], 
-                                                                           (int)equipmentData[i]["signature"], 
+                                                                           (int)equipmentData[i]["damage"],
+                                                                           (int)equipmentData[i]["energy_cost"],
                                                                            equipmentData[i]["slug"].ToString()));
             }
         }
     }
+
+    void ConstructProjectileDatabase()
+    {
+        for (int i = 0; i < equipmentData.Count; i++)
+        {
+            if (equipmentData[i]["type"].ToString() == "Weapon")
+            {
+                if (equipmentData[i]["weapon_type"].ToString() == "projectile")
+                {
+                    projectileDatabase.Add(new ProjectileData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
+                                                                               equipmentData[i]["title"].ToString(),
+                                                                               equipmentData[i]["description"].ToString(),
+                                                                               (int)equipmentData[i]["cost"],
+                                                                               equipmentData[i]["mount_size"].ToString(),
+                                                                               equipmentData[i]["weapon_type"].ToString(),
+                                                                               (int)equipmentData[i]["turret_rotation_rate"],
+                                                                               (int)equipmentData[i]["turret_rotation_limit"],
+                                                                               (int)equipmentData[i]["damage"],
+                                                                               (int)equipmentData[i]["projectiles_per_shot"],
+                                                                               (int)equipmentData[i]["ammo_capacity"],
+                                                                               (int)equipmentData[i]["fire_rate"],
+                                                                               (int)equipmentData[i]["energy_cost"],
+                                                                               (int)equipmentData[i]["signature"],
+                                                                               equipmentData[i]["slug"].ToString()));
+                }
+            }
+        }
+    }
+
+    void ConstructLaserDatabase()
+    {
+        for (int i = 0; i < equipmentData.Count; i++)
+        {
+            if (equipmentData[i]["type"].ToString() == "Weapon")
+            {
+                if (equipmentData[i]["weapon_type"].ToString() == "laser")
+                {
+                    laserDatabase.Add(new LaserData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
+                                                                               equipmentData[i]["title"].ToString(),
+                                                                               equipmentData[i]["description"].ToString(),
+                                                                               (int)equipmentData[i]["cost"],
+                                                                               equipmentData[i]["mount_size"].ToString(),
+                                                                               equipmentData[i]["weapon_type"].ToString(),
+                                                                               (int)equipmentData[i]["turret_rotation_rate"],
+                                                                               (int)equipmentData[i]["turret_rotation_limit"],
+                                                                               (int)equipmentData[i]["damage"],
+                                                                               (int)equipmentData[i]["laser_length"],
+                                                                               (int)equipmentData[i]["fire_rate"],
+                                                                               (int)equipmentData[i]["energy_cost"],
+                                                                               (int)equipmentData[i]["signature"],
+                                                                               equipmentData[i]["slug"].ToString()));
+                }
+            }
+        }
+    }
+
+    void ConstructMissileDatabase()
+    {
+        for (int i = 0; i < equipmentData.Count; i++)
+        {
+            if (equipmentData[i]["type"].ToString() == "Weapon")
+            {
+                if (equipmentData[i]["weapon_type"].ToString() == "missile")
+                {
+                    missileDatabase.Add(new MissileData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
+                                                                               equipmentData[i]["title"].ToString(),
+                                                                               equipmentData[i]["description"].ToString(),
+                                                                               (int)equipmentData[i]["cost"],
+                                                                               equipmentData[i]["mount_size"].ToString(),
+                                                                               equipmentData[i]["weapon_type"].ToString(),
+                                                                               (int)equipmentData[i]["turret_rotation_rate"],
+                                                                               (int)equipmentData[i]["turret_rotation_limit"],
+                                                                               (int)equipmentData[i]["damage"],
+                                                                               (int)equipmentData[i]["ammo_capacity"],
+                                                                               (int)equipmentData[i]["fire_rate"],
+                                                                               (float)(double)equipmentData[i]["speed"],
+                                                                               (float)(double)equipmentData[i]["seek_rate"],
+                                                                               (int)equipmentData[i]["energy_cost"],
+                                                                               (int)equipmentData[i]["signature"],
+                                                                               equipmentData[i]["slug"].ToString()));
+                }
+            }
+        }
+    }
+
+    /*
+    void ConstructMineDatabase()
+    {
+        for (int i = 0; i < equipmentData.Count; i++)
+        {
+            if (equipmentData[i]["type"].ToString() == "Weapon")
+            {
+                if (equipmentData[i]["type"].ToString() == "mine")
+                {
+                    weaponDatabase.Add(new MineData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
+                                                                               equipmentData[i]["title"].ToString(),
+                                                                               equipmentData[i]["description"].ToString(),
+                                                                               (int)equipmentData[i]["cost"],
+                                                                               equipmentData[i]["mount_size"].ToString(),
+                                                                               equipmentData[i]["weapon_type"].ToString(),
+                                                                               (int)equipmentData[i]["turret_rotation_rate"],
+                                                                               (int)equipmentData[i]["turret_rotation_limit"],
+                                                                               (int)equipmentData[i]["damage"],
+                                                                               (int)equipmentData[i]["projectiles_per_shot"],
+                                                                               (int)equipmentData[i]["laser_length"],
+                                                                               (int)equipmentData[i]["ammo_capacity"],
+                                                                               (int)equipmentData[i]["fire_rate"],
+                                                                               (int)equipmentData[i]["energy_cost"],
+                                                                               (int)equipmentData[i]["signature"],
+                                                                               equipmentData[i]["slug"].ToString()));
+                }
+            }
+        }
+    }
+    */
 
     void ConstructSubsystemDatabase()
     {
@@ -376,6 +492,56 @@ public class ItemDatabase : MonoBehaviour {
         }
         return null;
     }
+
+    public ProjectileData FetchProjectileByID(int id)
+    {
+        for (int i = 0; i < projectileDatabase.Count; i++)
+        {
+            if (projectileDatabase[i].ID == id)
+            {
+                return projectileDatabase[i];
+            }
+        }
+        return null;
+    }
+
+    public LaserData FetchLaserByID(int id)
+    {
+        for (int i = 0; i < laserDatabase.Count; i++)
+        {
+            if (laserDatabase[i].ID == id)
+            {
+                return laserDatabase[i];
+            }
+        }
+        return null;
+    }
+
+    public MissileData FetchMissileByID(int id)
+    {
+        for (int i = 0; i < missileDatabase.Count; i++)
+        {
+            if (missileDatabase[i].ID == id)
+            {
+                return missileDatabase[i];
+            }
+        }
+        return null;
+    }
+
+    /*
+    public MineData FetchMineByID(int id)
+    {
+        for (int i = 0; i < mineDatabase.Count; i++)
+        {
+            if (mineDatabase[i].ID == id)
+            {
+                return mineDatabase[i];
+            }
+        }
+        return null;
+    }
+    */
 
     public SubsystemData FetchSubsytemByID(int id)
     {
@@ -730,23 +896,55 @@ public class WeaponData
     public string Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
+    public int Ammo_Capacity { get; set; }
+    public int Energy_Cost { get; set; }
+    public string Slug { get; set; }
+
+    public WeaponData(int id, string type, string title, string description, int cost, string mount_size,
+                                                                                    string weapon_type,
+                                                                                    int damage,
+                                                                                    int energy_cost,
+                                                                                    string slug)
+    {
+        this.ID = id;
+        this.Type = type;
+        this.Title = title;
+        this.Cost = cost;
+        this.Description = description;
+        this.Mount_Size = mount_size;
+        this.Weapon_Type = weapon_type;
+        this.Damage = damage;
+        this.Energy_Cost = energy_cost;
+        this.Slug = slug;
+        //todo add in reference to 3d model from slug see equipment sprite reference
+    }
+}
+
+public class ProjectileData
+{
+    public int ID { get; set; }
+    public string Type { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public int Cost { get; set; }
+    public string Mount_Size { get; set; }
+    public string Weapon_Type { get; set; }
+    public int Damage { get; set; }
     public int Turret_Rotation_Rate { get; set; }
     public int Turret_Rotation_Limit { get; set; }
     public int Projectiles_per_Shot { get; set; }
-    public int Laser_Length { get; set; }
     public int Ammo_Capacity { get; set; }
     public int Fire_Rate { get; set; }
     public int Energy_Cost { get; set; }
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public WeaponData(int id, string type, string title, string description, int cost, string mount_size,
+    public ProjectileData(int id, string type, string title, string description, int cost, string mount_size,
                                                                                     string weapon_type,
                                                                                     int turret_rotation_rate,
                                                                                     int turret_rotation_limit,
                                                                                     int damage,
                                                                                     int projectiles_per_shot,
-                                                                                    int laser_length,
                                                                                     int ammo_capacity,
                                                                                     int fire_rate,
                                                                                     int energy_cost,
@@ -764,7 +962,6 @@ public class WeaponData
         this.Turret_Rotation_Limit = turret_rotation_limit;
         this.Damage = damage;
         this.Projectiles_per_Shot = projectiles_per_shot;
-        this.Laser_Length = laser_length;
         this.Ammo_Capacity = ammo_capacity;
         this.Fire_Rate = fire_rate;
         this.Energy_Cost = energy_cost;
@@ -774,6 +971,160 @@ public class WeaponData
     }
 }
 
+public class LaserData
+{
+    //todo add linerendere dynamically so you can change the color/shape in data.
+    public int ID { get; set; }
+    public string Type { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public int Cost { get; set; }
+    public string Mount_Size { get; set; }
+    public string Weapon_Type { get; set; }
+    public int Damage { get; set; }
+    public int Turret_Rotation_Rate { get; set; }
+    public int Turret_Rotation_Limit { get; set; }
+    public int Laser_Length { get; set; }
+    public int Fire_Rate { get; set; }
+    public int Energy_Cost { get; set; }
+    public int Signature { get; set; }
+    public string Slug { get; set; }
+
+    public LaserData(int id, string type, string title, string description, int cost, string mount_size,
+                                                                                    string weapon_type,
+                                                                                    int turret_rotation_rate,
+                                                                                    int turret_rotation_limit,
+                                                                                    int damage,
+                                                                                    int laser_length,
+                                                                                    int fire_rate,
+                                                                                    int energy_cost,
+                                                                                    int signature,
+                                                                                    string slug)
+    {
+        this.ID = id;
+        this.Type = type;
+        this.Title = title;
+        this.Cost = cost;
+        this.Description = description;
+        this.Mount_Size = mount_size;
+        this.Weapon_Type = weapon_type;
+        this.Turret_Rotation_Rate = turret_rotation_rate;
+        this.Turret_Rotation_Limit = turret_rotation_limit;
+        this.Damage = damage;
+        this.Laser_Length = laser_length;
+        this.Fire_Rate = fire_rate;
+        this.Energy_Cost = energy_cost;
+        this.Signature = signature;
+        this.Slug = slug;
+        //todo add in reference to 3d model from slug see equipment sprite reference
+    }
+}
+public class MissileData
+{
+    public int ID { get; set; }
+    public string Type { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public int Cost { get; set; }
+    public string Mount_Size { get; set; }
+    public string Weapon_Type { get; set; }
+    public int Damage { get; set; }
+    public int Turret_Rotation_Rate { get; set; }
+    public int Turret_Rotation_Limit { get; set; }
+    public int Ammo_Capacity { get; set; }
+    public int Fire_Rate { get; set; }
+    public float Speed { get; set; }
+    public float Seek_Rate { get; set; }
+    public int Energy_Cost { get; set; }
+    public int Signature { get; set; }
+    public string Slug { get; set; }
+
+    public MissileData(int id, string type, string title, string description, int cost, string mount_size,
+                                                                                    string weapon_type,
+                                                                                    int turret_rotation_rate,
+                                                                                    int turret_rotation_limit,
+                                                                                    int damage,
+                                                                                    int ammo_capacity,
+                                                                                    int fire_rate,
+                                                                                    float speed,
+                                                                                    float seek_rate,
+                                                                                    int energy_cost,
+                                                                                    int signature,
+                                                                                    string slug)
+    {
+        this.ID = id;
+        this.Type = type;
+        this.Title = title;
+        this.Cost = cost;
+        this.Description = description;
+        this.Mount_Size = mount_size;
+        this.Weapon_Type = weapon_type;
+        this.Turret_Rotation_Rate = turret_rotation_rate;
+        this.Turret_Rotation_Limit = turret_rotation_limit;
+        this.Damage = damage;
+        this.Ammo_Capacity = ammo_capacity;
+        this.Fire_Rate = fire_rate;
+        this.Speed = speed;
+        this.Seek_Rate = seek_rate;
+        this.Energy_Cost = energy_cost;
+        this.Signature = signature;
+        this.Slug = slug;
+        //todo add in reference to 3d model from slug see equipment sprite reference
+    }
+}
+public class MineData
+{
+    public int ID { get; set; }
+    public string Type { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public int Cost { get; set; }
+    public string Mount_Size { get; set; }
+    public string Weapon_Type { get; set; }
+    public int Damage { get; set; }
+    public int Turret_Rotation_Rate { get; set; }
+    public int Turret_Rotation_Limit { get; set; }
+    public int Projectiles_per_Shot { get; set; }
+    public int Ammo_Capacity { get; set; }
+    public int Fire_Rate { get; set; }
+    public string Mine_Type { get; set; }
+    public int Energy_Cost { get; set; }
+    public int Signature { get; set; }
+    public string Slug { get; set; }
+
+    public MineData(int id, string type, string title, string description, int cost, string mount_size,
+                                                                                    string weapon_type,
+                                                                                    int turret_rotation_rate,
+                                                                                    int turret_rotation_limit,
+                                                                                    int damage,
+                                                                                    int projectiles_per_shot,
+                                                                                    int ammo_capacity,
+                                                                                    int fire_rate,
+                                                                                    string mine_type,
+                                                                                    int energy_cost,
+                                                                                    int signature,
+                                                                                    string slug)
+    {
+        this.ID = id;
+        this.Type = type;
+        this.Title = title;
+        this.Cost = cost;
+        this.Description = description;
+        this.Mount_Size = mount_size;
+        this.Weapon_Type = weapon_type;
+        this.Turret_Rotation_Rate = turret_rotation_rate;
+        this.Turret_Rotation_Limit = turret_rotation_limit;
+        this.Damage = damage;
+        this.Projectiles_per_Shot = projectiles_per_shot;
+        this.Ammo_Capacity = ammo_capacity;
+        this.Fire_Rate = fire_rate;
+        this.Mine_Type = mine_type;
+        this.Energy_Cost = energy_cost;
+        this.Signature = signature;
+        this.Slug = slug;
+        //todo add in reference to 3d model from slug see equipment sprite reference
+    }
+}
 public class SubsystemData
 {
     public int ID { get; set; }

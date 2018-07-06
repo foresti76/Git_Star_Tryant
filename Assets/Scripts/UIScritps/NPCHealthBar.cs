@@ -9,7 +9,6 @@ public class NPCHealthBar : MonoBehaviour {
     private Image image;
     private Hull myHull;
     private Shield myShield;
-    private bool hasShield = true;
     private float maxShield;
     private float maxHull;
     private Transform parent;

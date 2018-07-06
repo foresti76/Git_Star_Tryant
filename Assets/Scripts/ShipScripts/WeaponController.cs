@@ -5,10 +5,11 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     
-    public GameObject shot;
-    public int shotDamage;
-    public LineRenderer lr;
+    public GameObject projectilePrefab;
+    public GameObject missilePrefab;
+    public LineRenderer laserLineRendere;
     public Transform shotSpawn;
+    public int shotDamage;
     public float fireRate;
     public float energyCost;
     public int slotID;
@@ -19,6 +20,8 @@ public class WeaponController : MonoBehaviour
     public float fireAngle;
     public string weaponType;
     public int laserLength;
+    public float speed;
+    public float seek_rate;
 
     delegate void FiringMode();
     FiringMode firingMode;
@@ -26,12 +29,14 @@ public class WeaponController : MonoBehaviour
     private Generator myShipGenerator;
     LineRenderer currentLaser;
     LayerMask myLayerMask;
+    private Radar myRadar;
 
     // Use this for initialization
     void Start()
     {
         myShipGenerator = this.GetComponentInParent<Generator>();
         myLayerMask = gameObject.layer;
+        myRadar = GetComponentInParent<Radar>();
     }
 
     // Update is called once per frame
@@ -51,10 +56,12 @@ public class WeaponController : MonoBehaviour
         if(weaponType == "projectile")
         {
             firingMode = FireProjectile;
-        } else if (weaponType == "laser")
+        }
+        else if (weaponType == "laser")
         {
             firingMode = FireLaser;
-        } else if(weaponType == "missile")
+        }
+        else if(weaponType == "missile")
         {
             firingMode = FireMissile;
         }
@@ -93,8 +100,8 @@ public class WeaponController : MonoBehaviour
     public void FireProjectile()
     {
         nextFire = Time.time + fireRate;
-        Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-        Mover shotScript = shot.GetComponent<Mover>();
+        Instantiate(projectilePrefab, shotSpawn.position, shotSpawn.rotation);
+        Mover shotScript = projectilePrefab.GetComponent<Mover>();
         shotScript.parentRidgidbody = GetComponentInParent<Rigidbody>(); 
         if(shotScript.parentRidgidbody == null)
         {
@@ -108,7 +115,7 @@ public class WeaponController : MonoBehaviour
     {
         nextFire = Time.time + fireRate;
         //RaycastHit hit;
-        currentLaser = Instantiate(lr, shotSpawn.transform.position, shotSpawn.rotation, shotSpawn.transform);
+        currentLaser = Instantiate(laserLineRendere, shotSpawn.transform.position, shotSpawn.rotation, shotSpawn.transform);
         Laser laserScript = currentLaser.GetComponent<Laser>();
         laserScript.damage = shotDamage;
         laserScript.fireRate = fireRate;
@@ -121,11 +128,18 @@ public class WeaponController : MonoBehaviour
     //not yet implemented
     public void FireMissile()
     {
-        //    nextFire = Time.time + fireRate;
-        //    Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-        //    Mover shotScript = shot.GetComponent<Mover>();
-        //    shotScript.parentRidgidbody = GetComponentInParent<Rigidbody>();
-        //    shotScript.firer = this.transform.parent.gameObject;
-        //    shotScript.damage = shotDamage;
+        nextFire = Time.time + fireRate;
+        Instantiate(missilePrefab, shotSpawn.position, shotSpawn.rotation);
+        Missile missileScript = missilePrefab.GetComponent<Missile>();
+        //missileScript.parentRidgidbody = GetComponentInParent<Rigidbody>();
+        missileScript.shooter = this.transform.parent.gameObject;
+        missileScript.damage = shotDamage;
+        missileScript.speed = speed;
+
+        if (myRadar.targetLock)
+        {
+            missileScript.seekRate = seek_rate;
+            missileScript.target = myRadar.target;
+        }
     }
 }
