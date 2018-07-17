@@ -1611,6 +1611,7 @@
 		"turret_rotation_rate": 50,
 		"turret_rotation_limit": 30,
 		"damage": 30,
+		"ammo_capacity": 10,
 		"fire_rate": 2,
 		"speed": 100.1,
 		"seek_rate": 30.1,
