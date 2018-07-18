@@ -18,14 +18,17 @@ public class Radar : MonoBehaviour {
     public bool targetLock = false;
 
     float timeToRadarLock;
-    private Text targetName;
+    public Text targetDisplayText;
+    public string targetString;
+    private Ship myShip;
 
     Camera minimapCamera;
 	// Use this for initialization
 	void Start () {
         minimapCamera = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
         radarTrigger = transform.Find("RadarTrigger").GetComponent<SphereCollider>();
-        targetName = GameObject.Find("PlayerTargetText").GetComponent<Text>();
+        targetDisplayText = GameObject.Find("PlayerTargetText").GetComponent<Text>();
+        myShip = GetComponent<Ship>();
 	}
 	
     public void UpdateMinimap()
@@ -36,24 +39,32 @@ public class Radar : MonoBehaviour {
 
     private void LateUpdate()
     {
-        if (!target)
+        if (target == null)
         {
             targetLock = false;
-            targetName.text = "None";
+            if(myShip.PlayerShip == true)
+            {
+                targetDisplayText.text = "None";
+            }
+
             return;
         }
 
         if (timeToRadarLock <= Time.time && targetLock == false)
         {
             targetLock = true;
-            targetName.text = target.gameObject.name;
-            Debug.Log("Target locked");
+            Debug.Log(target.gameObject.name + " locked");
         }
     }
     // commence radar lock
     public void RadarLock()
     {
         targetLock = false;
+        if (myShip.PlayerShip == true)
+        {
+            targetString = target.ToString();
+            targetDisplayText.text = targetString;
+        }
         if (target.GetComponent<ECM>())
         { 
             timeToRadarLock = Time.time + target.GetComponent<ECM>().lockDefense;
@@ -61,7 +72,6 @@ public class Radar : MonoBehaviour {
         else
         {
             targetLock = true;
-            targetName.text = target.gameObject.name;
         }
     }
 }

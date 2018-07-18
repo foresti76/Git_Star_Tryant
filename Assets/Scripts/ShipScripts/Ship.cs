@@ -56,6 +56,7 @@ public class Ship : MonoBehaviour {
         UpdateECM(ecm);
         UpdateRadar(radar);
         UpdateTractorBeam(tractorbeam);
+        UpdateWeaponList();
 
         int i = 0;
         foreach (WeaponController weaponController in weaponControllerList)

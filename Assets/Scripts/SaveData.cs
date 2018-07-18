@@ -15,6 +15,7 @@ public class SaveData : MonoBehaviour
     {
         filePath = Path.Combine (Application.dataPath, "playerSave.txt");
         playerShip = GameObject.FindGameObjectWithTag("Player");
+        //Save();
     }
 
     public void Save()

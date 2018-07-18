@@ -109,14 +109,15 @@ public class PlayerControls : MonoBehaviour {
                 }
             }
             //Todo Lock onto a target
-            if (Input.GetKey(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity,0))
+                Debug.Log("Trying to lock on to something.");
+                if (Physics.Raycast(ray, out hit, 100))
                 {
-                    Debug.DrawRay(Input.mousePosition, Vector3.forward, Color.red, 5.0f);
+                    Debug.DrawLine(ray.origin, hit.point);
+                    Debug.Log("I cast a ray");
                     if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
                     {
                         myRadar.target = hit.transform.gameObject;
