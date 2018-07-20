@@ -42,7 +42,7 @@ public class Radar : MonoBehaviour {
         if (target == null)
         {
             targetLock = false;
-            if(myShip.PlayerShip == true)
+            if(myShip.playerShip == true)
             {
                 targetDisplayText.text = "None";
             }
@@ -60,7 +60,7 @@ public class Radar : MonoBehaviour {
     public void RadarLock()
     {
         targetLock = false;
-        if (myShip.PlayerShip == true)
+        if (myShip.playerShip == true)
         {
             targetString = target.ToString();
             targetDisplayText.text = targetString;

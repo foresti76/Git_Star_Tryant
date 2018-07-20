@@ -95,28 +95,32 @@ public class PlayerControls : MonoBehaviour {
                 weaponController.targetPos = targetPos;
             }
             //todo this should be set to use a generic subsystem type and not hard coded to the mining laser
-            if (Input.GetKey(KeyCode.Keypad1) && miningLaser.firingLaser == false && GetComponentInParent<Rigidbody>().velocity.magnitude == 0)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
-                    {
-                        myRadar.target= hit.transform.gameObject;
-                    }
-                }
-            }
+            //if (Input.GetKey(KeyCode.Keypad1) && miningLaser.firingLaser == false && GetComponentInParent<Rigidbody>().velocity.magnitude == 0)
+            //{
+            //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //    RaycastHit hit;
+            //    int layerMask = 1 << 16;
+            //    //Debug.DrawRay(ray.origin, ray.direction, Color.red, 3.0f);
+            //    if (Physics.Raycast(ray, out hit, 50.0f, layerMask))
+            //    {
+            //        if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
+            //        {
+            //            myRadar.target= hit.transform.gameObject;
+            //        }
+            //    }
+            //}
             //Todo Lock onto a target
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 Debug.Log("Trying to lock on to something.");
-                if (Physics.Raycast(ray, out hit, 100))
+                int layerMask = 1 << 16;
+                Debug.DrawRay(ray.origin, ray.direction*100, Color.red, 3.0f);
+
+                if (Physics.Raycast(ray, out hit, float.MaxValue, LayerMask.NameToLayer("AI Shot")))
                 {
-                    Debug.DrawLine(ray.origin, hit.point);
+
                     Debug.Log("I cast a ray");
                     if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
                     {
