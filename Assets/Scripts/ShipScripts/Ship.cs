@@ -15,7 +15,7 @@ public class Ship : MonoBehaviour {
     public List<int> weaponList;
     public List<int> subsystemList;
 
-    public bool PlayerShip;
+    public bool playerShip;
     //todo remove these as they are replaced with direct data
     RCSSlot rcsSlot;
     RadarSlot radarSlot;
@@ -33,14 +33,16 @@ public class Ship : MonoBehaviour {
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         itemDatabase = inv.GetComponent<ItemDatabase>();
-        weaponsLayout = GameObject.Find("WeaponsLayout");
-        if(PlayerShip == true)
+
+        weaponControllerList = this.GetComponentsInChildren<WeaponController>();
+        if (playerShip == true)
         {
+            weaponsLayout = GameObject.Find("WeaponsLayout");
             SaveData saveData = GameObject.Find("SaveLoad").GetComponent<SaveData>();
             saveData.Load();
         }
 
-        weaponControllerList = this.GetComponentsInChildren<WeaponController>();
+
         BuildShip();
     }
 
@@ -61,10 +63,10 @@ public class Ship : MonoBehaviour {
         int i = 0;
         foreach (WeaponController weaponController in weaponControllerList)
         {
-             UpdateWeapon(weaponList[i], weaponController);
-             i++;
+                UpdateWeapon(weaponList[i], weaponController);
+                i++;
         }
-
+ 
         /* todo remove this once I have implemented subsystems
         if (subsystemList.Count > 0)
         {
@@ -80,9 +82,11 @@ public class Ship : MonoBehaviour {
 
     public void UpdateWeaponList()
     {
-        WeaponSlot[] weaponSlots = weaponsLayout.GetComponentsInChildren<WeaponSlot>();
-
-        weaponList.Clear();
+        if (playerShip == false)
+            return;
+        
+            WeaponSlot[] weaponSlots = weaponsLayout.GetComponentsInChildren<WeaponSlot>();
+            weaponList.Clear();
 
         foreach (WeaponSlot weaponSlot in weaponSlots)
         {
