@@ -114,19 +114,21 @@ public class PlayerControls : MonoBehaviour {
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                Debug.Log("Trying to lock on to something.");
-                int layerMask = 1 << 16;
-                Debug.DrawRay(ray.origin, ray.direction*100, Color.red, 3.0f);
 
-                if (Physics.Raycast(ray, out hit, float.MaxValue, LayerMask.NameToLayer("AI Shot")))
+                int layer1  = 10; //AI ships/shot layer
+                int layer2 = 13; // Level layer
+                int layerMask1 = 1 << layer1;
+                int layerMask2 = 1  << layer2;
+                int finalMask = layerMask1 | layerMask2; // Or, (1 << layer1) | (1 << layer2)
+
+                if (Physics.Raycast(ray, out hit, 100.0f, finalMask))
                 {
 
-                    Debug.Log("I cast a ray");
+
                     if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
                     {
                         myRadar.target = hit.transform.gameObject;
                         myRadar.RadarLock();
-                        Debug.Log("I hit something: " + hit.transform.gameObject.name);
                     }
                 }
             }
