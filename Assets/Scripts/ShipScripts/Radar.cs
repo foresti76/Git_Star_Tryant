@@ -30,7 +30,14 @@ public class Radar : MonoBehaviour {
         targetDisplayText = GameObject.Find("PlayerTargetText").GetComponent<Text>();
         myShip = GetComponent<Ship>();
 	}
-	
+    private void OnGUI()
+    {
+        if (target)
+        {
+            targetDisplayText.text = target.name;
+        }
+
+    }
     public void UpdateMinimap()
     {
         minimapCamera.orthographicSize = range;

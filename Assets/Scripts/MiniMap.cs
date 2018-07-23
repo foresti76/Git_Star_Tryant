@@ -25,8 +25,6 @@ public class MiniMap : MonoBehaviour, IPointerClickHandler {
         var pos1 = eventData.position;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rect1, pos1, null, out localCursor);
 
-        Debug.Log("Local Cursor position: " + localCursor);
-
         int xpos = (int)(localCursor.x);
         int ypos = (int)(localCursor.y);
 
@@ -36,27 +34,22 @@ public class MiniMap : MonoBehaviour, IPointerClickHandler {
         if (ypos > 0) ypos = ypos + (int)rect1.rect.height / 2;
         else ypos += (int)rect1.rect.height / 2;
 
-        Debug.Log("Corrected Cursor Pos: " + xpos + " " + ypos);
-
         float xpos2 = xpos / (int)rect1.rect.width;
         float ypos2 = ypos / (int)rect1.rect.height;
 
-        Debug.Log("Pixel width : " + portalCamera.pixelWidth +", " +portalCamera.pixelHeight);
         Vector3 screenPoint = new Vector3(xpos, ypos, 0.0f);
 
         Ray portalRay = portalCamera.ScreenPointToRay(screenPoint);
         RaycastHit portalHit;
+
+        int finalMask = 1 << 12; // This is the layermask for the minimap.
         // test these camera coordinates in another raycast test
 
-        Debug.DrawRay(screenPoint, portalCamera.transform.forward * 100, Color.red, 10);
+        Debug.DrawRay(portalRay.origin, portalRay.direction * 100, Color.red, 10);
 
-        if (Physics.Raycast(portalRay, out portalHit, Mathf.Infinity, 12))
+        if (Physics.Raycast(portalRay, out portalHit, Mathf.Infinity, finalMask))
         {
-            Debug.Log("Hit something:" + portalHit.collider.gameObject);
-        }
-        else
-        {
-            Debug.Log("Hit nothing in the portal");
+            Debug.Log("Hit something:" + portalHit.collider.transform.parent); //Todo select the parent of the object that I hit.
         }
     }
 }

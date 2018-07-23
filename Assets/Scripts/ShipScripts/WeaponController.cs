@@ -28,14 +28,14 @@ public class WeaponController : MonoBehaviour
     private float nextFire;
     private Generator myShipGenerator;
     LineRenderer currentLaser;
-    LayerMask myLayerMask;
+    //LayerMask myLayerMask;  I might want this back if I am dynamically setting the layermask.
     private Radar myRadar;
 
     // Use this for initialization
     void Start()
     {
         myShipGenerator = this.GetComponentInParent<Generator>();
-        myLayerMask = gameObject.layer;
+        //myLayerMask = gameObject.layer;
         myRadar = GetComponentInParent<Radar>();
     }
 
