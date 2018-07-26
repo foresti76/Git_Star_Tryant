@@ -32,11 +32,10 @@ public class Radar : MonoBehaviour {
 	}
     private void OnGUI()
     {
-        if (target)
+        if (target && targetLock)
         {
             targetDisplayText.text = target.name;
         }
-
     }
     public void UpdateMinimap()
     {
@@ -60,7 +59,6 @@ public class Radar : MonoBehaviour {
         if (timeToRadarLock <= Time.time && targetLock == false)
         {
             targetLock = true;
-            Debug.Log(target.gameObject.name + " locked");
         }
     }
     // commence radar lock

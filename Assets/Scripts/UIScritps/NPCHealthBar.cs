@@ -25,23 +25,27 @@ public class NPCHealthBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!myShip)
+        if (myShip == null)
+        {
             Destroy(parent.gameObject);
-
-        parent.position = myShip.transform.position + new Vector3(0, 0, 2);
-
-        if (!myShield.shieldDown)
-        {
-            image.color = Color.blue;
-            image.fillAmount = myShield.currentShield / maxShield;
-        }
-
-        if (myShield.shieldDown)
-        {
-            image.color = Color.red;
-            image.fillAmount = myHull.curHull / maxHull;
         }
 
 
+        if (myShip)
+        {
+            parent.position = myShip.transform.position + new Vector3(0, 0, 2);
+
+            if (!myShield.shieldDown)
+            {
+                image.color = Color.blue;
+                image.fillAmount = myShield.currentShield / maxShield;
+            }
+
+            if (myShield.shieldDown)
+            {
+                image.color = Color.red;
+                image.fillAmount = myHull.curHull / maxHull;
+            }
+        }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControls : MonoBehaviour {
     GameObject playerShip;
@@ -9,6 +10,11 @@ public class PlayerControls : MonoBehaviour {
     MiningLaser miningLaser;
     Radar myRadar;
     public bool uiOpen = false;
+    public bool combatModeActive = false;
+    GameObject selectedObject;
+    Text selectionText;
+    public GameObject selectionPrefab;
+
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +24,9 @@ public class PlayerControls : MonoBehaviour {
         myWeaponControllers = playerShip.GetComponentsInChildren<WeaponController>();
         miningLaser = GetComponent<MiningLaser>();
         myRadar = GetComponent<Radar>();
+        selectionText = GameObject.Find("PlayerSelectionText").GetComponent<Text>();
+        selectionPrefab = GameObject.Find("SelectionCanvas");
+        selectionPrefab.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -72,7 +81,7 @@ public class PlayerControls : MonoBehaviour {
             }
 
             //firing
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButton("Fire1") && combatModeActive == true)
             {
                 foreach (WeaponController weaponController in myWeaponControllers)
                 {
@@ -94,6 +103,30 @@ public class PlayerControls : MonoBehaviour {
 
                 weaponController.targetPos = targetPos;
             }
+
+            if (Input.GetButton("Fire1") && combatModeActive == false)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                int layer1 = 10; //AI ships/shot layer
+                int layer2 = 13; // Level layer
+                int layerMask1 = 1 << layer1;
+                int layerMask2 = 1 << layer2;
+                int finalMask = layerMask1 | layerMask2; // Or, (1 << layer1) | (1 << layer2)
+
+                if (Physics.Raycast(ray, out hit, 100.0f, finalMask))
+                {
+                    if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
+                    {
+                        selectedObject = hit.transform.gameObject;
+                        selectionText.text = selectedObject.name;
+                        selectionPrefab.GetComponent<SelectionMover>().parent = selectedObject.transform;
+                        selectionPrefab.SetActive(true);
+                    }
+                }
+
+            }
             //todo this should be set to use a generic subsystem type and not hard coded to the mining laser
             //if (Input.GetKey(KeyCode.Keypad1) && miningLaser.firingLaser == false && GetComponentInParent<Rigidbody>().velocity.magnitude == 0)
             //{
@@ -109,9 +142,26 @@ public class PlayerControls : MonoBehaviour {
             //        }
             //    }
             //}
-            //Todo Lock onto a target
-            if (Input.GetKeyDown(KeyCode.R))
+
+
+                if (Input.GetKeyDown(KeyCode.C))
             {
+                if(combatModeActive == false)
+                {
+                    initateCombatMode();
+                }
+                else
+                {
+                    deactivateCombatMode();
+                }
+            }
+                //Todo Lock onto a target
+                if (Input.GetKeyDown(KeyCode.R))
+            {
+                if(combatModeActive == false)
+                {
+                    initateCombatMode();
+                }
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
@@ -132,7 +182,17 @@ public class PlayerControls : MonoBehaviour {
                     }
                 }
             }
-
         }
+    }
+    void initateCombatMode()
+    {
+        combatModeActive = true;
+        // todo make the turrets come out and change the UI to combat configuration
+    }
+
+    void deactivateCombatMode()
+    {
+        combatModeActive = false;
+        // todo make the turrets go away and change the UI to non-combat configuration
     }
 }
