@@ -5,6 +5,8 @@ using UnityEngine;
 public class SelectionMover : MonoBehaviour {
 
     public Transform parent;
+    public Texture selectedTexture;
+    public Texture targetedTexture;
 
     // Use this for initialization
 	
@@ -13,6 +15,8 @@ public class SelectionMover : MonoBehaviour {
         if (parent)
         {
             transform.position = parent.position;
+            Vector3 parentBounds = parent.GetComponent<Renderer>().bounds.size;
+            // todo scale the selection box to the appropriate size dynamically  this.transform.localScale = new Vector3(parentBounds.x, parentBounds.z, 1);
         }
         else
         {
