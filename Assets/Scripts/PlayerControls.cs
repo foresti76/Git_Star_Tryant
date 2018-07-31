@@ -4,20 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerControls : MonoBehaviour {
+
+    public bool uiOpen = false;
+    public bool combatModeActive = false;
+    public GameObject selectedObject;
+    public GameObject selectionPrefab;
+    public GameObject miniMapSelectionObject;
+
+    Text selectionText;
     GameObject playerShip;
     ShipMovement shipMovement;
     WeaponController[] myWeaponControllers;
     MiningLaser miningLaser;
     Radar myRadar;
-    public bool uiOpen = false;
-    public bool combatModeActive = false;
-    GameObject selectedObject;
-    Text selectionText;
-    public GameObject selectionPrefab;
 
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         playerShip = GameObject.FindGameObjectWithTag("Player");
         shipMovement = playerShip.GetComponent<ShipMovement>();
         // todo set up fire groups
@@ -26,11 +28,14 @@ public class PlayerControls : MonoBehaviour {
         myRadar = GetComponent<Radar>();
         selectionText = GameObject.Find("PlayerSelectionText").GetComponent<Text>();
         selectionPrefab = GameObject.Find("SelectionCanvas");
+        miniMapSelectionObject = GameObject.Find("MiniMapSelectionCanvas");
         selectionPrefab.SetActive(false);
+
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 
         if (!uiOpen)
         {
@@ -119,10 +124,7 @@ public class PlayerControls : MonoBehaviour {
                 {
                     if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
                     {
-                        selectedObject = hit.transform.gameObject;
-                        selectionText.text = selectedObject.name;
-                        selectionPrefab.GetComponent<SelectionMover>().parent = selectedObject.transform;
-                        selectionPrefab.SetActive(true);
+                        SetSelection(hit.transform.gameObject);
                     }
                 }
 
@@ -194,5 +196,15 @@ public class PlayerControls : MonoBehaviour {
     {
         combatModeActive = false;
         // todo make the turrets go away and change the UI to non-combat configuration
+    }
+
+    public void SetSelection(GameObject selection)
+    {
+        selectedObject = selection;
+        selectionText.text = selection.name;
+        selectionPrefab.GetComponent<SelectionMover>().parent = selection.transform;
+        selectionPrefab.SetActive(true);
+        miniMapSelectionObject.GetComponent<SelectionMover>().parent = selection.gameObject.transform.Find("MiniMapIcon").transform;
+        miniMapSelectionObject.SetActive(true);
     }
 }
