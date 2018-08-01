@@ -26,22 +26,21 @@ public class Ship : MonoBehaviour {
     Inventory inv;
     ItemDatabase itemDatabase;
 
-    WeaponController[] weaponControllerList;
-
+    WeaponController[] weaponControllerArray;
+    WeaponSlot[] weaponSlotArray;
 
     private void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         itemDatabase = inv.GetComponent<ItemDatabase>();
 
-        weaponControllerList = this.GetComponentsInChildren<WeaponController>();
+        weaponControllerArray = this.GetComponentsInChildren<WeaponController>();
         if (playerShip == true)
         {
             weaponsLayout = GameObject.Find("WeaponsLayout");
             SaveData saveData = GameObject.Find("SaveLoad").GetComponent<SaveData>();
             saveData.Load();
         }
-
 
         BuildShip();
     }
@@ -58,20 +57,22 @@ public class Ship : MonoBehaviour {
         UpdateECM(ecm);
         UpdateRadar(radar);
         UpdateTractorBeam(tractorbeam);
-        UpdateWeaponList();
+        UpdateWeaponContollers();
+        if (playerShip)
+        { 
+            UpdateWeaponSlotList();
+        }
 
-        int i = 0;
-        foreach (WeaponController weaponController in weaponControllerList)
+        for (int i = 0; i < weaponControllerArray.Length; i++)
         {
-                UpdateWeapon(weaponList[i], weaponController);
-                i++;
+            UpdateWeapon(weaponList[i], weaponControllerArray[i]);
         }
  
         /* todo remove this once I have implemented subsystems
         if (subsystemList.Count > 0)
         {
-            int j = 0;
-            foreach (SubSystem subSystem in subsystemList)
+
+            for (int j = 0; j < subsystemList.Lenght - 1; j++)
             {
                 UpdateSubsystem(subsystemList[j]);
                 j++;
@@ -80,15 +81,11 @@ public class Ship : MonoBehaviour {
         */
     }
 
-    public void UpdateWeaponList()
+    public void UpdateWeaponSlotList()
     {
-        if (playerShip == false)
-            return;
-        
-            WeaponSlot[] weaponSlots = weaponsLayout.GetComponentsInChildren<WeaponSlot>();
-            weaponList.Clear();
+        weaponSlotArray = weaponsLayout.GetComponentsInChildren<WeaponSlot>();
 
-        foreach (WeaponSlot weaponSlot in weaponSlots)
+        foreach (WeaponSlot weaponSlot in weaponSlotArray)
         {
             weaponList.Add(weaponSlot.GetComponentInChildren<EquipmentData>().equipment.ID);
         }
@@ -207,6 +204,11 @@ public class Ship : MonoBehaviour {
     public void UpdateTractorBeam(int id)
     {
 
+    }
+
+    public void UpdateWeaponContollers()
+    {
+        weaponControllerArray = this.GetComponentsInChildren<WeaponController>();
     }
 
     public void UpdateWeapon(int id, WeaponController myWeaponController)
