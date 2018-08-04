@@ -8,18 +8,13 @@ public class MiniMap : MonoBehaviour, IPointerClickHandler {
     public Camera portalCamera;
 
     private PlayerControls playerControls;
+
     // Use this for initialization
     void Start () {
         myRadar = GameObject.FindGameObjectWithTag("Player").GetComponent<Radar>();
         portalCamera = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
         playerControls = FindObjectOfType<PlayerControls>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
-    }
-
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -46,14 +41,10 @@ public class MiniMap : MonoBehaviour, IPointerClickHandler {
         RaycastHit portalHit;
 
         int finalMask = 1 << 12; // This is the layermask for the minimap.
-        // test these camera coordinates in another raycast test
-
-        Debug.DrawRay(portalRay.origin, portalRay.direction * 100, Color.red, 10);
 
         if (Physics.Raycast(portalRay, out portalHit, Mathf.Infinity, finalMask))
         {
             playerControls.SetSelection(portalHit.transform.gameObject.transform.parent.gameObject);
-            Debug.Log("Hit something:" + portalHit.collider.transform.parent); //Todo select the parent of the object that I hit.
         }
     }
 }

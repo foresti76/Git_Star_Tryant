@@ -813,7 +813,7 @@
 		"cost": 0,
 		"stackable": false,
 		"lock_defense": 10,
-		"detection_defense": 5,
+		"detection_defense": 20,
 		"energy_cost": 1,
 		"faction": "any",
 		"slug": "ecm_03"
