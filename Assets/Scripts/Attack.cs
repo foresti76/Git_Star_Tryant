@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack : NPCBaseFSM {
 
-    Rigidbody targetRigidbody; 
+    //Rigidbody targetRigidbody; 
     WeaponController[] myWeaponControllers;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -12,7 +12,7 @@ public class Attack : NPCBaseFSM {
     {
         base.OnStateEnter(animator, stateinfo, LayerIndex);
         target = NPC.GetComponent<AIBehavior>().target;
-        targetRigidbody = target.GetComponent<Rigidbody>();  // Maybe do something with this to help the AI work better.
+        //targetRigidbody = target.GetComponent<Rigidbody>();  // Maybe do something with this to help the AI work better.
         myWeaponControllers = NPC.GetComponentsInChildren<WeaponController>();
 
     }

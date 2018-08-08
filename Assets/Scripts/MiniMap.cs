@@ -32,9 +32,6 @@ public class MiniMap : MonoBehaviour, IPointerClickHandler {
         if (ypos > 0) ypos = ypos + (int)rect1.rect.height / 2;
         else ypos += (int)rect1.rect.height / 2;
 
-        float xpos2 = xpos / (int)rect1.rect.width;
-        float ypos2 = ypos / (int)rect1.rect.height;
-
         Vector3 screenPoint = new Vector3(xpos, ypos, 0.0f);
 
         Ray portalRay = portalCamera.ScreenPointToRay(screenPoint);

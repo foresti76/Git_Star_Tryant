@@ -10,18 +10,17 @@ public class Mover : MonoBehaviour {
     public GameObject shooter;
     public Rigidbody parentRidgidbody;
 
-    private Rigidbody rigidbody;
 
 	// Use this for initialization
 	void Awake ()
     {
-        rigidbody = GetComponent<Rigidbody>();
+
 	}
 
     void Start()
     {
-        rigidbody.velocity = parentRidgidbody.velocity;
-        rigidbody.velocity += transform.up * speed;
+        GetComponent<Rigidbody>().velocity = parentRidgidbody.velocity;
+        GetComponent<Rigidbody>().velocity += transform.up * speed;
         timeOutTime = Time.time + timeOutTime;
     }
 

@@ -20,11 +20,11 @@ public class RadarDetection : MonoBehaviour {
         Radar otherRadar = other.GetComponent<Radar>();
         if (otherECM && Vector3.Distance(transform.position, other.transform.position) <= myRadar.range - otherECM.detectionDefense && other.tag != "Level")
         {
-            Debug.Log(other.gameObject.name + " is detected on entry.");
             myRadar.detections.Add(other.gameObject);
             if (myShip.playerShip == true)
             {
                 otherRadar.miniMapIcon.SetActive(true);
+                //otherRadar.miniMapIcon.transform.localScale = new Vector3(); //Todo Set this to use the minimap size as a scaler;
             }
 
         }    
@@ -47,12 +47,10 @@ public class RadarDetection : MonoBehaviour {
 
         if (myRadar.detections.Contains(other.gameObject) && otherECM && Vector3.Distance(transform.position, other.transform.position) <= myRadar.range - otherECM.detectionDefense && other.tag != "Level")
         {
-            Debug.Log(other.gameObject.name + " is currently detected and in the list.");
             return;
         }
         else if (myRadar.detections.Contains(other.transform.gameObject) && otherECM && Vector3.Distance(transform.position, other.transform.position) > myRadar.range - otherECM.detectionDefense)
         {
-            Debug.Log(other.gameObject.name + " is currently detected and has moved out of range for detection.");
             myRadar.detections.Remove(other.gameObject);
             if (myShip.playerShip == true)
             {
@@ -62,11 +60,11 @@ public class RadarDetection : MonoBehaviour {
 
         if (otherECM && Vector3.Distance(transform.position, other.transform.position) <= myRadar.range - otherECM.detectionDefense && other.tag != "Level")
         {
-            Debug.Log(other.gameObject.name + " is now detected for the first time.");
             myRadar.detections.Add(other.gameObject);
             if (myShip.playerShip == true)
             {
                 otherRadar.miniMapIcon.SetActive(true);
+                //otherRadar.miniMapIcon.transform.localScale = new Vector3(); // Todo Set this to use the minimap size as a scaler;
             }
         }
 

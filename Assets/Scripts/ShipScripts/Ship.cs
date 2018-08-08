@@ -197,7 +197,10 @@ public class Ship : MonoBehaviour {
             radarScript.targetingSpeed = radarData.Targeting_Speed;
             radarScript.energyCost = radarData.Energy_Cost;
             radarScript.signature = radarData.Signature;
-            radarScript.UpdateMinimap();
+            if (playerShip)
+            { 
+                radarScript.UpdateMinimap();
+            }
         }
     }
 

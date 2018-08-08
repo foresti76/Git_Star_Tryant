@@ -18,6 +18,7 @@ public class Radar : MonoBehaviour {
     public bool targetLock = false;
     public Text targetDisplayText;
     public string targetString;
+    public int miniMapSizeScaler = 10;
 
     float timeToRadarLock;
     private Ship myShip;
@@ -44,12 +45,17 @@ public class Radar : MonoBehaviour {
     }
     public void UpdateMinimap()
     {
-        minimapCamera.orthographicSize = range;
+        minimapCamera.orthographicSize = range + miniMapSizeScaler;
         radarTrigger.radius = range;
     }
 
     private void LateUpdate()
     {
+        //if (myShip.playerShip)
+        //{
+        //    UpdateMinimap();  //this is debug only.
+        //}
+
         if (target == null)
         {
             targetLock = false;

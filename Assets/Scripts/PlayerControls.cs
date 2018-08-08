@@ -15,7 +15,7 @@ public class PlayerControls : MonoBehaviour {
     GameObject playerShip;
     ShipMovement shipMovement;
     WeaponController[] myWeaponControllers;
-    MiningLaser miningLaser;
+    //MiningLaser miningLaser;
     Radar myRadar;
     SelectionMover selectionObjectMover;
     SelectionMover miniMapSelectionObjectMover;
@@ -26,7 +26,7 @@ public class PlayerControls : MonoBehaviour {
         shipMovement = playerShip.GetComponent<ShipMovement>();
         // todo set up fire groups
         myWeaponControllers = playerShip.GetComponentsInChildren<WeaponController>();
-        miningLaser = GetComponent<MiningLaser>();
+        //miningLaser = GetComponent<MiningLaser>();
         myRadar = GetComponent<Radar>();
         selectionText = GameObject.Find("PlayerSelectionText").GetComponent<Text>();
         selectionObject = GameObject.Find("SelectionCanvas");
