@@ -44,7 +44,15 @@ public class MiniMap : MonoBehaviour, IPointerClickHandler {
 
         if (Physics.Raycast(portalRay, out portalHit, Mathf.Infinity, finalMask))
         {
-            playerControls.SetSelection(portalHit.transform.gameObject.transform.parent.gameObject);
+            if (playerControls.combatModeActive)
+            {
+                playerControls.SetCombatTargetSelection(portalHit.transform.gameObject);
+            }
+            else
+            {
+                playerControls.SetSelection(portalHit.transform.gameObject);
+            }
+
         }
     }
 }

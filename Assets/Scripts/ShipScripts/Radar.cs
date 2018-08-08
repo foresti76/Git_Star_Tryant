@@ -16,11 +16,14 @@ public class Radar : MonoBehaviour {
     public List<GameObject> detections;
     public GameObject target;
     public bool targetLock = false;
-
-    float timeToRadarLock;
     public Text targetDisplayText;
     public string targetString;
+
+    float timeToRadarLock;
     private Ship myShip;
+    Transform miniMapSelectionBox;
+    Transform mapSelectionBox;
+    int angle = 0;
 
     Camera minimapCamera;
 	// Use this for initialization
@@ -29,7 +32,9 @@ public class Radar : MonoBehaviour {
         radarTrigger = transform.Find("RadarTrigger").GetComponent<SphereCollider>();
         targetDisplayText = GameObject.Find("PlayerTargetText").GetComponent<Text>();
         myShip = GetComponent<Ship>();
-	}
+        miniMapSelectionBox = GameObject.Find("MiniMapSelectionBox").transform;
+        mapSelectionBox = GameObject.Find("SelectionBox").transform;
+    }
     private void OnGUI()
     {
         if (target && targetLock)
@@ -52,13 +57,22 @@ public class Radar : MonoBehaviour {
             {
                 targetDisplayText.text = "None";
             }
-
             return;
+        }
+
+        if(target && targetLock == false && myShip.playerShip)
+        {
+            angle += 10;
+            miniMapSelectionBox.localRotation = Quaternion.Euler(0, 0, angle);
+            mapSelectionBox.localRotation = Quaternion.Euler(0, 0, angle);
         }
 
         if (timeToRadarLock <= Time.time && targetLock == false)
         {
             targetLock = true;
+            angle = 0;
+            miniMapSelectionBox.localRotation = Quaternion.Euler(0, 0, angle);
+            mapSelectionBox.localRotation = Quaternion.Euler(0, 0, angle);
         }
     }
     // commence radar lock

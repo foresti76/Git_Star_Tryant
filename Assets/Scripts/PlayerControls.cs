@@ -8,7 +8,7 @@ public class PlayerControls : MonoBehaviour {
     public bool uiOpen = false;
     public bool combatModeActive = false;
     public GameObject selectedObject;
-    public GameObject selectionPrefab;
+    public GameObject selectionObject;
     public GameObject miniMapSelectionObject;
 
     Text selectionText;
@@ -17,6 +17,8 @@ public class PlayerControls : MonoBehaviour {
     WeaponController[] myWeaponControllers;
     MiningLaser miningLaser;
     Radar myRadar;
+    SelectionMover selectionObjectMover;
+    SelectionMover miniMapSelectionObjectMover;
 
     // Use this for initialization
     void Start () {
@@ -27,11 +29,10 @@ public class PlayerControls : MonoBehaviour {
         miningLaser = GetComponent<MiningLaser>();
         myRadar = GetComponent<Radar>();
         selectionText = GameObject.Find("PlayerSelectionText").GetComponent<Text>();
-        selectionPrefab = GameObject.Find("SelectionCanvas");
+        selectionObject = GameObject.Find("SelectionCanvas");
         miniMapSelectionObject = GameObject.Find("MiniMapSelectionCanvas");
-        selectionPrefab.SetActive(false);
-
-
+        selectionObjectMover = selectionObject.GetComponent<SelectionMover>();
+        miniMapSelectionObjectMover = miniMapSelectionObject.GetComponent<SelectionMover>();
     }
 
     // Update is called once per frame
@@ -181,6 +182,7 @@ public class PlayerControls : MonoBehaviour {
                     {
                         myRadar.target = hit.transform.gameObject;
                         myRadar.RadarLock();
+                        SetCombatTargetSelection(hit.transform.gameObject);
                     }
                 }
             }
@@ -202,9 +204,23 @@ public class PlayerControls : MonoBehaviour {
     {
         selectedObject = selection;
         selectionText.text = selection.name;
-        selectionPrefab.GetComponent<SelectionMover>().parent = selection.transform;
-        selectionPrefab.SetActive(true);
-        miniMapSelectionObject.GetComponent<SelectionMover>().parent = selection.gameObject.transform.Find("MiniMapIcon").transform;
+        selectionObjectMover.parent = selection.transform;
+        selectionObjectMover.NonCombatTargeting();
+        selectionObject.SetActive(true);
+        miniMapSelectionObjectMover.parent = selection.gameObject.transform.Find("MiniMapIcon").transform;
+        selectionObjectMover.NonCombatTargeting();
+        miniMapSelectionObject.SetActive(true);
+    }
+
+    public void SetCombatTargetSelection(GameObject target)
+    {
+        selectedObject = target;
+        selectionText.text = target.name;
+        selectionObjectMover.parent = target.transform;
+        selectionObjectMover.CombatTargeting();
+        selectionObject.SetActive(true);
+        miniMapSelectionObjectMover.parent = target.gameObject.transform.Find("MiniMapIcon").transform;
+        miniMapSelectionObjectMover.CombatTargeting();
         miniMapSelectionObject.SetActive(true);
     }
 }
