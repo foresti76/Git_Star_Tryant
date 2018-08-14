@@ -176,12 +176,8 @@ public class PlayerControls : MonoBehaviour {
 
                 if (Physics.Raycast(ray, out hit, 100.0f, finalMask))
                 {
-
-
                     if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip"))
                     {
-                        myRadar.target = hit.transform.gameObject;
-                        myRadar.RadarLock();
                         SetCombatTargetSelection(hit.transform.gameObject);
                     }
                 }
@@ -204,6 +200,8 @@ public class PlayerControls : MonoBehaviour {
     void deactivateCombatMode()
     {
         combatModeActive = false;
+        selectionObjectMover.NonCombatTargeting();
+        miniMapSelectionObjectMover.NonCombatTargeting();
         Debug.Log("Combat Mode Deactivated");
         // todo make the turrets go away and change the UI to non-combat configuration
     }
@@ -216,12 +214,14 @@ public class PlayerControls : MonoBehaviour {
         selectionObjectMover.NonCombatTargeting();
         selectionObject.SetActive(true);
         miniMapSelectionObjectMover.parent = selection.gameObject.transform.Find("MiniMapIcon").transform;
-        selectionObjectMover.NonCombatTargeting();
+        miniMapSelectionObjectMover.NonCombatTargeting();
         miniMapSelectionObject.SetActive(true);
     }
 
     public void SetCombatTargetSelection(GameObject target)
     {
+        myRadar.target = target;
+        myRadar.RadarLock();
         selectedObject = target;
         selectionText.text = target.name;
         selectionObjectMover.parent = target.transform;

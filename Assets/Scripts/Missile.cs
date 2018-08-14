@@ -25,7 +25,6 @@ public class Missile : MonoBehaviour {
             var targetRot = Quaternion.LookRotation(target.transform.position - transform.position);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, seekRate * Time.deltaTime);
         }
-        Debug.Log("Missile " + this.name + "speed " + myRigidbody.velocity);
 
         if (Time.time >= lifeTime)
         {
