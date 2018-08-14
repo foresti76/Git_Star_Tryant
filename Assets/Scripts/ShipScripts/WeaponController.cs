@@ -22,6 +22,8 @@ public class WeaponController : MonoBehaviour
     public int laserLength;
     public float speed;
     public float seek_rate;
+    public float lifeTime = 25.0f;
+
 
     delegate void FiringMode();
     FiringMode firingMode;
@@ -129,17 +131,22 @@ public class WeaponController : MonoBehaviour
     public void FireMissile()
     {
         nextFire = Time.time + fireRate;
-        Instantiate(missilePrefab, shotSpawn.position, shotSpawn.rotation);
+        Instantiate(missilePrefab, shotSpawn.position, Quaternion.Euler(0,shotSpawn.eulerAngles.y,0));
         Missile missileScript = missilePrefab.GetComponent<Missile>();
         //missileScript.parentRidgidbody = GetComponentInParent<Rigidbody>();
         missileScript.shooter = this.transform.parent.gameObject;
         missileScript.damage = shotDamage;
         missileScript.speed = speed;
+        missileScript.lifeTime = lifeTime;
 
-        if (myRadar.targetLock)
+        if (myRadar.targetLock && myRadar.target)
         {
             missileScript.seekRate = seek_rate;
             missileScript.target = myRadar.target;
+        }
+        else
+        {
+            missileScript.target = null;
         }
     }
 }

@@ -185,18 +185,26 @@ public class PlayerControls : MonoBehaviour {
                         SetCombatTargetSelection(hit.transform.gameObject);
                     }
                 }
+
+            }
+            
+            if (!myRadar.detections.Contains(selectedObject))
+            {
+                RemoveSelection();
             }
         }
     }
     void initateCombatMode()
     {
         combatModeActive = true;
+        Debug.Log("Combat Mode Active");
         // todo make the turrets come out and change the UI to combat configuration
     }
 
     void deactivateCombatMode()
     {
         combatModeActive = false;
+        Debug.Log("Combat Mode Deactivated");
         // todo make the turrets go away and change the UI to non-combat configuration
     }
 
@@ -222,5 +230,14 @@ public class PlayerControls : MonoBehaviour {
         miniMapSelectionObjectMover.parent = target.gameObject.transform.Find("MiniMapIcon").transform;
         miniMapSelectionObjectMover.CombatTargeting();
         miniMapSelectionObject.SetActive(true);
+    }
+
+    public void RemoveSelection()
+    {
+        selectionObjectMover.parent = null;
+        miniMapSelectionObjectMover.parent = null;
+        selectedObject = null;
+        myRadar.target = null;
+        selectionText.text = "None";
     }
 }

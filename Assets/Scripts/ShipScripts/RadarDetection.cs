@@ -11,7 +11,7 @@ public class RadarDetection : MonoBehaviour {
 	void Start () {
         myRadar = transform.GetComponentInParent<Radar>();
         myShip = transform.GetComponentInParent<Ship>();
-	}
+    }
 
 
     void OnTriggerEnter(Collider other)

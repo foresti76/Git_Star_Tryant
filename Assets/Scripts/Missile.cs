@@ -8,21 +8,29 @@ public class Missile : MonoBehaviour {
     public float speed;
     public float seekRate;
     public GameObject shooter;
+    public float lifeTime;
 
     private Rigidbody myRigidbody;
 	// Use this for initialization
 	void Start () {
         myRigidbody = GetComponent<Rigidbody>();
-	}
+        lifeTime = Time.time + lifeTime;
+        myRigidbody.velocity = shooter.GetComponent<Rigidbody>().velocity;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (target)
+        if (target != null)
         {
             var targetRot = Quaternion.LookRotation(target.transform.position - transform.position);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, seekRate * Time.deltaTime);
         }
-        myRigidbody.velocity = Vector3.forward * speed;
+        myRigidbody.velocity += transform.up * speed;
+        Debug.Log("Missile" + this.name + "speed" + myRigidbody.velocity);
+        if (Time.time >= lifeTime)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision other)

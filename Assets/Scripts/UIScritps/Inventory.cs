@@ -33,8 +33,8 @@ public class Inventory : MonoBehaviour {
         AddEquipment(42);
         AddEquipment(3);
         AddEquipment(1);
-        AddEquipment(60);
-        AddEquipment(90);
+        AddEquipment(100);
+        AddEquipment(100);
         AddEquipment(26);
         AddEquipment(29);
         AddEquipment(40);
