@@ -9,6 +9,8 @@ public class Missile : MonoBehaviour {
     public float seekRate;
     public GameObject shooter;
     public float lifeTime;
+    public ParticleSystem engineCore;
+    public ParticleSystem engineFlare;
 
     private Rigidbody myRigidbody;
 	// Use this for initialization
@@ -30,6 +32,10 @@ public class Missile : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+        var coreMain = engineCore.main;
+        var flareMain = engineFlare.main;
+        coreMain.startRotationZ = transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
+        flareMain.startRotationZ = transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
     }
 
     void LateUpdate()
