@@ -25,14 +25,18 @@ public class Missile : MonoBehaviour {
             var targetRot = Quaternion.LookRotation(target.transform.position - transform.position);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, seekRate * Time.deltaTime);
         }
-        myRigidbody.velocity += transform.up * speed;
-        Debug.Log("Missile" + this.name + "speed" + myRigidbody.velocity);
+        Debug.Log("Missile " + this.name + "speed " + myRigidbody.velocity);
+
         if (Time.time >= lifeTime)
         {
             Destroy(gameObject);
         }
     }
 
+    void LateUpdate()
+    {
+        myRigidbody.velocity += transform.forward * speed;
+    }
     private void OnCollisionEnter(Collision other)
     {
         //Debug.Log("Hitting " + other.name);
