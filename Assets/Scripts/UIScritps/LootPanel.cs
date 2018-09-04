@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Loot : MonoBehaviour
+public class LootPanel : MonoBehaviour
 {
 
     public GameObject lootPanel;

@@ -9,12 +9,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler {
     public int id;
 
     private Inventory inv;
-    private Loot loot;
+    private LootPanel loot;
 
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        loot = GameObject.Find("Loot").GetComponent<Loot>();
+        loot = GameObject.Find("Loot").GetComponent<LootPanel>();
     }
 
     public void OnDrop(PointerEventData eventData)

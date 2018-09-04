@@ -14,7 +14,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     private Transform originalParent;
     private Vector2 offset;
     private Inventory inv;
-    private Loot loot;
+    private LootPanel loot;
     private ToolTip toolTip;
     GameObject hullSlot;
     GameObject engineSlot;
@@ -30,7 +30,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        loot = GameObject.Find("Loot").GetComponent<Loot>();
+        loot = GameObject.Find("Loot").GetComponent<LootPanel>();
         toolTip = inv.GetComponent<ToolTip>();
         hullSlot = GameObject.Find("Hull Slot");
         engineSlot = GameObject.Find("Engine Slot");

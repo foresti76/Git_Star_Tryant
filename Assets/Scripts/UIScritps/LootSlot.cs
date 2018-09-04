@@ -7,11 +7,11 @@ using UnityEngine.EventSystems;
 public class LootSlot : MonoBehaviour, IDropHandler {
     public int id;
 
-    private Loot loot;
+    private LootPanel loot;
 
     void Start()
     {
-        loot = GameObject.Find("Loot").GetComponent<Loot>();
+        loot = GameObject.Find("Loot").GetComponent<LootPanel>();
     }
 
     public void OnDrop(PointerEventData eventData)
