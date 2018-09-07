@@ -7,6 +7,7 @@ public class Hull : MonoBehaviour {
     public float curHull;
     public float maxHull;
     public GameObject explosion;
+    public GameObject lootObject;
     public int armor;
 
 	// Update is called once per frame
@@ -14,6 +15,7 @@ public class Hull : MonoBehaviour {
 		if(curHull < 0)
         {
             Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(lootObject, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 	}

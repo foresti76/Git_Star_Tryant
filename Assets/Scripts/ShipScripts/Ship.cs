@@ -12,6 +12,7 @@ public class Ship : MonoBehaviour {
     public int rcs;
     public int tractorbeam;
     public int generator;
+    public string lootTable;
     public List<int> weaponList;
     public List<int> subsystemList;
 

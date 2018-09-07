@@ -23,19 +23,11 @@ public class LootPanel : MonoBehaviour
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         equipmentDatbase = GameObject.Find("Inventory").GetComponent<ItemDatabase>();
 
-        lootPanel.SetActive(false);
-        // remove once we can actually populate the inventory with real stuff
-        //AddLoot(4);
-        //AddLoot(5);
-        //AddLoot(6);
-        //AddLoot(6);
-        
+        CloseLootPanel();    
     }
 
     public void AddLoot(int id)
     {
-        lootPanel.SetActive(true);
-
         //create a new slot for the loot
         loot.Add(new Equipment());
         slots.Add(Instantiate(lootSlot));
@@ -112,7 +104,17 @@ public class LootPanel : MonoBehaviour
             Destroy(slotToDestroy);
         }
         currentLoot = 0;
+        CloseLootPanel();
+    }
+
+    public void CloseLootPanel()
+    {
         lootPanel.SetActive(false);
+    }
+
+    public void OpenLootPanel()
+    {
+        lootPanel.SetActive(true);
     }
 }
 
