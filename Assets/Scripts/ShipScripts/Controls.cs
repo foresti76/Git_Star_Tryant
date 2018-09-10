@@ -56,21 +56,23 @@ public class Controls : MonoBehaviour {
             Application.Quit();
     }
 
-    void ShowInventory()
+    public void ShowInventory()
     {
         inventoryPanel.SetActive(true);
         showInventory = true;
+        miniMap.SetActive(false);
         Pause();
     }
 
-    void HideInventory()
+    public void HideInventory()
     {
         inventoryPanel.SetActive(false);
         showInventory = false;
+        miniMap.SetActive(true);
         UnPause();
     }
 
-    void ShowShipCustomization()
+    public void ShowShipCustomization()
     {
         inventoryPanel.SetActive(true);
         shipCustomizationPanel.SetActive(true);
@@ -78,7 +80,7 @@ public class Controls : MonoBehaviour {
         Pause();
     }
 
-    void HideShipCustomization()
+    public void HideShipCustomization()
     {
         inventoryPanel.SetActive(false);
         shipCustomizationPanel.SetActive(false);

@@ -10,26 +10,32 @@ public class LootObject : MonoBehaviour
     public LootTable lootTable;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        lootPanel = GetComponent<LootPanel>();
-        lootTable = GetComponent<LootTable>();
+        lootPanel = GameObject.Find("LootPanelControl").GetComponent<LootPanel>();
+        lootTable = GameObject.Find("LootTable").GetComponent<LootTable>();
+        Debug.Log(lootTable.lootTable_0);
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.tag == "Player" && isBeingTractored)
         {
-            foreach (int loot in myLoot)
+            if(lootPanel.currentLootObject != this)
             {
-                lootPanel.AddLoot(loot);
+                foreach (int loot in myLoot)
+                {
+                    lootPanel.AddLoot(loot);
+                }
             }
+            lootPanel.currentLootObject = this;
             lootPanel.OpenLootPanel();
         }
     }
 
     public void CreateLoot(string chosenLootTable, int amount)
     {
+        lootTable = GameObject.Find("LootTable").GetComponent<LootTable>();
         // create a new list to add the loot too
         List<int> lootList = new List<int>();
         // add the appropriate amont of loot ids depending on its rarity to the list

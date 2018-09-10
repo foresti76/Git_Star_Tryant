@@ -99,7 +99,6 @@ public class Shield : MonoBehaviour {
         shieldDisplayTime = Time.time + shieldDisplayDuration;
         if (transform.GetComponentInParent<AIBehavior>())
         {
-            Debug.Log("Setting the AI to aggro");
             AIBehavior myAIBehavior = transform.GetComponentInParent<AIBehavior>();
             myAIBehavior.UpdateTarget(attacker);
         }

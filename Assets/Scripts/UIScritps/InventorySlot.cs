@@ -9,12 +9,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler {
     public int id;
 
     private Inventory inv;
-    private LootPanel loot;
+    private LootPanel lootPanelControl;
 
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        loot = GameObject.Find("LootPanelControl").GetComponent<LootPanel>();
+        lootPanelControl = GameObject.Find("LootPanelControl").GetComponent<LootPanel>();
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -32,7 +32,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler {
             // clear the loot data out if you are pulling from the loot box
             if (droppedEquipment.slotType == "Loot")
             {
-                loot.loot[droppedEquipment.slot] = new Equipment();
+                lootPanelControl.loot[droppedEquipment.slot] = new Equipment();
+                //remove the loot from the lootObject;
+                lootPanelControl.currentLootObject.myLoot.Remove(droppedEquipment.equipment.ID);
             }
 
             inv.equipments[id] = droppedEquipment.equipment;

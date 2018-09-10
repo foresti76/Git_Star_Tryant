@@ -10,19 +10,21 @@ public class LootPanel : MonoBehaviour
     public GameObject slotPanel;
     public GameObject lootSlot;
     public GameObject lootItem;
+    public List<Equipment> loot = new List<Equipment>();
+    public List<GameObject> slots = new List<GameObject>();
+    public LootObject currentLootObject;
 
     ItemDatabase equipmentDatbase;
     private int currentLoot = 0;
     private Inventory inv;
+    Controls uiControls;
 
-    public List<Equipment> loot = new List<Equipment>();
-    public List<GameObject> slots = new List<GameObject>();
 
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         equipmentDatbase = GameObject.Find("Inventory").GetComponent<ItemDatabase>();
-
+        uiControls = GameObject.Find("Controls").GetComponent<Controls>();
         CloseLootPanel();    
     }
 
@@ -109,12 +111,20 @@ public class LootPanel : MonoBehaviour
 
     public void CloseLootPanel()
     {
+        // destroy all the loot when closing the panel
+        foreach (GameObject lootSlot in slots)
+        {
+            Destroy(lootSlot);
+        }
         lootPanel.SetActive(false);
+        uiControls.HideInventory();
+
     }
 
     public void OpenLootPanel()
     {
         lootPanel.SetActive(true);
+        uiControls.ShowInventory();
     }
 }
 

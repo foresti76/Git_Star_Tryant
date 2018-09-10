@@ -11,7 +11,7 @@ public class LootSlot : MonoBehaviour, IDropHandler {
 
     void Start()
     {
-        loot = GameObject.Find("Loot").GetComponent<LootPanel>();
+        loot = GameObject.Find("LootPanelControl").GetComponent<LootPanel>();
     }
 
     public void OnDrop(PointerEventData eventData)

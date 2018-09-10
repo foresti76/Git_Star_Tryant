@@ -219,6 +219,7 @@ public class PlayerControls : MonoBehaviour {
             }
         }
     }
+
     void initateCombatMode()
     {
         combatModeActive = true;
