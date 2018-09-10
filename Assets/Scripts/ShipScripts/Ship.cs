@@ -13,6 +13,7 @@ public class Ship : MonoBehaviour {
     public int tractorbeam;
     public int generator;
     public string lootTable;
+    public int lootAmount;
     public List<int> weaponList;
     public List<int> subsystemList;
 
@@ -207,7 +208,16 @@ public class Ship : MonoBehaviour {
 
     public void UpdateTractorBeam(int id)
     {
+        TractorBeam tractorBeamScript = this.GetComponent<TractorBeam>();
+        TractorBeamData tractorBeamData = itemDatabase.FetchTractorBeamByID(id);
 
+        if(tractorBeamScript != null && tractorBeamData != null)
+        {
+            tractorBeamScript.maxPullMass = tractorBeamData.Max_Pull_Mass;
+            tractorBeamScript.pullRange = tractorBeamData.Pull_Range;
+            tractorBeamScript.pullRate = tractorBeamData.Pull_Rate;
+            tractorBeamScript.energyCost = tractorBeamData.Energy_Cost;
+        }
     }
 
     public void UpdateWeaponContollers()

@@ -10,13 +10,24 @@ public class Hull : MonoBehaviour {
     public GameObject lootObject;
     public int armor;
 
+    Ship myShip;
+    //bool isDead = false;
+
+    void Start()
+    {
+        myShip = this.GetComponent<Ship>();
+    }
 	// Update is called once per frame
 	void Update () {
 		if(curHull < 0)
         {
+            //isDead = true;
             Instantiate(explosion, transform.position, transform.rotation);
             Instantiate(lootObject, transform.position, transform.rotation);
+            lootObject.GetComponentInChildren<LootObject>().CreateLoot(myShip.lootTable, myShip.lootAmount);
             Destroy(gameObject);
+            //gameObject.SetActive(false);
+            //Invoke("DestroyMe", 3.0f);
         }
 	}
 
@@ -28,5 +39,10 @@ public class Hull : MonoBehaviour {
             AIBehavior myAIBehavior = transform.GetComponentInParent<AIBehavior>();
             myAIBehavior.UpdateTarget(attacker);
         }
+    }
+
+    void DestroyMe()
+    {
+        Destroy(gameObject);
     }
 }

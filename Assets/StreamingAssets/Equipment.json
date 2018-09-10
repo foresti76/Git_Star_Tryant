@@ -1077,7 +1077,7 @@
 		"cost": 0,
 		"stackable": false,
 		"max_pull_mass": 100,
-		"pull_range": 1,
+		"pull_range": 10,
 		"pull_rate": 1,
 		"energy_cost": 1,
 		"faction": "any",

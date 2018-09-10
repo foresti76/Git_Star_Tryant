@@ -18,13 +18,5 @@ public class LootTable : MonoBehaviour {
 
     public Loot[] lootTable_0;
     public Loot[] lootTable_1;
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

@@ -30,7 +30,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     void Start()
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        loot = GameObject.Find("Loot").GetComponent<LootPanel>();
+        loot = GameObject.Find("LootPanelControl").GetComponent<LootPanel>();
         toolTip = inv.GetComponent<ToolTip>();
         hullSlot = GameObject.Find("Hull Slot");
         engineSlot = GameObject.Find("Engine Slot");

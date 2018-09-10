@@ -17,6 +17,7 @@ public class PlayerControls : MonoBehaviour {
     WeaponController[] myWeaponControllers;
     //MiningLaser miningLaser;
     Radar myRadar;
+    TractorBeam myTractorBeam;
     SelectionMover selectionObjectMover;
     SelectionMover miniMapSelectionObjectMover;
 
@@ -33,6 +34,7 @@ public class PlayerControls : MonoBehaviour {
         miniMapSelectionObject = GameObject.Find("MiniMapSelectionCanvas");
         selectionObjectMover = selectionObject.GetComponent<SelectionMover>();
         miniMapSelectionObjectMover = miniMapSelectionObject.GetComponent<SelectionMover>();
+        myTractorBeam = playerShip.GetComponent<TractorBeam>();
     }
 
     // Update is called once per frame
@@ -147,7 +149,7 @@ public class PlayerControls : MonoBehaviour {
             //}
 
 
-                if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 if(combatModeActive == false)
                 {
@@ -158,8 +160,9 @@ public class PlayerControls : MonoBehaviour {
                     deactivateCombatMode();
                 }
             }
-                //Todo Lock onto a target
-                if (Input.GetKeyDown(KeyCode.R))
+
+            //Todo Lock onto a target
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 if(combatModeActive == false)
                 {
@@ -181,12 +184,38 @@ public class PlayerControls : MonoBehaviour {
                         SetCombatTargetSelection(hit.transform.gameObject);
                     }
                 }
-
             }
             
             if (!myRadar.detections.Contains(selectedObject))
             {
                 RemoveSelection();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (myTractorBeam.tractorBeamEngaged)
+            {
+                myTractorBeam.DisngageTractorBeam();
+            }
+            else
+            { 
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                int layer1 = 10; //AI ships/shot layer
+                int layer2 = 13; // Level layer
+                int layerMask1 = 1 << layer1;
+                int layerMask2 = 1 << layer2;
+                int finalMask = layerMask1 | layerMask2; // Or, (1 << layer1) | (1 << layer2)
+
+                if (Physics.Raycast(ray, out hit, 100.0f, finalMask) && !myTractorBeam.tractorBeamEngaged)
+                {
+                    if (hit.transform.CompareTag("Asteroid") || hit.transform.CompareTag("AIShip") || hit.transform.CompareTag("Loot"))
+                    {
+                        myTractorBeam.EngageTractorBeam(hit.transform.gameObject);
+                    }
+                }
             }
         }
     }
