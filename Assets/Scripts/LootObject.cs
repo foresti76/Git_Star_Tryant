@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LootObject : MonoBehaviour
 {
-    public List<int> myLoot = new List<int>();
+    public List<int> myLoot;
     public bool isBeingTractored = false;
     public LootPanel lootPanel;
     public LootTable lootTable;
@@ -21,13 +21,12 @@ public class LootObject : MonoBehaviour
     {
         if(other.gameObject.tag == "Player" && isBeingTractored)
         {
-            if(lootPanel.currentLootObject != this)
+
+            foreach (int loot in myLoot)
             {
-                foreach (int loot in myLoot)
-                {
-                    lootPanel.AddLoot(loot);
-                }
+                lootPanel.AddLoot(loot);
             }
+
             lootPanel.currentLootObject = this;
             lootPanel.OpenLootPanel();
         }
@@ -37,8 +36,8 @@ public class LootObject : MonoBehaviour
     {
         lootTable = GameObject.Find("LootTable").GetComponent<LootTable>();
         // create a new list to add the loot too
-        List<int> lootList = new List<int>();
         // add the appropriate amont of loot ids depending on its rarity to the list
+        List<int> lootList = new List<int>();
         foreach (LootTable.Loot loot in lootTable.lootTable_0)
         {
             int addtimes = 0;
@@ -66,9 +65,13 @@ public class LootObject : MonoBehaviour
             {
                 lootList.Add(loot.LootObjectID);
             }
+            Debug.Log(lootList.ToString());
         }
         // now add the actual loot to this loot objects list
-        for (int i = 0; i <= amount; i++)
+        Debug.Log("Amount: " + amount);
+        myLoot = new List<int>();
+        myLoot.Clear();
+        for (int i = 0; i < amount; i++)
         {
             myLoot.Add(lootList[Random.Range(0, lootList.Count)]);
         }

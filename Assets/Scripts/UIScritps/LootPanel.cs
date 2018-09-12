@@ -106,16 +106,23 @@ public class LootPanel : MonoBehaviour
             Destroy(slotToDestroy);
         }
         currentLoot = 0;
+        if(currentLootObject.myLoot.Count == 0)
+        {
+            Destroy(currentLootObject.gameObject.transform.parent.gameObject);
+        }
         CloseLootPanel();
     }
 
     public void CloseLootPanel()
     {
         // destroy all the loot when closing the panel
-        foreach (GameObject lootSlot in slots)
+        foreach (GameObject lootslot in slots)
         {
-            Destroy(lootSlot);
+            //I have to destroy the objects themselves from the lootSlotPanel and then from the list itself.
         }
+
+        slots.Clear();
+        loot.Clear();
         lootPanel.SetActive(false);
         uiControls.HideInventory();
 

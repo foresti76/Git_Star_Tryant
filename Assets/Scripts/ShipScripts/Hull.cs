@@ -26,8 +26,6 @@ public class Hull : MonoBehaviour {
             Instantiate(lootObject, transform.position, transform.rotation);
             lootObject.GetComponentInChildren<LootObject>().CreateLoot(myShip.lootTable, myShip.lootAmount);
             Destroy(gameObject);
-            //gameObject.SetActive(false);
-            //Invoke("DestroyMe", 3.0f);
         }
 	}
 
@@ -39,10 +37,5 @@ public class Hull : MonoBehaviour {
             AIBehavior myAIBehavior = transform.GetComponentInParent<AIBehavior>();
             myAIBehavior.UpdateTarget(attacker);
         }
-    }
-
-    void DestroyMe()
-    {
-        Destroy(gameObject);
     }
 }
