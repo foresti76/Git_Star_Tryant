@@ -1,1 +1,1 @@
-{"hullID":0,"shield":20,"engine":60,"ecm":51,"radar":41,"rcs":30,"tractorbeam":70,"generator":10,"lootTable":"lootTable_0","lootAmount":0,"weaponList":[90,81],"subsystemList":[],"playerShip":true}
+{"hullID":0,"shield":20,"engine":60,"ecm":51,"radar":41,"rcs":30,"tractorbeam":70,"generator":10,"lootTable":"lootTable_0","lootAmount":0,"weaponList":[100,81],"subsystemList":[],"playerShip":true}

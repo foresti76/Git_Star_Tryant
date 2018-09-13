@@ -56,7 +56,6 @@ public class Attack : NPCBaseFSM {
                 float currentAngle = weaponController.transform.rotation.eulerAngles.y;
                 if (angleToGetTo <= currentAngle + accuracy && angleToGetTo >= currentAngle - accuracy)
                 {
-                    Debug.Log("Firing");
                     weaponController.firing = true;
                 }
                 else if (weaponController.firing == true)

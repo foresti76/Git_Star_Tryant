@@ -18,5 +18,11 @@ public class LootTable : MonoBehaviour {
 
     public Loot[] lootTable_0;
     public Loot[] lootTable_1;
+    public Dictionary<string, Loot[]> lootTableLookup = new Dictionary<string, Loot[]>();
 
+    void Start()
+    {
+        lootTableLookup.Add("lootTable_0", lootTable_0);
+        lootTableLookup.Add("lootTable_1", lootTable_1);
+    }
 }

@@ -9,19 +9,19 @@ public class LootObject : MonoBehaviour
     public LootPanel lootPanel;
     public LootTable lootTable;
 
+    TractorBeam tractorBeam;
     // Use this for initialization
     void Awake()
     {
+        tractorBeam = GameObject.FindGameObjectWithTag("Player").GetComponent<TractorBeam>();
         lootPanel = GameObject.Find("LootPanelControl").GetComponent<LootPanel>();
         lootTable = GameObject.Find("LootTable").GetComponent<LootTable>();
-        Debug.Log(lootTable.lootTable_0);
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.tag == "Player" && isBeingTractored)
         {
-
             foreach (int loot in myLoot)
             {
                 lootPanel.AddLoot(loot);
@@ -29,6 +29,7 @@ public class LootObject : MonoBehaviour
 
             lootPanel.currentLootObject = this;
             lootPanel.OpenLootPanel();
+            tractorBeam.DisngageTractorBeam();
         }
     }
 
@@ -38,7 +39,7 @@ public class LootObject : MonoBehaviour
         // create a new list to add the loot too
         // add the appropriate amont of loot ids depending on its rarity to the list
         List<int> lootList = new List<int>();
-        foreach (LootTable.Loot loot in lootTable.lootTable_0)
+        foreach (LootTable.Loot loot in lootTable.lootTableLookup[chosenLootTable])
         {
             int addtimes = 0;
             if (loot.Rarity == "common")
@@ -65,12 +66,9 @@ public class LootObject : MonoBehaviour
             {
                 lootList.Add(loot.LootObjectID);
             }
-            Debug.Log(lootList.ToString());
         }
         // now add the actual loot to this loot objects list
-        Debug.Log("Amount: " + amount);
         myLoot = new List<int>();
-        myLoot.Clear();
         for (int i = 0; i < amount; i++)
         {
             myLoot.Add(lootList[Random.Range(0, lootList.Count)]);

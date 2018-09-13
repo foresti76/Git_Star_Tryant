@@ -35,6 +35,7 @@ public class LootPanel : MonoBehaviour
         slots.Add(Instantiate(lootSlot));
         slots[currentLoot].transform.SetParent(slotPanel.transform, false);
         slots[currentLoot].GetComponent<LootSlot>().id = currentLoot;
+        //this seems bad
         currentLoot ++;
 
         Equipment lootToAdd = equipmentDatbase.FetchEquipmentByID(id);
@@ -89,6 +90,9 @@ public class LootPanel : MonoBehaviour
             if (loot[i].ID != -1)
             {
                 inv.AddEquipment(loot[i].ID);
+                
+                //todo handle the case if we have stacks in lootObject
+                currentLootObject.myLoot.Remove(loot[i].ID);
                 //check to see if there is more than one in the ammount field of the loot and add more.
                 EquipmentData data = slots[i].gameObject.transform.GetChild(0).GetComponent<EquipmentData>();
 
@@ -116,11 +120,11 @@ public class LootPanel : MonoBehaviour
     public void CloseLootPanel()
     {
         // destroy all the loot when closing the panel
-        foreach (GameObject lootslot in slots)
+        foreach (GameObject currentLootslot in slots)
         {
-            //I have to destroy the objects themselves from the lootSlotPanel and then from the list itself.
+            Destroy(currentLootslot);
         }
-
+        currentLoot = 0;
         slots.Clear();
         loot.Clear();
         lootPanel.SetActive(false);
