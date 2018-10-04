@@ -22,6 +22,7 @@ public class Radar : MonoBehaviour {
 
     float timeToRadarLock;
     private Ship myShip;
+    private StarBase myStarBase;
     Transform miniMapSelectionBox;
     Transform mapSelectionBox;
     int angle = 0;
@@ -33,6 +34,10 @@ public class Radar : MonoBehaviour {
         radarTrigger = transform.Find("RadarTrigger").GetComponent<SphereCollider>();
         targetDisplayText = GameObject.Find("PlayerTargetText").GetComponent<Text>();
         myShip = GetComponent<Ship>();
+        if (!myShip)
+        {
+            myStarBase = GetComponent<StarBase>();
+        }
         miniMapSelectionBox = GameObject.Find("MiniMapSelectionBox").transform;
         mapSelectionBox = GameObject.Find("SelectionBox").transform;
     }
@@ -59,7 +64,7 @@ public class Radar : MonoBehaviour {
         if (target == null)
         {
             targetLock = false;
-            if(myShip.playerShip == true)
+            if(myShip && myShip.playerShip == true)
             {
                 targetDisplayText.text = "None";
             }

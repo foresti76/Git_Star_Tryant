@@ -10,6 +10,8 @@ public class Controls : MonoBehaviour {
     //mainly ship movement/shields/inventory/shipcustomization
     public GameObject inventoryPanel;
     public GameObject shipCustomizationPanel;
+    public GameObject starBasePanel;
+    public GameObject dockingPrompt;
     public bool showInventory;
     public bool showShipCustomization;
 
@@ -24,6 +26,8 @@ public class Controls : MonoBehaviour {
         saveData = FindObjectOfType<SaveData>();
         playerControls = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
         HideShipCustomization();
+        HideStarbaseScreen();
+        HideDockingPrompt();
     }
 	
 	// Update is called once per frame
@@ -54,6 +58,11 @@ public class Controls : MonoBehaviour {
 
         if (Input.GetKey("escape"))
             Application.Quit();
+
+        if (dockingPrompt.activeInHierarchy == true &&  Input.GetKeyDown(KeyCode.F))
+        {
+            ShowStarbaseScreen();
+        }
     }
 
     public void ShowInventory()
@@ -98,5 +107,30 @@ public class Controls : MonoBehaviour {
     {
         playerControls.uiOpen = false;
         Time.timeScale = 1;
+    }
+
+    public void ShowStarbaseScreen()
+    {
+        HideDockingPrompt();
+        starBasePanel.SetActive(true);
+        miniMap.SetActive(false);
+        Pause();
+    }
+
+    public void HideStarbaseScreen()
+    {
+        starBasePanel.SetActive(false);
+        miniMap.SetActive(true);
+        UnPause();
+    }
+
+    public void ShowDockingPrompt()
+    {
+        dockingPrompt.SetActive(true);
+    }
+
+    public void HideDockingPrompt()
+    {
+        dockingPrompt.SetActive(false);
     }
 }
