@@ -385,6 +385,18 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
+    public Equipment FetchEquipmentByName(string name)
+    {
+        for (int i = 0; i < equipmentDatabase.Count; i++)
+        {
+            if (equipmentDatabase[i].Title == name)
+            {
+                return equipmentDatabase[i];
+            }
+        }
+        return null;
+    }
+
     public EngineData FetchEngineByID(int id)
     {
         for (int i = 0; i < engineDatabase.Count; i++)
