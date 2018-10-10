@@ -22,7 +22,6 @@ public class Radar : MonoBehaviour {
 
     float timeToRadarLock;
     private Ship myShip;
-    private StarBase myStarBase;
     Transform miniMapSelectionBox;
     Transform mapSelectionBox;
     int angle = 0;
@@ -32,15 +31,16 @@ public class Radar : MonoBehaviour {
 	void Start () {
         minimapCamera = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
         radarTrigger = transform.Find("RadarTrigger").GetComponent<SphereCollider>();
-        targetDisplayText = GameObject.Find("PlayerTargetText").GetComponent<Text>();
         myShip = GetComponent<Ship>();
-        if (!myShip)
+        if (CheckIfPlayer())
         {
-            myStarBase = GetComponent<StarBase>();
+            targetDisplayText = GameObject.Find("PlayerTargetText").GetComponent<Text>();
+            miniMapSelectionBox = GameObject.Find("MiniMapSelectionBox").transform;
+            mapSelectionBox = GameObject.Find("SelectionBox").transform;
         }
-        miniMapSelectionBox = GameObject.Find("MiniMapSelectionBox").transform;
-        mapSelectionBox = GameObject.Find("SelectionBox").transform;
     }
+
+    //Not sure if this is needed todo check what happens if this is removed.
     private void OnGUI()
     {
         if (target && targetLock)
@@ -48,6 +48,7 @@ public class Radar : MonoBehaviour {
             targetDisplayText.text = target.name;
         }
     }
+
     public void UpdateMinimap()
     {
         minimapCamera.orthographicSize = range + miniMapSizeScaler;
@@ -64,21 +65,21 @@ public class Radar : MonoBehaviour {
         if (target == null)
         {
             targetLock = false;
-            if(myShip && myShip.playerShip == true)
+            if(CheckIfPlayer())
             {
                 targetDisplayText.text = "None";
             }
             return;
         }
 
-        if(target && targetLock == false && myShip.playerShip)
+        if(target && targetLock == false && CheckIfPlayer())
         {
             angle += 10;
             miniMapSelectionBox.localRotation = Quaternion.Euler(0, 0, angle);
             mapSelectionBox.localRotation = Quaternion.Euler(0, 0, angle);
         }
 
-        if (timeToRadarLock <= Time.time && targetLock == false)
+        if (timeToRadarLock <= Time.time && targetLock == false && CheckIfPlayer())
         {
             targetLock = true;
             angle = 0;
@@ -90,7 +91,7 @@ public class Radar : MonoBehaviour {
     public void RadarLock()
     {
         targetLock = false;
-        if (myShip.playerShip == true)
+        if (CheckIfPlayer())
         {
             targetString = target.ToString();
             targetDisplayText.text = targetString;
@@ -102,6 +103,18 @@ public class Radar : MonoBehaviour {
         else
         {
             targetLock = true;
+        }
+    }
+
+    private bool CheckIfPlayer()
+    {
+        if(myShip != null && myShip.playerShip == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

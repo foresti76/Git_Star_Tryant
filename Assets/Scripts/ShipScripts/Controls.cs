@@ -99,13 +99,19 @@ public class Controls : MonoBehaviour {
 
     private void Pause()
     {
-        playerControls.uiOpen = true;
+        if (playerControls)
+        {
+            playerControls.uiOpen = true;
+        }
         Time.timeScale = 0;
     }
 
     private void UnPause()
     {
-        playerControls.uiOpen = false;
+        if (playerControls)
+        {
+            playerControls.uiOpen = false;
+        }
         Time.timeScale = 1;
     }
 
