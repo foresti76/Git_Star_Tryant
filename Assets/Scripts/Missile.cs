@@ -15,9 +15,17 @@ public class Missile : MonoBehaviour {
     private Rigidbody myRigidbody;
 	// Use this for initialization
 	void Start () {
-        myRigidbody = GetComponent<Rigidbody>();
-        lifeTime = Time.time + lifeTime;
-        myRigidbody.velocity = shooter.GetComponent<Rigidbody>().velocity;
+        if (shooter)
+        {
+            myRigidbody = GetComponent<Rigidbody>();
+            lifeTime = Time.time + lifeTime;
+            myRigidbody.velocity = shooter.GetComponent<Rigidbody>().velocity;
+        }
+        else
+        {
+            Debug.Log("ERROR: a missile has been spawend without a shooter defined.");
+        }
+
     }
 	
 	// Update is called once per frame

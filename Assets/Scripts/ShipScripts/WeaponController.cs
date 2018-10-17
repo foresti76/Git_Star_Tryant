@@ -7,7 +7,7 @@ public class WeaponController : MonoBehaviour
     
     public GameObject projectilePrefab;
     public GameObject missilePrefab;
-    public LineRenderer laserLineRendere;
+    public GameObject laserLinePrefab;
     public Transform shotSpawn;
     public int shotDamage;
     public float fireRate;
@@ -25,7 +25,7 @@ public class WeaponController : MonoBehaviour
     public float lifeTime = 25.0f;
 
 
-    delegate void FiringMode();
+    delegate GameObject FiringMode();
     FiringMode firingMode;
     private float nextFire;
     private Generator myShipGenerator;
@@ -99,40 +99,39 @@ public class WeaponController : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(rot, targetRot, turretRotationRate * Time.deltaTime);
     }
 
-    public void FireProjectile()
+    public GameObject FireProjectile()
     {
         nextFire = Time.time + fireRate;
-        Instantiate(projectilePrefab, shotSpawn.position, shotSpawn.rotation);
-        Mover shotScript = projectilePrefab.GetComponent<Mover>();
-        shotScript.parentRidgidbody = GetComponentInParent<Rigidbody>(); 
-        if(shotScript.parentRidgidbody == null)
-        {
-            Debug.LogError("Shot is missing its parent rigidbody reference");
-        }
+        GameObject shot = Instantiate(projectilePrefab, shotSpawn.position, shotSpawn.rotation);
+        Mover shotScript = shot.GetComponent<Mover>();
+        shotScript.shooter = this.gameObject;
         shotScript.shooter = transform.parent.gameObject;
         shotScript.damage = shotDamage;
+
+        return shot;
     }
 
-    public void FireLaser()
+    public GameObject FireLaser()
     {
         nextFire = Time.time + fireRate;
         //RaycastHit hit;
-        currentLaser = Instantiate(laserLineRendere, shotSpawn.transform.position, shotSpawn.rotation, shotSpawn.transform);
+        GameObject currentLaser = Instantiate(laserLinePrefab, shotSpawn.transform.position, shotSpawn.rotation, shotSpawn.transform);
         Laser laserScript = currentLaser.GetComponent<Laser>();
         laserScript.damage = shotDamage;
         laserScript.fireRate = fireRate;
         laserScript.shotSpawn = shotSpawn;
         laserScript.laserLength = laserLength;
         laserScript.shooter = transform.parent.gameObject;
-   
+
+        return currentLaser;
     }
 
     //not yet implemented
-    public void FireMissile()
+    public GameObject FireMissile()
     {
         nextFire = Time.time + fireRate;
-        Instantiate(missilePrefab, shotSpawn.position, Quaternion.Euler(0,shotSpawn.eulerAngles.y,0));
-        Missile missileScript = missilePrefab.GetComponent<Missile>();
+        GameObject missile = Instantiate(missilePrefab, shotSpawn.position, Quaternion.Euler(0,shotSpawn.eulerAngles.y,0));
+        Missile missileScript = missile.GetComponent<Missile>();
         //missileScript.parentRidgidbody = GetComponentInParent<Rigidbody>();
         missileScript.shooter = this.transform.parent.gameObject;
         missileScript.damage = shotDamage;
@@ -148,5 +147,7 @@ public class WeaponController : MonoBehaviour
         {
             missileScript.target = null;
         }
+
+        return missile;
     }
 }

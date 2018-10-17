@@ -8,20 +8,20 @@ public class Mover : MonoBehaviour {
     public float timeOutTime = 5.0f;
     public float damage;
     public GameObject shooter;
-    public Rigidbody parentRidgidbody;
 
-
-	// Use this for initialization
-	void Awake ()
-    {
-
-	}
 
     void Start()
     {
-        GetComponent<Rigidbody>().velocity = parentRidgidbody.velocity;
+        if (shooter)
+        {
+        GetComponent<Rigidbody>().velocity = shooter.GetComponent<Rigidbody>().velocity;
         GetComponent<Rigidbody>().velocity += transform.up * speed;
         timeOutTime = Time.time + timeOutTime;
+        }
+        else
+        {
+            Debug.Log("ERROR: a shot has been spawend without a shooter defined.");
+        }
     }
 
     void Update()
