@@ -10,6 +10,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler {
 
     private Inventory inv;
     private LootPanel lootPanelControl;
+    private Shop shop;
 
     void Start()
     {
@@ -37,12 +38,28 @@ public class InventorySlot : MonoBehaviour, IDropHandler {
                 lootPanelControl.currentLootObject.myLoot.Remove(droppedEquipment.equipment.ID);
             }
 
+            if (droppedEquipment.slotType == "Shop")  
+            {
+                //need to clear out the old shop slot if it has anything in it.
+                // if they are pulling from the shop check to see if they have enough money and if they don't return the item to the shop 
+                // if they do have enough money take that money away and then they have the item in thier inventory
+                if(inv.playerRecord.playerMoney < droppedEquipment.equipment.Cost)
+                {
+                    return;
+                }
+                else
+                {
+                    inv.playerRecord.SpendMoney(droppedEquipment.equipment.Cost);
+                }
+            }
+
             inv.equipments[id] = droppedEquipment.equipment;
             droppedEquipment.slot = id;
             droppedEquipment.slotType = "Inv";
         }
         else if (inv.equipments[id].ID != -1 && droppedEquipment.slotType == "Inv" && droppedEquipment.slot != this.id)
         {
+            //todo seems to be a bug with pulling in from the weapon slot here.
             Transform equipment = this.transform.GetChild(0);
             //todo make a getter setter method to move items to new slots
             equipment.GetComponent<EquipmentData>().slot = droppedEquipment.slot;

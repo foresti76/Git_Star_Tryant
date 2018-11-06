@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 
 public class GeneratorSlot : MonoBehaviour, IDropHandler{
 
-    public string childName;
-
     private Inventory inv;
     private ItemDatabase itemDatabase;
     private Ship shipData;
@@ -21,7 +19,7 @@ public class GeneratorSlot : MonoBehaviour, IDropHandler{
         shipData = playerShip.GetComponent<Ship>();
         GeneratorData generatorData = itemDatabase.FetchGeneratorByID(shipData.generator);
 
-        if (childName == "")
+        if (this.transform.childCount == 1)
         {
             GameObject equipmentObject = Instantiate(inv.inventoryItem);
             equipmentObject.transform.SetParent(this.transform, false);
@@ -32,7 +30,6 @@ public class GeneratorSlot : MonoBehaviour, IDropHandler{
             data.equipment = itemDatabase.FetchEquipmentByID(generatorData.ID);
             data.slotType = "Generator";
             data.ammount++;
-            childName = generatorData.Title;
         }
     }
 
@@ -42,9 +39,9 @@ public class GeneratorSlot : MonoBehaviour, IDropHandler{
         if (droppedEquipment.equipment.Type == "Generator")
         {
             // swap out the current generator object in this slot and send it back to the inventory
-            if (childName != "")
+            if (this.transform.childCount > 1)
             {
-                Transform equipment = this.transform.Find(childName);
+                Transform equipment = this.transform.GetChild(1);
                 EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                 currentEquipment.slot = droppedEquipment.slot;
                 currentEquipment.slotType = "Inv";
@@ -54,7 +51,7 @@ public class GeneratorSlot : MonoBehaviour, IDropHandler{
 
             // set up thje current ship data based on the data from the object
             droppedEquipment.slotType = "Generator";
-            childName = droppedEquipment.equipment.Title;
+
             // make sure the save data matches the current radar
             shipData.generator = droppedEquipment.equipment.ID;
             shipData.UpdateGenerator(droppedEquipment.equipment.ID);

@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class StarBase : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+
+    //todo add in station inventory.
+    //todo add in station systems
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

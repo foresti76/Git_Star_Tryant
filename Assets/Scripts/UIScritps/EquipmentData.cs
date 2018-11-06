@@ -3,18 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler {
 
     public Equipment equipment;
     public int ammount = 1;
+    public int cost;
     public int slot;
     public string slotType;
+    public Text amountText;
+    public Text costText;
 
     private Transform originalParent;
     private Vector2 offset;
     private Inventory inv;
     private LootPanel loot;
+    private Shop shop;
     private ToolTip toolTip;
     GameObject hullSlot;
     GameObject engineSlot;
@@ -31,6 +36,8 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         loot = GameObject.Find("LootPanelControl").GetComponent<LootPanel>();
+        shop = GameObject.Find("ShopPanelControl").GetComponent<Shop>();
+
         toolTip = inv.GetComponent<ToolTip>();
         hullSlot = GameObject.Find("Hull Slot");
         engineSlot = GameObject.Find("Engine Slot");
@@ -71,6 +78,12 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         {
             this.transform.SetParent(hullSlot.transform);
             this.transform.position = hullSlot.transform.position;
+        }
+
+        if (slotType == "Shop")
+        {
+            this.transform.SetParent(shop.shopSlots[slot].transform);
+            this.transform.position = shop.shopSlots[slot].transform.position;
         }
 
         if (slotType == "Engine")
@@ -171,6 +184,12 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         {
             this.transform.SetParent(inv.slots[slot].transform);
             this.transform.position = inv.slots[slot].transform.position;
+        }
+
+        if (slotType == "Shop")
+        {
+            this.transform.SetParent(shop.shopSlots[slot].transform);
+            this.transform.position = shop.shopSlots[slot].transform.position;
         }
 
         if (slotType == "Loot")

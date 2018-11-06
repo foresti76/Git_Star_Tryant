@@ -39,7 +39,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
             //WeaponController currentWeaponController = weaponControllerList[id];
             WeaponData weaponData = itemDatabase.FetchWeaponByID(shipData.weaponList[slotId]);
 
-            if (childName == "")
+            if (this.transform.childCount == 1)
             {
                 GameObject equipmentObject = Instantiate(inv.inventoryItem);
                 equipmentObject.transform.SetParent(this.transform, false);
@@ -49,12 +49,14 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
                 data.equipment = itemDatabase.FetchEquipmentByID(weaponData.ID);
                 data.slotType = "Weapon";
+                data.slot = slotId;
                 data.ammount++;
-                childName = weaponData.Title;
+                //childName = weaponData.Title;
             }
            myWeaponController = weaponControllerList[slotId].GetComponent<WeaponController>();   
         }
     }
+
 
     //when a weapon is dropped on a slot do all the things to update the weapon perameters
     public void OnDrop(PointerEventData eventData)
@@ -69,11 +71,11 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
             if (weaponData.Mount_Size == weaponSlotSize)
             {
                 // swap out the current ship object in this slot and send it back to the inventory
-                if (childName != "")
+                if (this.transform.childCount > 1)
                 {
                     //Debug.Log("adding new weapon to slot " + id + " that has a weapon in it");
                     //get the current weapon and send it back to the inventory in the slot that the dropped one was in
-                    Transform equipment = this.transform.Find(childName);
+                    Transform equipment = this.transform.GetChild(1);
                     EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                     if (droppedEquipment.slotType == "Inv")
                     { 

@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 
 public class ECMSlot : MonoBehaviour, IDropHandler{
 
-    public string childName;
-
     private Inventory inv;
     private ItemDatabase itemDatabase;
     Ship ship;
@@ -22,7 +20,7 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
 
         ECMData ecmData = itemDatabase.FetchECMByID(ship.ecm);
 
-        if (childName == "")
+        if (this.transform.childCount == 1)
         {
             GameObject equipmentObject = Instantiate(inv.inventoryItem);
             equipmentObject.transform.SetParent(this.transform, false);
@@ -33,9 +31,9 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
             data.equipment = itemDatabase.FetchEquipmentByID(ecmData.ID);
             data.slotType = "ECM";
             data.ammount++;
-            childName = ecmData.Title;
         }
     }
+
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -43,9 +41,9 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
         if (droppedEquipment.equipment.Type == "ECM")
         {
             // swap out the current ecm object in this slot and send it back to the inventory
-            if (childName != "")
+            if (this.transform.childCount > 1)
             {
-                Transform equipment = this.transform.Find(childName);
+                Transform equipment = this.transform.GetChild(1);
                 EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                 currentEquipment.slot = droppedEquipment.slot;
                 currentEquipment.slotType = "Inv";
@@ -55,7 +53,6 @@ public class ECMSlot : MonoBehaviour, IDropHandler{
 
             // set up thje current ecm data based on the data from the object
             droppedEquipment.slotType = "ECM";
-            childName = droppedEquipment.equipment.Title;
 
             ship.ecm = droppedEquipment.equipment.ID;
             ship.UpdateECM(droppedEquipment.equipment.ID);

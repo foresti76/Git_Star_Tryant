@@ -12,8 +12,9 @@ public class Controls : MonoBehaviour {
     public GameObject shipCustomizationPanel;
     public GameObject starBasePanel;
     public GameObject dockingPrompt;
-    public bool showInventory;
-    public bool showShipCustomization;
+    public GameObject starBaseShopPanel;
+    public bool inventoryOpen;
+    public bool shipCustomizationOpen;
 
     GameObject miniMap;
     SaveData saveData;
@@ -33,9 +34,9 @@ public class Controls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //call scripts based on keyboard input
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && starBasePanel.activeInHierarchy == false)
         {
-            if (showShipCustomization == true)
+            if (shipCustomizationOpen == true)
             {
                 HideShipCustomization();
                 miniMap.SetActive(true);
@@ -65,10 +66,16 @@ public class Controls : MonoBehaviour {
         }
     }
 
+    public void SetInventoryPosition(float xpos, float ypos)
+    {
+        Debug.Log("setting the positoin of the inventory panel.");
+        inventoryPanel.transform.localPosition = new Vector3(xpos, ypos, 0);
+    }
+
     public void ShowInventory()
     {
         inventoryPanel.SetActive(true);
-        showInventory = true;
+        inventoryOpen = true;
         miniMap.SetActive(false);
         Pause();
     }
@@ -76,16 +83,17 @@ public class Controls : MonoBehaviour {
     public void HideInventory()
     {
         inventoryPanel.SetActive(false);
-        showInventory = false;
+        inventoryOpen = false;
         miniMap.SetActive(true);
         UnPause();
     }
 
     public void ShowShipCustomization()
     {
-        inventoryPanel.SetActive(true);
+        ShowInventory();
+        SetInventoryPosition(779.0f, 268.20f);
         shipCustomizationPanel.SetActive(true);
-        showShipCustomization = true;
+        shipCustomizationOpen = true;
         Pause();
     }
 
@@ -93,7 +101,7 @@ public class Controls : MonoBehaviour {
     {
         inventoryPanel.SetActive(false);
         shipCustomizationPanel.SetActive(false);
-        showShipCustomization = false;
+        shipCustomizationOpen = false;
         UnPause();
     }
 
@@ -119,6 +127,7 @@ public class Controls : MonoBehaviour {
     {
         HideDockingPrompt();
         starBasePanel.SetActive(true);
+        HideStarbaseShopScreen();
         miniMap.SetActive(false);
         Pause();
     }
@@ -128,6 +137,19 @@ public class Controls : MonoBehaviour {
         starBasePanel.SetActive(false);
         miniMap.SetActive(true);
         UnPause();
+    }
+
+    public void ShowStarbaseShopScreen()
+    {
+        starBaseShopPanel.SetActive(true);
+        SetInventoryPosition(-180.5f, 150.20f);
+        ShowInventory();
+    }
+
+    public void HideStarbaseShopScreen()
+    {
+        starBaseShopPanel.SetActive(false);
+        HideInventory();
     }
 
     public void ShowDockingPrompt()

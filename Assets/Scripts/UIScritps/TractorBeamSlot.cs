@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 
 public class TractorBeamSlot : MonoBehaviour, IDropHandler{
 
-    public string childName;
-
     private Inventory inv;
     private ItemDatabase itemDatabase;
     Ship shipData;
@@ -21,7 +19,7 @@ public class TractorBeamSlot : MonoBehaviour, IDropHandler{
 
         TractorBeamData tractorBeamData = itemDatabase.FetchTractorBeamByID(shipData.tractorbeam);
 
-        if (childName == "")
+        if (this.transform.childCount == 1)
         {
             GameObject equipmentObject = Instantiate(inv.inventoryItem);
             equipmentObject.transform.SetParent(this.transform, false);
@@ -32,9 +30,9 @@ public class TractorBeamSlot : MonoBehaviour, IDropHandler{
             data.equipment = itemDatabase.FetchEquipmentByID(tractorBeamData.ID);
             data.slotType = "TractorBeam";
             data.ammount++;
-            childName = tractorBeamData.Title;
         }
     }
+
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -42,9 +40,9 @@ public class TractorBeamSlot : MonoBehaviour, IDropHandler{
         if (droppedEquipment.equipment.Type == "TractorBeam")
         {
             // swap out the current tractorBeam object in this slot and send it back to the inventory
-            if (childName != "")
+            if (this.transform.childCount > 1)
             {
-                Transform equipment = this.transform.Find(childName);
+                Transform equipment = this.transform.GetChild(1);
                 EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                 currentEquipment.slot = droppedEquipment.slot;
                 currentEquipment.slotType = "Inv";
@@ -54,7 +52,6 @@ public class TractorBeamSlot : MonoBehaviour, IDropHandler{
 
             // set the equipment object to the correct parent
             droppedEquipment.slotType = "TractorBeam";
-            childName = droppedEquipment.equipment.Title;
 
             // make sure the save data matches the current TractorBeam
             shipData.tractorbeam = droppedEquipment.equipment.ID;

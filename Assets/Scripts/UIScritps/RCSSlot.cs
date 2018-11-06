@@ -7,8 +7,6 @@ using UnityEngine.EventSystems;
 public class RCSSlot : MonoBehaviour, IDropHandler
 {
 
-    public string childName;
-
     private Inventory inv;
     private ItemDatabase itemDatabase;
     Ship shipData;
@@ -22,7 +20,7 @@ public class RCSSlot : MonoBehaviour, IDropHandler
         shipData = playerShip.GetComponent<Ship>();
 
         RCSData rcsData = itemDatabase.FetchRCSByID(shipData.rcs);
-        if (childName == "")
+        if (this.transform.childCount == 1)
         {
             GameObject equipmentObject = Instantiate(inv.inventoryItem);
             equipmentObject.transform.SetParent(this.transform, false);
@@ -33,7 +31,6 @@ public class RCSSlot : MonoBehaviour, IDropHandler
             data.equipment = itemDatabase.FetchEquipmentByID(rcsData.ID);
             data.slotType = "RCS";
             data.ammount++;
-            childName = rcsData.Title;
         }
     }
 
@@ -43,9 +40,9 @@ public class RCSSlot : MonoBehaviour, IDropHandler
         if (droppedEquipment.equipment.Type == "RCS")
         {
             // swap out the current rcs object in this slot and send it back to the inventory
-            if (childName != "")
+            if (this.transform.childCount > 1)
             {
-                Transform equipment = this.transform.Find(childName);
+                Transform equipment = this.transform.GetChild(1);
                 EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                 currentEquipment.slot = droppedEquipment.slot;
                 currentEquipment.slotType = "Inv";
@@ -54,7 +51,6 @@ public class RCSSlot : MonoBehaviour, IDropHandler
             }
             //this lets the equipment object know who its parent is
             droppedEquipment.slotType = "RCS";
-            childName = droppedEquipment.equipment.Title;
 
             // make sure the save data matches the current rcs
             shipData.rcs = droppedEquipment.equipment.ID;

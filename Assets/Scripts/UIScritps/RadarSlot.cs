@@ -7,8 +7,6 @@ using UnityEngine.EventSystems;
 public class RadarSlot : MonoBehaviour, IDropHandler
 {
 
-    public string childName;
-
     private Inventory inv;
     private ItemDatabase itemDatabase;
     Ship shipData;
@@ -21,7 +19,7 @@ public class RadarSlot : MonoBehaviour, IDropHandler
         shipData = playerShip.GetComponent<Ship>();
         RadarData radarData = itemDatabase.FetchRadarByID(shipData.radar);
 
-        if (childName == "")
+        if (this.transform.childCount == 1)
         {
             GameObject equipmentObject = Instantiate(inv.inventoryItem);
             equipmentObject.transform.SetParent(this.transform, false);
@@ -32,9 +30,9 @@ public class RadarSlot : MonoBehaviour, IDropHandler
             data.equipment = itemDatabase.FetchEquipmentByID(radarData.ID);
             data.slotType = "Radar";
             data.ammount++;
-            childName = radarData.Title;
         }
     }
+
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -42,9 +40,9 @@ public class RadarSlot : MonoBehaviour, IDropHandler
         if (droppedEquipment.equipment.Type == "Radar")
         {
             // swap out the current radar object in this slot and send it back to the inventory
-            if (childName != "")
+            if (this.transform.childCount > 1)
             {
-                Transform equipment = this.transform.Find(childName);
+                Transform equipment = this.transform.GetChild(1);
                 EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                 currentEquipment.slot = droppedEquipment.slot;
                 currentEquipment.slotType = "Inv";
@@ -54,7 +52,6 @@ public class RadarSlot : MonoBehaviour, IDropHandler
 
 
             droppedEquipment.slotType = "Radar";
-            childName = droppedEquipment.equipment.Title;
             // set up thje current radar data based on the data from the object
 
             shipData.radar = droppedEquipment.equipment.ID;

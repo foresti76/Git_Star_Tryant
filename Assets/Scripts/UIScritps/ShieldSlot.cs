@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class ShieldSlot : MonoBehaviour, IDropHandler{
 
-    public string childName;
-
     private Inventory inv;
     private GameObject playerShip;
     private ShieldData shieldData;
@@ -24,7 +22,7 @@ public class ShieldSlot : MonoBehaviour, IDropHandler{
 
         shieldData = itemDatabase.FetchShieldByID(shipData.shield);
 
-        if (childName == "")
+        if (this.transform.childCount == 1)
         {
             GameObject equipmentObject = Instantiate(inv.inventoryItem);
             equipmentObject.transform.SetParent(this.transform, false);
@@ -35,7 +33,6 @@ public class ShieldSlot : MonoBehaviour, IDropHandler{
             data.equipment = itemDatabase.FetchEquipmentByID(shieldData.ID);
             data.slotType = "Shield";
             data.ammount++;
-            childName = shieldData.Title;
         }
     }
 
@@ -45,9 +42,9 @@ public class ShieldSlot : MonoBehaviour, IDropHandler{
         if (droppedEquipment.equipment.Type == "Shield")
         {
             // swap out the current shield object in this slot and send it back to the inventory
-            if (childName != "")
+            if (this.transform.childCount > 1)
             {
-                Transform equipment = this.transform.Find(childName);
+                Transform equipment = this.transform.GetChild(1);
                 EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                 currentEquipment.slot = droppedEquipment.slot;
                 currentEquipment.slotType = "Inv";
@@ -57,7 +54,6 @@ public class ShieldSlot : MonoBehaviour, IDropHandler{
 
             // set up thje current shield data based on the data from the object
             droppedEquipment.slotType = "Shield";
-            childName = droppedEquipment.equipment.Title;
 
             // make sure the save data matches the current engine
             shipData.shield = droppedEquipment.equipment.ID;

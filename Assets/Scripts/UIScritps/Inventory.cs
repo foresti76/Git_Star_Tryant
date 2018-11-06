@@ -9,17 +9,18 @@ public class Inventory : MonoBehaviour {
     public GameObject slotPanel;
     public GameObject inventorySlot;
     public GameObject inventoryItem;
-
-    //todo add in station inventory.
+    public PlayerRecord playerRecord;
 
     ItemDatabase equipmentDatbase;
     private int slotAmmount;
+
 
     public List<Equipment> equipments = new List<Equipment>();
     public List<GameObject> slots = new List<GameObject>();
 
     void Start()
     {
+        playerRecord = GameObject.Find("PlayerRecord").GetComponent<PlayerRecord>();
         equipmentDatbase = GetComponent<ItemDatabase>(); 
         slotAmmount = 20;
         for (int i = 0; i < slotAmmount; i++)
@@ -40,7 +41,8 @@ public class Inventory : MonoBehaviour {
         {
             EquipmentData data = slots[CheckIfEquipmentIsInInventory(equipmentToAdd)].transform.GetChild(0).GetComponent<EquipmentData>();
             data.ammount++ ;
-            data.transform.GetChild(0).GetComponent<Text>().text = data.ammount.ToString();       
+            data.transform.GetChild(0).GetComponent<Text>().text = data.ammount.ToString();
+            data.transform.GetChild(1).GetComponent<Text>().text = data.equipment.Cost.ToString();
         }
         else
         { 
@@ -58,6 +60,7 @@ public class Inventory : MonoBehaviour {
                     EquipmentData data = equipmentObject.transform.GetComponent<EquipmentData>();
                     data.equipment = equipmentToAdd;
                     data.slotType = "Inv";
+                    data.transform.GetChild(1).GetComponent<Text>().text = data.equipment.Cost.ToString();
                     data.ammount++;
                     data.slot = i;
                     break;

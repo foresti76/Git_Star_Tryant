@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class EngineSlot : MonoBehaviour, IDropHandler{
 
-    public string childName;
 
     private Inventory inv;
     private ItemDatabase itemDatabase;
@@ -22,7 +21,7 @@ public class EngineSlot : MonoBehaviour, IDropHandler{
 
         EngineData engineData = itemDatabase.FetchEngineByID(shipData.engine);
 
-        if (childName == "")
+        if (this.transform.childCount == 1)
         {
             GameObject equipmentObject = Instantiate(inv.inventoryItem);
             equipmentObject.transform.SetParent(this.transform, false);
@@ -33,9 +32,9 @@ public class EngineSlot : MonoBehaviour, IDropHandler{
             data.equipment = itemDatabase.FetchEquipmentByID(engineData.ID);
             data.slotType = "Engine";
             data.ammount++;
-            childName = engineData.Title;
         }
     }
+
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -43,9 +42,9 @@ public class EngineSlot : MonoBehaviour, IDropHandler{
         if (droppedEquipment.equipment.Type == "Engine")
         {
             // swap out the current engine object in this slot and send it back to the inventory
-            if (childName != "")
+            if (this.transform.childCount > 1)
             {
-                Transform equipment = this.transform.Find(childName);
+                Transform equipment = this.transform.GetChild(1);
                 EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                 currentEquipment.slot = droppedEquipment.slot;
                 currentEquipment.slotType = "Inv";
@@ -55,7 +54,6 @@ public class EngineSlot : MonoBehaviour, IDropHandler{
 
             // set the equipment to be parented correctly
             droppedEquipment.slotType = "Engine";
-            childName = droppedEquipment.equipment.Title;
 
             // make sure the save data matches the current engine
             shipData.engine = droppedEquipment.equipment.ID;

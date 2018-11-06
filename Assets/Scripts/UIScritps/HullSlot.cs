@@ -6,11 +6,10 @@ using UnityEngine.UI;
 
 public class HullSlot : MonoBehaviour, IDropHandler {
 
-    public GameObject weaponsPanel;
+    public GameObject weaponsSlotPanel;
     public GameObject weaponSlot;
-    public GameObject subsystemPanel;
+    public GameObject subsystemSlotPanel;
     public GameObject subsystemSlot;
-    public string childName;
 
     private Inventory inv;
     private ItemDatabase itemDatabase;
@@ -33,7 +32,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
 
         HullData hullData = itemDatabase.FetchShipByID(shipData.hullID);
 
-        if (childName == "")
+        if (this.transform.childCount == 1)
         {
             GameObject equipmentObject = Instantiate(inv.inventoryItem);
             equipmentObject.transform.SetParent(this.transform, false);
@@ -44,10 +43,11 @@ public class HullSlot : MonoBehaviour, IDropHandler {
             data.equipment = itemDatabase.FetchEquipmentByID(hullData.ID);
             data.slotType = "Ship";
             data.ammount++;
-            childName = hullData.Title;
+            //childName = hullData.Title;
             UpdatePanels(hullData.ID);
         }
     }
+
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -55,9 +55,9 @@ public class HullSlot : MonoBehaviour, IDropHandler {
         if (droppedEquipment.equipment.Type == "Ship")
         {
             // swap out the current ship object in this slot and send it back to the inventory
-            if (childName != "")
+            if (this.transform.childCount > 1)
             {
-                Transform equipment = this.transform.Find(childName);
+                Transform equipment = this.transform.GetChild(1);
                 EquipmentData currentEquipment = equipment.GetComponent<EquipmentData>();
                 currentEquipment.slot = droppedEquipment.slot;
                 currentEquipment.slotType = "Inv";
@@ -67,7 +67,6 @@ public class HullSlot : MonoBehaviour, IDropHandler {
 
             // set up the equipment object to have the correct parent
             droppedEquipment.slotType = "Ship";
-            childName = droppedEquipment.equipment.Title;
 
             // set up thje current ship data based on the data from the object
             shipData.hullID = droppedEquipment.equipment.ID;
@@ -91,7 +90,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
             for (int i = 0; i < smWeaponSlotAmmount; i++)
             {
                 weaponSlots.Add(Instantiate(weaponSlot));
-                weaponSlots[i].transform.SetParent(weaponsPanel.transform, false);
+                weaponSlots[i].transform.SetParent(weaponsSlotPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
                 weaponSlotScript.weaponSlotSize = "small";
                 weaponSlotScript.slotId = i;
@@ -104,7 +103,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
             for (int i = 0; i < medWeaponSlotAmmount; i++)
             {
                 weaponSlots.Add(Instantiate(weaponSlot));
-                weaponSlots[i].transform.SetParent(weaponsPanel.transform, false);
+                weaponSlots[i].transform.SetParent(weaponsSlotPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
                 weaponSlotScript.weaponSlotSize = "medium";
                 weaponSlotScript.slotId = i;
@@ -117,7 +116,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
             for (int i = 0; i < smWeaponSlotAmmount; i++)
             {
                 weaponSlots.Add(Instantiate(weaponSlot));
-                weaponSlots[i].transform.SetParent(weaponsPanel.transform, false);
+                weaponSlots[i].transform.SetParent(weaponsSlotPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
                 weaponSlotScript.weaponSlotSize = "large";
                 weaponSlotScript.slotId = i;
@@ -131,7 +130,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
             for (int i = 0; i < subsystemsSlotAmmount; i++)
             {
                 subsystemSlots.Add(Instantiate(subsystemSlot));
-                subsystemSlots[i].transform.SetParent(subsystemPanel.transform, false);
+                subsystemSlots[i].transform.SetParent(subsystemSlotPanel.transform, false);
             }
         }
     }
