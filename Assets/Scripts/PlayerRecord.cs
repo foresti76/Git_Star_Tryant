@@ -7,42 +7,43 @@ public class PlayerRecord : MonoBehaviour {
     //GameObject playership;
     public int playerMoney;
     
-    int previousAmount;
     Text moneyDisplay;
 	// Use this for initialization
 	void Start () {
         //playerShip = GameObject.FindGameObjectWithTag("Player");
-        previousAmount = playerMoney;
-        moneyDisplay = GameObject.Find("Money").GetComponent<Text>();
+         moneyDisplay = GameObject.Find("Money").GetComponent<Text>();
+        UpdateMoneyDisplay(playerMoney);
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if(previousAmount != playerMoney)
-        {
-            previousAmount = playerMoney;
-            UpdateMoneyDisplay(playerMoney);
-        }
+	//void Update () {
+	//	if(previousAmount != playerMoney)
+ //       {
+ //           previousAmount = playerMoney;
+ //           UpdateMoneyDisplay(playerMoney);
+ //       }
 
-        //debug
-        if (Input.GetKeyDown("p"))
-        {
-            playerMoney += 10;
-        }
+ //       //debug
+ //       if (Input.GetKeyDown("p"))
+ //       {
+ //           playerMoney += 10;
+ //       }
 
-        if (Input.GetKeyDown("o"))
-        {
-            playerMoney -= 10;
-        }
-    }
+ //       if (Input.GetKeyDown("o"))
+ //       {
+ //           playerMoney -= 10;
+ //       }
+ //   }
     public void GiveMoney(int amount)
     {
         playerMoney += amount;
+        UpdateMoneyDisplay(playerMoney);
     }
 
     public void SpendMoney(int amount)
     {
         playerMoney -= amount;
+        UpdateMoneyDisplay(playerMoney);
     }
 
     public bool CanAfford(int amount)

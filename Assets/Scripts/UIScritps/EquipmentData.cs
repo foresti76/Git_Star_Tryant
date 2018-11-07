@@ -57,7 +57,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         {
             offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
             //originalParent = this.transform.parent;
-            this.transform.SetParent(this.transform.parent.parent.parent);
+            this.transform.SetParent(inv.gameObject.transform);
             this.transform.position = eventData.position - offset;
             this.GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
@@ -73,7 +73,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-         //todo differnatiate between inv, loot and ship customiaztion panel and set correct parent
+        //todo differnatiate between inv, loot and ship customiaztion panel and set correct parent
         if (slotType == "Ship")
         {
             this.transform.SetParent(hullSlot.transform);

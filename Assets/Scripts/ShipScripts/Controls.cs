@@ -68,7 +68,6 @@ public class Controls : MonoBehaviour {
 
     public void SetInventoryPosition(float xpos, float ypos)
     {
-        Debug.Log("setting the positoin of the inventory panel.");
         inventoryPanel.transform.localPosition = new Vector3(xpos, ypos, 0);
     }
 
