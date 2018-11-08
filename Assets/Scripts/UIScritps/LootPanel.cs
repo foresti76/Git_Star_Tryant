@@ -135,6 +135,7 @@ public class LootPanel : MonoBehaviour
     public void OpenLootPanel()
     {
         lootPanel.SetActive(true);
+        uiControls.SetInventoryPosition(779.0f, 268.20f);
         uiControls.ShowInventory();
     }
 }

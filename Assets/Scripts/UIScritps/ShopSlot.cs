@@ -34,7 +34,7 @@ public class ShopSlot : MonoBehaviour, IDropHandler {
                 inv.equipments[droppedEquipment.slot] = new Equipment();
             }
 
-            inv.playerRecord.GiveMoney(droppedEquipment.equipment.Cost / (affinity);
+            inv.playerRecord.GiveMoney(droppedEquipment.equipment.Cost / affinity);
             droppedEquipment.slot = id;
             droppedEquipment.slotType = "Shop";
         }

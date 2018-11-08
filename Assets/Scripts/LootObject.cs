@@ -71,7 +71,7 @@ public class LootObject : MonoBehaviour
         myLoot = new List<int>();
         for (int i = 0; i < amount; i++)
         {
-            myLoot.Add(lootList[Random.Range(0, lootList.Count)]);
+            myLoot.Add(lootList[Random.Range(0, lootList.Count - 1)]);
         }
         // clear the created list
         lootList.Clear();

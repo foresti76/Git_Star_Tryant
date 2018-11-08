@@ -135,6 +135,11 @@ public class Controls : MonoBehaviour {
     {
         starBasePanel.SetActive(false);
         miniMap.SetActive(true);
+        if (inventoryOpen)
+        {
+            HideInventory();
+        }
+        ShowDockingPrompt();
         UnPause();
     }
 

@@ -21,7 +21,7 @@ public class Hull : MonoBehaviour {
 	void Update () {
 		if(curHull <= 0)
         {
-            //isDead = true;
+           // isDead = true;
             Instantiate(explosion, transform.position, transform.rotation);
             Instantiate(lootObject, transform.position, transform.rotation);
             lootObject.GetComponentInChildren<LootObject>().CreateLoot(myShip.lootTable, myShip.lootAmount);
