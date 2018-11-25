@@ -237,7 +237,6 @@ public class PlayerControls : MonoBehaviour {
     void initateCombatMode()
     {
         combatModeActive = true;
-        Debug.Log("Combat Mode Active");
         Cursor.visible = false;
         // todo make the turrets come out and change the UI to combat configuration
     }
@@ -247,7 +246,6 @@ public class PlayerControls : MonoBehaviour {
         combatModeActive = false;
         selectionObjectMover.NonCombatTargeting();
         miniMapSelectionObjectMover.NonCombatTargeting();
-        Debug.Log("Combat Mode Deactivated");
         Cursor.visible = true;
         // todo make the turrets go away and change the UI to non-combat configuration
     }
