@@ -10,6 +10,7 @@ public class PlayerControls : MonoBehaviour {
     public GameObject selectedObject;
     public GameObject selectionObject;
     public GameObject miniMapSelectionObject;
+    public Texture combatCursor;  // Your cursor texture
 
     Text selectionText;
     GameObject playerShip;
@@ -20,6 +21,10 @@ public class PlayerControls : MonoBehaviour {
     TractorBeam myTractorBeam;
     SelectionMover selectionObjectMover;
     SelectionMover miniMapSelectionObjectMover;
+    float fAngle; //angle to rotate the combat cursor.
+
+    float cursorSizeX = 32.0f;  // Your cursor size x
+    float cursorSizeY = 32.0f;  // Your cursor size y
 
     // Use this for initialization
     void Start () {
@@ -39,6 +44,15 @@ public class PlayerControls : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (combatModeActive)
+        {
+            Vector3 v3Pos;
+            
+            v3Pos = Camera.main.WorldToScreenPoint(playerShip.transform.position) - Input.mousePosition;
+            fAngle = Mathf.Atan2(v3Pos.x, v3Pos.y) * Mathf.Rad2Deg; //todo remove radian conversion to Degrees and and add 2 Pi istead of 360.
+            if (fAngle < 0.0f) { fAngle += 360.0f; }
+        }
+
 
         if (!uiOpen)
         {
@@ -224,6 +238,7 @@ public class PlayerControls : MonoBehaviour {
     {
         combatModeActive = true;
         Debug.Log("Combat Mode Active");
+        Cursor.visible = false;
         // todo make the turrets come out and change the UI to combat configuration
     }
 
@@ -233,6 +248,7 @@ public class PlayerControls : MonoBehaviour {
         selectionObjectMover.NonCombatTargeting();
         miniMapSelectionObjectMover.NonCombatTargeting();
         Debug.Log("Combat Mode Deactivated");
+        Cursor.visible = true;
         // todo make the turrets go away and change the UI to non-combat configuration
     }
 
@@ -269,5 +285,18 @@ public class PlayerControls : MonoBehaviour {
         selectedObject = null;
         myRadar.target = null;
         selectionText.text = "None";
+    }
+
+    void OnGUI()
+    {
+        if (combatModeActive)
+        { 
+            float x = Event.current.mousePosition.x;
+            float y = Event.current.mousePosition.y;
+            Rect rect = new Rect(x - cursorSizeX / 2.0f, y - cursorSizeY / 2.0f, cursorSizeX, cursorSizeY);
+            Vector2 pivot = new Vector2(x, y);
+            GUIUtility.RotateAroundPivot(fAngle + 90f, pivot);
+            GUI.DrawTexture(rect, combatCursor);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Controls : MonoBehaviour {
     //Todo Move all keyboard and other controls into here
@@ -11,8 +12,13 @@ public class Controls : MonoBehaviour {
     public GameObject inventoryPanel;
     public GameObject shipCustomizationPanel;
     public GameObject starBasePanel;
+    public GameObject starBaseNewsPanel;
+    public GameObject starBaseShipyardPanel;
+    public GameObject starBaseCantinaPanel;
+    public GameObject starBaseCommanderPanel;
     public GameObject dockingPrompt;
     public GameObject starBaseShopPanel;
+    public Text starBaseTitleText;
     public bool inventoryOpen;
     public bool shipCustomizationOpen;
 
@@ -90,7 +96,7 @@ public class Controls : MonoBehaviour {
     public void ShowShipCustomization()
     {
         ShowInventory();
-        SetInventoryPosition(779.0f, 268.20f);
+        SetInventoryPosition(604.0f, 103.0f);
         shipCustomizationPanel.SetActive(true);
         shipCustomizationOpen = true;
         Pause();
@@ -102,6 +108,127 @@ public class Controls : MonoBehaviour {
         shipCustomizationPanel.SetActive(false);
         shipCustomizationOpen = false;
         UnPause();
+    }
+
+    public void ShowStarbaseScreen()
+    {
+        HideDockingPrompt();
+        starBasePanel.SetActive(true);
+        //todo procedually enter the starbase name here
+        starBaseTitleText.text = "Welcome to Starbase";
+        ShowStarbaseNewsScreen();
+        miniMap.SetActive(false);
+        Pause();
+    }
+
+    public void HideStarbaseScreen()
+    {
+        starBasePanel.SetActive(false);
+        miniMap.SetActive(true);
+        if (inventoryOpen)
+        {
+            HideInventory();
+        }
+        ShowDockingPrompt();
+        UnPause();
+    }
+
+    public void ShowStarbaseNewsScreen()
+    {
+        HideStarbaseShopScreen();
+        HideStarbaseCantinaScreen();
+        HideStarbaseCommanderScreen();
+        HideStarbaseShipyardScreen();
+        starBaseNewsPanel.SetActive(true);
+        HideStarbaseShopScreen();
+        //todo procedually enter the staerbase name here
+        starBaseTitleText.text = "Welcome to Starbase Name";
+    }
+
+    public void HideStarbaseNewsScreen()
+    {
+        starBaseNewsPanel.SetActive(false);
+    }
+
+    public void ShowStarbaseCantinaScreen()
+    {
+        HideStarbaseNewsScreen();
+        HideStarbaseShopScreen();
+        HideStarbaseCommanderScreen();
+        HideStarbaseShipyardScreen();
+        starBaseCantinaPanel.SetActive(true);
+        HideStarbaseShopScreen();
+        //todo procedually enter the staerbase name here
+        starBaseTitleText.text = "Welcome to Cantina Name";
+    }
+
+    public void HideStarbaseCantinaScreen()
+    {
+        starBaseCantinaPanel.SetActive(false);
+    }
+
+    public void ShowStarbaseCommanderScreen()
+    {
+        HideStarbaseNewsScreen();
+        HideStarbaseCantinaScreen();
+        HideStarbaseShopScreen();
+        HideStarbaseShipyardScreen();
+        starBaseCommanderPanel.SetActive(true);
+        HideStarbaseShopScreen();
+        //todo procedually enter the name here
+        starBaseTitleText.text = "Commander Soandso";
+    }
+
+    public void HideStarbaseCommanderScreen()
+    {
+        starBaseCommanderPanel.SetActive(false);
+    }
+
+    public void ShowStarbaseShopScreen()
+    {
+        HideStarbaseNewsScreen();
+        HideStarbaseCantinaScreen();
+        HideStarbaseCommanderScreen();
+        HideStarbaseShipyardScreen();
+        starBaseShopPanel.SetActive(true);
+        //todo procedually enter the shop name here
+        starBaseTitleText.text = "Welcome to this Shop";
+        SetInventoryPosition(-180.5f, 150.20f);
+        ShowInventory();
+    }
+
+    public void HideStarbaseShopScreen()
+    {
+        starBaseShopPanel.SetActive(false);
+        HideInventory();
+    }
+
+    public void ShowStarbaseShipyardScreen()
+    {
+        HideStarbaseNewsScreen();
+        HideStarbaseShopScreen();
+        HideStarbaseCantinaScreen();
+        HideStarbaseCommanderScreen();
+        starBaseShipyardPanel.SetActive(true);
+        //todo procedually enter the shhipyard name here
+        starBaseTitleText.text = "Welcome the Shipyard";
+        ShowShipCustomization();
+    }
+
+    public void HideStarbaseShipyardScreen()
+    {
+        starBaseShipyardPanel.SetActive(false);
+        HideShipCustomization();
+    }
+
+    public void ShowDockingPrompt()
+    {
+        dockingPrompt.SetActive(true);
+    }
+
+    public void HideDockingPrompt()
+    {
+        dockingPrompt.SetActive(false);
     }
 
     private void Pause()
@@ -120,49 +247,5 @@ public class Controls : MonoBehaviour {
             playerControls.uiOpen = false;
         }
         Time.timeScale = 1;
-    }
-
-    public void ShowStarbaseScreen()
-    {
-        HideDockingPrompt();
-        starBasePanel.SetActive(true);
-        HideStarbaseShopScreen();
-        miniMap.SetActive(false);
-        Pause();
-    }
-
-    public void HideStarbaseScreen()
-    {
-        starBasePanel.SetActive(false);
-        miniMap.SetActive(true);
-        if (inventoryOpen)
-        {
-            HideInventory();
-        }
-        ShowDockingPrompt();
-        UnPause();
-    }
-
-    public void ShowStarbaseShopScreen()
-    {
-        starBaseShopPanel.SetActive(true);
-        SetInventoryPosition(-180.5f, 150.20f);
-        ShowInventory();
-    }
-
-    public void HideStarbaseShopScreen()
-    {
-        starBaseShopPanel.SetActive(false);
-        HideInventory();
-    }
-
-    public void ShowDockingPrompt()
-    {
-        dockingPrompt.SetActive(true);
-    }
-
-    public void HideDockingPrompt()
-    {
-        dockingPrompt.SetActive(false);
     }
 }
