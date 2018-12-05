@@ -31,8 +31,16 @@ public class Inventory : MonoBehaviour {
             slots[i].GetComponent<InventorySlot>().id = i ;
         }
         // remove once we can actually populate the inventory with real stuff
-        AddEquipment(90); 
-           
+        AddEquipment(90);
+        AddEquipment(88);
+        AddEquipment(85);
+        AddEquipment(81);
+        AddEquipment(82);
+        AddEquipment(80);
+        AddEquipment(90);
+        AddEquipment(90);
+        AddEquipment(90);
+
     }
     public void AddEquipment(int id)
     {

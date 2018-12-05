@@ -23,6 +23,7 @@ public class WeaponController : MonoBehaviour
     public float speed;
     public float seek_rate;
     public float lifeTime = 25.0f;
+    public int projectilesPerShot;
 
 
     delegate GameObject FiringMode();
@@ -32,6 +33,7 @@ public class WeaponController : MonoBehaviour
     LineRenderer currentLaser;
     //LayerMask myLayerMask;  I might want this back if I am dynamically setting the layermask.
     private Radar myRadar;
+    private int shotsLeft;
 
     // Use this for initialization
     void Start()
@@ -39,6 +41,7 @@ public class WeaponController : MonoBehaviour
         myShipGenerator = this.GetComponentInParent<Generator>();
         //myLayerMask = gameObject.layer;
         myRadar = GetComponentInParent<Radar>();
+        shotsLeft = projectilesPerShot;
     }
 
     // Update is called once per frame
@@ -107,8 +110,82 @@ public class WeaponController : MonoBehaviour
         shotScript.shooter = this.gameObject;
         shotScript.shooter = transform.parent.gameObject;
         shotScript.damage = shotDamage;
-
-        return shot;
+        if(projectilesPerShot == 1)
+        {
+            return shot;
+        }
+        else if (projectilesPerShot == 2)
+        {
+            if (shotsLeft == 2)
+            {
+                shot.transform.rotation = Quaternion.Euler(shot.transform.eulerAngles.x, shot.transform.eulerAngles.y, shot.transform.eulerAngles.z + 10);
+                Invoke("FireProjectile", 0.0f);
+                shotsLeft--;
+            }
+            else
+            {
+                shot.transform.rotation = Quaternion.Euler(shot.transform.eulerAngles.x, shot.transform.eulerAngles.y, shot.transform.eulerAngles.z - 10);
+                shotsLeft = projectilesPerShot;
+            }
+            return shot;
+        }
+        else if (projectilesPerShot == 3)
+        {
+            if (shotsLeft == 3)
+            {
+                Invoke("FireProjectile", 0.0f);
+                shotsLeft--;
+            }
+            else if (shotsLeft == 2)
+            {
+                shot.transform.rotation = Quaternion.Euler(shot.transform.eulerAngles.x, shot.transform.eulerAngles.y, shot.transform.eulerAngles.z + 10);
+                Invoke("FireProjectile", 0.0f);
+                shotsLeft--;
+            }
+            else
+            {
+                shot.transform.rotation = Quaternion.Euler(shot.transform.eulerAngles.x, shot.transform.eulerAngles.y, shot.transform.eulerAngles.z - 10);
+                shotsLeft = projectilesPerShot;
+            }
+            return shot;
+        }
+        else if (projectilesPerShot == 5)
+        {
+            if (shotsLeft == 5)
+            {
+                Invoke("FireProjectile", 0.0f);
+                shotsLeft--;
+            }
+            else if (shotsLeft == 4)
+            {
+                shot.transform.rotation = Quaternion.Euler(shot.transform.eulerAngles.x, shot.transform.eulerAngles.y, shot.transform.eulerAngles.z + 10);
+                Invoke("FireProjectile", 0.0f);
+                shotsLeft--;
+            }
+            else if (shotsLeft == 3)
+            {
+                shot.transform.rotation = Quaternion.Euler(shot.transform.eulerAngles.x, shot.transform.eulerAngles.y, shot.transform.eulerAngles.z - 10);
+                Invoke("FireProjectile", 0.0f);
+                shotsLeft--;
+            }
+            else if (shotsLeft == 2)
+            {
+                shot.transform.rotation = Quaternion.Euler(shot.transform.eulerAngles.x, shot.transform.eulerAngles.y, shot.transform.eulerAngles.z - 20);
+                Invoke("FireProjectile", 0.0f);
+                shotsLeft--;
+            }
+            else
+            {
+                shot.transform.rotation = Quaternion.Euler(shot.transform.eulerAngles.x, shot.transform.eulerAngles.y, shot.transform.eulerAngles.z + 20);
+                shotsLeft = projectilesPerShot;
+            }
+            return shot;
+        }
+        else
+        {
+            return shot;
+        }
+ 
     }
 
     public GameObject FireLaser()

@@ -92,10 +92,10 @@ public class HullSlot : MonoBehaviour, IDropHandler {
                 weaponSlots.Add(Instantiate(weaponSlot));
                 weaponSlots[i].transform.SetParent(weaponsSlotPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
-                weaponSlotScript.weaponSlotSize = "small";
+                weaponSlotScript.weaponSlotSize = 0;
                 weaponSlotScript.slotId = i;
                 Text slotSize = weaponSlots[i].GetComponentInChildren<Text>();
-                slotSize.text = weaponSlotScript.weaponSlotSize;
+                slotSize.text = "Small";
             }
         }
         if (medWeaponSlotAmmount > 0)
@@ -105,23 +105,23 @@ public class HullSlot : MonoBehaviour, IDropHandler {
                 weaponSlots.Add(Instantiate(weaponSlot));
                 weaponSlots[i].transform.SetParent(weaponsSlotPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
-                weaponSlotScript.weaponSlotSize = "medium";
+                weaponSlotScript.weaponSlotSize = 1;
                 weaponSlotScript.slotId = i;
                 Text slotSize = weaponSlots[i].GetComponentInChildren<Text>();
-                slotSize.text = weaponSlotScript.weaponSlotSize;
+                slotSize.text = "Meduim";
             }
         }
         if (lgWeaponSlotAmmount > 0)
         {
-            for (int i = 0; i < smWeaponSlotAmmount; i++)
+            for (int i = 0; i < lgWeaponSlotAmmount; i++)
             {
                 weaponSlots.Add(Instantiate(weaponSlot));
                 weaponSlots[i].transform.SetParent(weaponsSlotPanel.transform, false);
                 WeaponSlot weaponSlotScript = weaponSlots[i].GetComponent<WeaponSlot>();
-                weaponSlotScript.weaponSlotSize = "large";
+                weaponSlotScript.weaponSlotSize = 2;
                 weaponSlotScript.slotId = i;
                 Text slotSize = weaponSlots[i].GetComponentInChildren<Text>();
-                slotSize.text = weaponSlotScript.weaponSlotSize;
+                slotSize.text = "Large";
             }
         }
 

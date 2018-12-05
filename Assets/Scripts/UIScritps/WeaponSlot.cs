@@ -8,7 +8,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
 {
     public string childName;
     public int slotId;
-    public string weaponSlotSize;  
+    public int weaponSlotSize;  
 
     private Inventory inv;
     private ItemDatabase itemDatabase;
@@ -68,7 +68,7 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
          {
             WeaponData weaponData = itemDatabase.FetchWeaponByID(droppedEquipment.equipment.ID);
             //Debug.Log(weaponData.Mount_Size);
-            if (weaponData.Mount_Size == weaponSlotSize)
+            if (weaponData.Mount_Size <= weaponSlotSize)
             {
                 // swap out the current ship object in this slot and send it back to the inventory
                 if (this.transform.childCount > 1)

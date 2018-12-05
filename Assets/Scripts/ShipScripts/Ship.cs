@@ -239,7 +239,7 @@ public class Ship : MonoBehaviour {
             myWeaponController.turretRotationRate = projectileData.Turret_Rotation_Rate;
             myWeaponController.turretRotationLimit = projectileData.Turret_Rotation_Limit;
             myWeaponController.energyCost = projectileData.Energy_Cost;
-            // todo myWeaponController.projectilesPerShot = projectileData.Projectiles_per_Shot;
+            myWeaponController.projectilesPerShot = projectileData.Projectiles_per_Shot;
         }
         else if (weaponData.Weapon_Type == "laser")
         {

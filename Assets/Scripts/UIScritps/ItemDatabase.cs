@@ -231,7 +231,7 @@ public class ItemDatabase : MonoBehaviour {
                                                                            equipmentData[i]["title"].ToString(), 
                                                                            equipmentData[i]["description"].ToString(), 
                                                                            (int)equipmentData[i]["cost"], 
-                                                                           equipmentData[i]["mount_size"].ToString(), 
+                                                                           (int)equipmentData[i]["mount_size"], 
                                                                            equipmentData[i]["weapon_type"].ToString(),
                                                                            (int)equipmentData[i]["damage"],
                                                                            (int)equipmentData[i]["energy_cost"],
@@ -252,14 +252,14 @@ public class ItemDatabase : MonoBehaviour {
                                                                                equipmentData[i]["title"].ToString(),
                                                                                equipmentData[i]["description"].ToString(),
                                                                                (int)equipmentData[i]["cost"],
-                                                                               equipmentData[i]["mount_size"].ToString(),
+                                                                               (int)equipmentData[i]["mount_size"],
                                                                                equipmentData[i]["weapon_type"].ToString(),
                                                                                (int)equipmentData[i]["turret_rotation_rate"],
                                                                                (int)equipmentData[i]["turret_rotation_limit"],
                                                                                (int)equipmentData[i]["damage"],
                                                                                (int)equipmentData[i]["projectiles_per_shot"],
                                                                                (int)equipmentData[i]["ammo_capacity"],
-                                                                               (int)equipmentData[i]["fire_rate"],
+                                                                               (float)(double)equipmentData[i]["fire_rate"],
                                                                                (int)equipmentData[i]["energy_cost"],
                                                                                (int)equipmentData[i]["signature"],
                                                                                equipmentData[i]["slug"].ToString()));
@@ -280,7 +280,7 @@ public class ItemDatabase : MonoBehaviour {
                                                                                equipmentData[i]["title"].ToString(),
                                                                                equipmentData[i]["description"].ToString(),
                                                                                (int)equipmentData[i]["cost"],
-                                                                               equipmentData[i]["mount_size"].ToString(),
+                                                                               (int)equipmentData[i]["mount_size"],
                                                                                equipmentData[i]["weapon_type"].ToString(),
                                                                                (int)equipmentData[i]["turret_rotation_rate"],
                                                                                (int)equipmentData[i]["turret_rotation_limit"],
@@ -307,7 +307,7 @@ public class ItemDatabase : MonoBehaviour {
                                                                                equipmentData[i]["title"].ToString(),
                                                                                equipmentData[i]["description"].ToString(),
                                                                                (int)equipmentData[i]["cost"],
-                                                                               equipmentData[i]["mount_size"].ToString(),
+                                                                               (int)equipmentData[i]["mount_size"],
                                                                                equipmentData[i]["weapon_type"].ToString(),
                                                                                (int)equipmentData[i]["turret_rotation_rate"],
                                                                                (int)equipmentData[i]["turret_rotation_limit"],
@@ -905,14 +905,14 @@ public class WeaponData
     public string Title { get; set; }
     public string Description { get; set; }
     public int Cost { get; set; }
-    public string Mount_Size { get; set; }
+    public int Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
     public int Ammo_Capacity { get; set; }
     public int Energy_Cost { get; set; }
     public string Slug { get; set; }
 
-    public WeaponData(int id, string type, string title, string description, int cost, string mount_size,
+    public WeaponData(int id, string type, string title, string description, int cost, int mount_size,
                                                                                     string weapon_type,
                                                                                     int damage,
                                                                                     int energy_cost,
@@ -939,26 +939,26 @@ public class ProjectileData
     public string Title { get; set; }
     public string Description { get; set; }
     public int Cost { get; set; }
-    public string Mount_Size { get; set; }
+    public int Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
     public int Turret_Rotation_Rate { get; set; }
     public int Turret_Rotation_Limit { get; set; }
     public int Projectiles_per_Shot { get; set; }
     public int Ammo_Capacity { get; set; }
-    public int Fire_Rate { get; set; }
+    public float Fire_Rate { get; set; }
     public int Energy_Cost { get; set; }
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public ProjectileData(int id, string type, string title, string description, int cost, string mount_size,
+    public ProjectileData(int id, string type, string title, string description, int cost, int mount_size,
                                                                                     string weapon_type,
                                                                                     int turret_rotation_rate,
                                                                                     int turret_rotation_limit,
                                                                                     int damage,
                                                                                     int projectiles_per_shot,
                                                                                     int ammo_capacity,
-                                                                                    int fire_rate,
+                                                                                    float fire_rate,
                                                                                     int energy_cost,
                                                                                     int signature,
                                                                                     string slug)
@@ -991,7 +991,7 @@ public class LaserData
     public string Title { get; set; }
     public string Description { get; set; }
     public int Cost { get; set; }
-    public string Mount_Size { get; set; }
+    public int Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
     public int Turret_Rotation_Rate { get; set; }
@@ -1002,7 +1002,7 @@ public class LaserData
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public LaserData(int id, string type, string title, string description, int cost, string mount_size,
+    public LaserData(int id, string type, string title, string description, int cost, int mount_size,
                                                                                     string weapon_type,
                                                                                     int turret_rotation_rate,
                                                                                     int turret_rotation_limit,
@@ -1038,7 +1038,7 @@ public class MissileData
     public string Title { get; set; }
     public string Description { get; set; }
     public int Cost { get; set; }
-    public string Mount_Size { get; set; }
+    public int Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
     public int Turret_Rotation_Rate { get; set; }
@@ -1051,7 +1051,7 @@ public class MissileData
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public MissileData(int id, string type, string title, string description, int cost, string mount_size,
+    public MissileData(int id, string type, string title, string description, int cost, int mount_size,
                                                                                     string weapon_type,
                                                                                     int turret_rotation_rate,
                                                                                     int turret_rotation_limit,
@@ -1091,7 +1091,7 @@ public class MineData
     public string Title { get; set; }
     public string Description { get; set; }
     public int Cost { get; set; }
-    public string Mount_Size { get; set; }
+    public int Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
     public int Turret_Rotation_Rate { get; set; }
@@ -1104,7 +1104,7 @@ public class MineData
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public MineData(int id, string type, string title, string description, int cost, string mount_size,
+    public MineData(int id, string type, string title, string description, int cost, int mount_size,
                                                                                     string weapon_type,
                                                                                     int turret_rotation_rate,
                                                                                     int turret_rotation_limit,
