@@ -27,6 +27,7 @@ public class Ship : MonoBehaviour {
     GameObject subsystemsLayout;
     Inventory inv;
     ItemDatabase itemDatabase;
+    HUD HUDscript;
 
     WeaponController[] weaponControllerArray;
     WeaponSlot[] weaponSlotArray;
@@ -40,6 +41,7 @@ public class Ship : MonoBehaviour {
         if (playerShip == true)
         {
             weaponsLayout = GameObject.Find("WeaponsLayout");
+            HUDscript = GameObject.Find("HUD").GetComponent<HUD>();
             SaveData saveData = GameObject.Find("SaveLoad").GetComponent<SaveData>();
             saveData.Load();
         }
@@ -63,13 +65,18 @@ public class Ship : MonoBehaviour {
         if (playerShip)
         { 
             UpdateWeaponSlotList();
+            HUDscript.CreateWeaponAmmoDisplayElements();
         }
 
         for (int i = 0; i < weaponControllerArray.Length; i++)
         {
             UpdateWeapon(weaponList[i], weaponControllerArray[i]);
         }
- 
+        if (playerShip)
+        {
+            HUDscript.CreateWeaponAmmoDisplayElements();
+        }
+
         /* todo remove this once I have implemented subsystems
         if (subsystemList.Count > 0)
         {
@@ -229,6 +236,7 @@ public class Ship : MonoBehaviour {
     {
 
         WeaponData weaponData = itemDatabase.FetchWeaponByID(id);
+        myWeaponController.weaponName = weaponData.Title;
         if(weaponData.Weapon_Type == "projectile")
         {
             ProjectileData projectileData = itemDatabase.FetchProjectileByID(id);
@@ -240,6 +248,7 @@ public class Ship : MonoBehaviour {
             myWeaponController.turretRotationLimit = projectileData.Turret_Rotation_Limit;
             myWeaponController.energyCost = projectileData.Energy_Cost;
             myWeaponController.projectilesPerShot = projectileData.Projectiles_per_Shot;
+            myWeaponController.maxAmmo = projectileData.Ammo_Capacity;
         }
         else if (weaponData.Weapon_Type == "laser")
         {
@@ -265,6 +274,7 @@ public class Ship : MonoBehaviour {
             myWeaponController.energyCost = missileData.Energy_Cost;
             myWeaponController.speed = missileData.Speed;
             myWeaponController.seek_rate = missileData.Seek_Rate;
+            myWeaponController.maxAmmo = missileData.Ammo_Capacity;
         }
         /*else if (weaponData.Weapon_Type == "Mine")
         {
@@ -285,6 +295,7 @@ public class Ship : MonoBehaviour {
 
         //myWeaponController.ammoCapacity = weaponData.Ammo_Capacity;
         //myWeaponController.signature = weaponData.Singature;
+        myWeaponController.Reload();
     }
 
     public void UpdateSubsystem(int id)
@@ -296,6 +307,8 @@ public class Ship : MonoBehaviour {
     {
         myWeaponController.shotDamage = 0;
         myWeaponController.fireRate = 0;
+        myWeaponController.currentAmmo = 0;
+        myWeaponController.maxAmmo = 0;
         //Todo Hook these up once strucutre is in place.  Also remove turret from ship.
         //myWeaponController.weaponType = weaponData.Weapon_Type;
         //myWeaponController.ammoCapacity = weaponData.Ammo_Capacity;

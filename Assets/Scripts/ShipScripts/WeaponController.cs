@@ -24,7 +24,9 @@ public class WeaponController : MonoBehaviour
     public float seek_rate;
     public float lifeTime = 25.0f;
     public int projectilesPerShot;
-
+    public int maxAmmo;
+    public int currentAmmo;
+    public string weaponName;
 
     delegate GameObject FiringMode();
     FiringMode firingMode;
@@ -34,6 +36,8 @@ public class WeaponController : MonoBehaviour
     //LayerMask myLayerMask;  I might want this back if I am dynamically setting the layermask.
     private Radar myRadar;
     private int shotsLeft;
+    HUD HUDScript;
+    bool isPlayer = false;
 
     // Use this for initialization
     void Start()
@@ -41,16 +45,25 @@ public class WeaponController : MonoBehaviour
         myShipGenerator = this.GetComponentInParent<Generator>();
         //myLayerMask = gameObject.layer;
         myRadar = GetComponentInParent<Radar>();
-        shotsLeft = projectilesPerShot;
+        HUDScript = GameObject.Find("HUD").GetComponent<HUD>();
+        if (transform.GetComponentInParent<Ship>().playerShip)
+        {
+            isPlayer = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (firing && Time.time >= nextFire && myShipGenerator.currentPower >= energyCost)
+        if (firing && Time.time >= nextFire && myShipGenerator.currentPower >= energyCost && currentAmmo > 0)
         {
             myShipGenerator.currentPower -= energyCost;
+            currentAmmo--;
+            if (isPlayer)
+            {
+                HUDScript.UpdateAmmoDisplay(slotID, currentAmmo, maxAmmo);
+            }
             firingMode();
         }
         Update_Rotation_Y();
@@ -128,6 +141,7 @@ public class WeaponController : MonoBehaviour
                 shotsLeft = projectilesPerShot;
             }
             return shot;
+            
         }
         else if (projectilesPerShot == 3)
         {
@@ -199,7 +213,7 @@ public class WeaponController : MonoBehaviour
         laserScript.shotSpawn = shotSpawn;
         laserScript.laserLength = laserLength;
         laserScript.shooter = transform.parent.gameObject;
-
+        currentAmmo = maxAmmo;
         return currentLaser;
     }
 
@@ -226,5 +240,15 @@ public class WeaponController : MonoBehaviour
         }
 
         return missile;
+    }
+
+    public void Reload()
+    {
+        currentAmmo = maxAmmo;
+        shotsLeft = projectilesPerShot;
+        if (isPlayer)
+        {
+            HUDScript.UpdateAmmoDisplay(slotID, currentAmmo, maxAmmo);
+        }
     }
 }

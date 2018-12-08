@@ -8,17 +8,20 @@ public class HUD : MonoBehaviour {
     public Slider playerShieldHUD;
     public Slider playerHullHUD;
     public Slider playerPowerHUD;
+    public GameObject ammoPrefab;
+    public Transform ammoLayout;
 
     GameObject player;
     Hull hull;
     Generator generator;
     Shield shield;
+    public List<GameObject> ammoDisplays = new List<GameObject>(); 
     float shieldDisplayValue;
     float hullDisplayValue;
     float powerDisplayValue;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
         hull = player.GetComponent<Hull>();
         generator = player.GetComponent<Generator>();
@@ -31,4 +34,30 @@ public class HUD : MonoBehaviour {
         playerPowerHUD.value = generator.currentPower / generator.maxPower;
         playerShieldHUD.value = shield.currentShield / shield.maxShield;
 	}
+
+    public void CreateWeaponAmmoDisplayElements()
+    {
+        foreach(GameObject ammoElement in ammoDisplays)
+        {
+            Destroy(ammoElement);
+        }
+        ammoDisplays.Clear();
+
+        WeaponController[] tempWeaponControllerArray = player.GetComponentsInChildren<WeaponController>();
+        foreach (WeaponController weaponController in tempWeaponControllerArray)
+        {
+            GameObject ammoElement = Instantiate(ammoPrefab, ammoLayout);
+            ammoDisplays.Add(ammoElement);
+            ammoElement.transform.GetChild(2).GetComponent<Text>().text = weaponController.weaponName;
+            ammoElement.transform.GetChild(3).GetComponent<Text>().text = (weaponController.currentAmmo+ " / " + weaponController.maxAmmo).ToString();
+        }
+    }
+
+    public void UpdateAmmoDisplay(int id, int ammoAmmount, int maxAmmo)
+    {
+        float am = ammoAmmount;
+        float ma = maxAmmo;
+        ammoDisplays[id].GetComponent<Slider>().value = am / ma;
+        ammoDisplays[id].transform.GetChild(3).GetComponent<Text>().text = (ammoAmmount + " / " + maxAmmo).ToString();
+    }
 }

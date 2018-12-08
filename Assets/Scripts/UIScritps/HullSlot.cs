@@ -75,7 +75,7 @@ public class HullSlot : MonoBehaviour, IDropHandler {
         }
     }
 
-           void UpdatePanels(int id)
+    void UpdatePanels(int id)
     {
         HullData hullData = itemDatabase.FetchShipByID(id);
 
