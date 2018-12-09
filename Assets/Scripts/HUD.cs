@@ -26,6 +26,7 @@ public class HUD : MonoBehaviour {
         hull = player.GetComponent<Hull>();
         generator = player.GetComponent<Generator>();
         shield = player.GetComponentInChildren<Shield>();
+        HideAmmoDisplay();
 	}
 	
 	// Update is called once per frame
@@ -59,5 +60,15 @@ public class HUD : MonoBehaviour {
         float ma = maxAmmo;
         ammoDisplays[id].GetComponent<Slider>().value = am / ma;
         ammoDisplays[id].transform.GetChild(3).GetComponent<Text>().text = (ammoAmmount + " / " + maxAmmo).ToString();
+    }
+
+    public void HideAmmoDisplay()
+    {
+        ammoLayout.gameObject.SetActive(false);
+    }
+
+    public void ShowAmmoDisplay()
+    {
+        ammoLayout.gameObject.SetActive(true);
     }
 }

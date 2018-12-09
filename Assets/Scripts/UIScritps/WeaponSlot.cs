@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 
 public class WeaponSlot : MonoBehaviour, IDropHandler
 {
-    public string childName;
     public int slotId;
     public int weaponSlotSize;  
 
@@ -51,7 +50,6 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                 data.slotType = "Weapon";
                 data.slot = slotId;
                 data.ammount++;
-                //childName = weaponData.Title;
             }
            myWeaponController = weaponControllerList[slotId].GetComponent<WeaponController>();   
         }
@@ -97,22 +95,20 @@ public class WeaponSlot : MonoBehaviour, IDropHandler
                         //todo figure out a way to update the weapon controller to make the weaponslot update its data when the weapons are switched
                         //todo I see a potential exploit here where you can switch between different size slots.  Need to check to see if the recieveing slot is ok for the current weapon.
                         WeaponSlot sendingWeaponSlot = weaponSlotList[droppedEquipment.slot];
-                        sendingWeaponSlot.childName = currentEquipment.equipment.Title;
+                        //sendingWeaponSlot.childName = currentEquipment.equipment.Title;
                         sendingWeaponSlot.shipData.weaponList[sendingWeaponSlot.slotId] = currentEquipment.equipment.ID;
                         sendingWeaponSlot.shipData.UpdateWeapon(currentEquipment.equipment.ID, sendingWeaponSlot.myWeaponController);
                     }
                 }
 
-                if(childName == "" && droppedEquipment.slotType == "Weapon")
+                if(this.transform.childCount == 1 && droppedEquipment.slotType == "Weapon")
                 {
                     WeaponSlot sendingWeaponSlot = weaponSlotList[droppedEquipment.slot];
                     sendingWeaponSlot.shipData.ClearWeapon(sendingWeaponSlot.myWeaponController);
                 }
                 // set up thje current ship data based on the data from the object
-                //Debug.Log("adding " + weaponData.Title);
                 droppedEquipment.slotType = "Weapon";
                 droppedEquipment.slot = slotId;
-                childName = droppedEquipment.equipment.Title;
 
                 shipData.weaponList[slotId] = droppedEquipment.equipment.ID;
                 shipData.UpdateWeapon(droppedEquipment.equipment.ID, myWeaponController);

@@ -21,6 +21,7 @@ public class PlayerControls : MonoBehaviour {
     TractorBeam myTractorBeam;
     SelectionMover selectionObjectMover;
     SelectionMover miniMapSelectionObjectMover;
+    HUD HUDScript;
     float fAngle; //angle to rotate the combat cursor.
 
     float cursorSizeX = 32.0f;  // Your cursor size x
@@ -40,6 +41,7 @@ public class PlayerControls : MonoBehaviour {
         selectionObjectMover = selectionObject.GetComponent<SelectionMover>();
         miniMapSelectionObjectMover = miniMapSelectionObject.GetComponent<SelectionMover>();
         myTractorBeam = playerShip.GetComponent<TractorBeam>();
+        HUDScript = GameObject.Find("HUD").GetComponent<HUD>();
     }
 
     // Update is called once per frame
@@ -238,6 +240,7 @@ public class PlayerControls : MonoBehaviour {
     {
         combatModeActive = true;
         Cursor.visible = false;
+        HUDScript.ShowAmmoDisplay();
         // todo make the turrets come out and change the UI to combat configuration
     }
 
@@ -247,6 +250,7 @@ public class PlayerControls : MonoBehaviour {
         selectionObjectMover.NonCombatTargeting();
         miniMapSelectionObjectMover.NonCombatTargeting();
         Cursor.visible = true;
+        HUDScript.HideAmmoDisplay();
         // todo make the turrets go away and change the UI to non-combat configuration
     }
 
