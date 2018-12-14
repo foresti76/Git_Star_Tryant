@@ -62,7 +62,7 @@ public class WeaponController : MonoBehaviour
             currentAmmo--;
             if (isPlayer)
             {
-                HUDScript.UpdateAmmoDisplay(slotID, currentAmmo, maxAmmo);
+                HUDScript.UpdateAmmoDisplay(weaponName, slotID, currentAmmo, maxAmmo);
             }
             firingMode();
         }
@@ -213,7 +213,7 @@ public class WeaponController : MonoBehaviour
         laserScript.shotSpawn = shotSpawn;
         laserScript.laserLength = laserLength;
         laserScript.shooter = transform.parent.gameObject;
-        currentAmmo = maxAmmo;
+        Reload();
         return currentLaser;
     }
 
@@ -248,7 +248,7 @@ public class WeaponController : MonoBehaviour
         shotsLeft = projectilesPerShot;
         if (isPlayer)
         {
-            HUDScript.UpdateAmmoDisplay(slotID, currentAmmo, maxAmmo);
+            HUDScript.UpdateAmmoDisplay(weaponName, slotID, currentAmmo, maxAmmo);
         }
     }
 }

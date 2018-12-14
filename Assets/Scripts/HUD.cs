@@ -54,12 +54,21 @@ public class HUD : MonoBehaviour {
         }
     }
 
-    public void UpdateAmmoDisplay(int id, int ammoAmmount, int maxAmmo)
+    public void UpdateAmmoDisplay(string weaponName, int id, int ammoAmmount, int maxAmmo)
     {
         float am = ammoAmmount;
         float ma = maxAmmo;
         ammoDisplays[id].GetComponent<Slider>().value = am / ma;
+        ammoDisplays[id].transform.GetChild(2).GetComponent<Text>().text = weaponName;
         ammoDisplays[id].transform.GetChild(3).GetComponent<Text>().text = (ammoAmmount + " / " + maxAmmo).ToString();
+        if(maxAmmo == 1)
+        {
+            ammoDisplays[id].transform.GetChild(3).gameObject.SetActive(false);
+        }
+        else
+        {
+            ammoDisplays[id].transform.GetChild(3).gameObject.SetActive(true);
+        }
     }
 
     public void HideAmmoDisplay()

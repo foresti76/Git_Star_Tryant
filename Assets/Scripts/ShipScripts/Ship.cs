@@ -261,6 +261,7 @@ public class Ship : MonoBehaviour {
             myWeaponController.turretRotationLimit = laserData.Turret_Rotation_Limit;
             myWeaponController.energyCost = laserData.Energy_Cost;
             myWeaponController.laserLength = laserData.Laser_Length;
+            myWeaponController.maxAmmo = 1;
         }
         else if (weaponData.Weapon_Type == "missile")
         {

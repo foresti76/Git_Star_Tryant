@@ -42,6 +42,7 @@ public class PlayerControls : MonoBehaviour {
         miniMapSelectionObjectMover = miniMapSelectionObject.GetComponent<SelectionMover>();
         myTractorBeam = playerShip.GetComponent<TractorBeam>();
         HUDScript = GameObject.Find("HUD").GetComponent<HUD>();
+        combatModeActive = false;
     }
 
     // Update is called once per frame
