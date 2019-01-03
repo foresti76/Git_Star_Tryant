@@ -696,7 +696,7 @@ public class ShieldData
         public int Max_Shield { get; set; }
         public int Regen_Rate { get; set; }
         public int Regen_Delay { get; set; }
-        public int Refresh_Delay { get; set; }
+        public int Restore_Delay { get; set; }
         public int Damage_Mitigation { get; set; }
         public int Maint_Energy_Cost { get; set; }
         public int Recharge_Energy_Cost { get; set; }
@@ -707,7 +707,7 @@ public class ShieldData
                                                                              int max_shield, 
                                                                              int regen_rate, 
                                                                              int regen_delay, 
-                                                                             int refresh_delay, 
+                                                                             int restore_delay, 
                                                                              int damage_mitigation, 
                                                                              int maint_energy_cost, 
                                                                              int recharge_energy_cost, 
@@ -722,7 +722,7 @@ public class ShieldData
             this.Max_Shield = max_shield;
             this.Regen_Rate = regen_rate;
             this.Regen_Delay = regen_rate;
-            this.Refresh_Delay = refresh_delay;
+            this.Restore_Delay = restore_delay;
             this.Damage_Mitigation = damage_mitigation;
             this.Maint_Energy_Cost = maint_energy_cost;
             this.Recharge_Energy_Cost = recharge_energy_cost;

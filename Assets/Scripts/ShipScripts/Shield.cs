@@ -6,7 +6,7 @@ public class Shield : MonoBehaviour {
 
     public float currentShield;
     public float shieldRechargeDuration;
-    public float shieldRefreshDuration;
+    public float shieldRestoreDuration;
     public float maxShield;
     public float shieldRechageRate;
     public GameObject shieldObject;
@@ -31,7 +31,7 @@ public class Shield : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        // If the shield is reduced to zero it takes longer before it will start recharging
+
         if (myShipGenerator.currentPower >= maintEnergyCost && !shieldDown)
         {
             myShipGenerator.currentPower -= maintEnergyCost;
@@ -48,6 +48,7 @@ public class Shield : MonoBehaviour {
         // Start recharging the sheild if enough time has passed and it has taken damage.
         if (Time.time >= shieldRechargeTime  && currentShield < maxShield)
         {
+            
             if (myShipGenerator.currentPower >= rechargeEnergyCost)
             {
                 if (shieldDown)
@@ -58,7 +59,7 @@ public class Shield : MonoBehaviour {
                 }
                 myShipGenerator.currentPower -= rechargeEnergyCost;
                 currentShield += shieldRechageRate;
-                shieldRechargeTime = Time.time + shieldRechargeDuration;
+                shieldRechargeTime = Time.time + 1.0f;                
 
                 if (shieldCollider.enabled == false)
                 {
@@ -108,7 +109,8 @@ public class Shield : MonoBehaviour {
     {
         shieldDown = true;
         currentShield = 0;
-        shieldRechargeTime = Time.time + shieldRefreshDuration;
+        // If the shield is reduced to zero it takes longer before it will start recharging
+        shieldRechargeTime = Time.time + shieldRestoreDuration;
         shieldCollider.enabled = false;
     }
 }

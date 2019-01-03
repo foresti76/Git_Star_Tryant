@@ -158,7 +158,7 @@ public class Ship : MonoBehaviour {
             shieldScript.maxShield = shieldData.Max_Shield;
             shieldScript.shieldRechageRate = shieldData.Regen_Rate;
             shieldScript.shieldRechargeDuration = shieldData.Regen_Delay;
-            shieldScript.shieldRefreshDuration = shieldData.Refresh_Delay;
+            shieldScript.shieldRestoreDuration = shieldData.Restore_Delay;
             shieldScript.rechargeEnergyCost = shieldData.Recharge_Energy_Cost;
             shieldScript.maintEnergyCost = shieldData.Maint_Energy_Cost;
             shieldScript.currentShield = shieldScript.maxShield;

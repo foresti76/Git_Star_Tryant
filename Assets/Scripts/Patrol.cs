@@ -33,6 +33,7 @@ public class Patrol : NPCBaseFSM {
             {
                 currentWP = 0;
             }
+            //Debug.Log("Current Waypoint = " + currentWP);
         }
 
         Vector3 targetPos = waypoints[currentWP].transform.position;

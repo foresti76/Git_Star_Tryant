@@ -920,7 +920,7 @@
 		"crusing_speed": 1000,
 		"acceleration": 200,
 		"maneuver_bonus": 10,
-		"energy_cost": 10,
+		"energy_cost": 1,
 		"signature": 10,
 		"faction": "any",
 		"slug": "engine_01"
@@ -936,7 +936,7 @@
 		"crusing_speed": 20,
 		"acceleration": 10,
 		"maneuver_bonus": 10,
-		"energy_cost": 10,
+		"energy_cost": 1,
 		"signature": 10,
 		"faction": "any",
 		"slug": "engine_02"
