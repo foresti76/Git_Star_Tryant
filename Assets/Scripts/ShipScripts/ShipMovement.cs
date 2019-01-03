@@ -80,7 +80,8 @@ public class ShipMovement : MonoBehaviour {
         if (turningRight && myGenerator.currentPower >= rcsEnergyCost)
         {
             myGenerator.currentPower -= rcsEnergyCost;
-            transform.Rotate(Vector3.up, rotateThrust * Time.deltaTime);
+            //transform.Rotate(Vector3.up, rotateThrust * Time.deltaTime);
+            myRigidBody.AddTorque(transform.up * rotateThrust * Time.deltaTime);
             var rjrMain = rightManuverJetRight.main;
             rjrMain.startRotationZ = (transform.rotation.eulerAngles.y - 90) * Mathf.Deg2Rad;
             var rjlMain = rightManuverJetLeft.main;
@@ -98,7 +99,8 @@ public class ShipMovement : MonoBehaviour {
         if (turningLeft && myGenerator.currentPower >= rcsEnergyCost)
         {
             myGenerator.currentPower -= rcsEnergyCost;
-            transform.Rotate(Vector3.down, rotateThrust * Time.deltaTime);
+            //transform.Rotate(Vector3.down, rotateThrust * Time.deltaTime);
+            myRigidBody.AddTorque(-transform.up * rotateThrust * Time.deltaTime);
             var ljlMain = leftManuverJetLeft.main;
             var ljrMain = leftManuverJetRight.main;
             ljlMain.startRotationZ = (transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
@@ -125,7 +127,7 @@ public class ShipMovement : MonoBehaviour {
             }
 
             myRigidBody.velocity = myRigidBody.velocity.normalized * newSpeed;
-            myRigidBody.angularVelocity = myRigidBody.angularVelocity * newSpeed;
+            //myRigidBody.angularVelocity = myRigidBody.angularVelocity * newSpeed;
         }
 
         //Debug.Log ("Speed = " + myRigidBody.velocity.magnitude);
@@ -134,7 +136,11 @@ public class ShipMovement : MonoBehaviour {
 
     private void LateUpdate()
     {
-        transform.position = new Vector3(transform.position.x , myYPos, transform.position.z);
+        if(transform.position.y != myYPos)
+        {
+            transform.position = new Vector3(transform.position.x, myYPos, transform.position.z);
+        }
+
         if (transform.rotation.eulerAngles.x != 0)
         {
             transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);

@@ -18,7 +18,7 @@ public class CameraControl : MonoBehaviour
     {
         if (playerShip)
         { 
-        transform.position = playerShip.transform.position + offset;
+        transform.position =new Vector3(playerShip.transform.position.x, offset.y, playerShip.transform.position.z);
         }
     }
 }
