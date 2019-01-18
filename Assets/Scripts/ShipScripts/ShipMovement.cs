@@ -34,6 +34,7 @@ public class ShipMovement : MonoBehaviour {
         myRigidBody = GetComponent<Rigidbody>();
         myGenerator = GetComponent<Generator>();
         myYPos = transform.position.y;
+        myRigidBody.centerOfMass = Vector3.zero;
     }
 
 	
