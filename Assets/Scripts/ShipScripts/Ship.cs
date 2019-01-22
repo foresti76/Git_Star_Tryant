@@ -29,7 +29,7 @@ public class Ship : MonoBehaviour {
     ItemDatabase itemDatabase;
     HUD HUDscript;
 
-    WeaponController[] weaponControllerArray;
+    List<WeaponController> weaponControllerList;
     WeaponSlot[] weaponSlotArray;
 
     private void Start()
@@ -37,7 +37,7 @@ public class Ship : MonoBehaviour {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         itemDatabase = inv.GetComponent<ItemDatabase>();
 
-        weaponControllerArray = this.GetComponentsInChildren<WeaponController>();
+        weaponControllerList = new List<WeaponController>(GetComponentsInChildren<WeaponController>());
         if (playerShip == true)
         {
             weaponsLayout = GameObject.Find("WeaponsLayout");
@@ -68,10 +68,11 @@ public class Ship : MonoBehaviour {
             HUDscript.CreateWeaponAmmoDisplayElements();
         }
 
-        for (int i = 0; i < weaponControllerArray.Length; i++)
+        for (int i = 0; i < weaponControllerList.Count - 1; i++)
         {
-            UpdateWeapon(weaponList[i], weaponControllerArray[i]);
+            UpdateWeapon(weaponList[i], weaponControllerList[i]);
         }
+
         if (playerShip)
         {
             HUDscript.CreateWeaponAmmoDisplayElements();
@@ -124,6 +125,12 @@ public class Ship : MonoBehaviour {
         {
             hull.maxHull = hullData.Hullpoints;
             hull.armor = hullData.Armor;
+            foreach (WeaponController weaponControler in weaponControllerList)
+            {
+                weaponControler.turretRotationRate = hullData.Turret[weaponControler.slotID].Turret_Rotation_Rate;
+                weaponControler.turretRotationLimit = hullData.Turret[weaponControler.slotID].Turret_Rotation_Limit;
+            }
+
             // todo change the ship model to match the current ship using slug.
         }
     }
@@ -229,7 +236,7 @@ public class Ship : MonoBehaviour {
 
     public void UpdateWeaponContollers()
     {
-        weaponControllerArray = this.GetComponentsInChildren<WeaponController>();
+        weaponControllerList = new List<WeaponController>(GetComponentsInChildren<WeaponController>());
     }
 
     public void UpdateWeapon(int id, WeaponController myWeaponController)
@@ -240,12 +247,9 @@ public class Ship : MonoBehaviour {
         if(weaponData.Weapon_Type == "projectile")
         {
             ProjectileData projectileData = itemDatabase.FetchProjectileByID(id);
-
             myWeaponController.shotDamage = projectileData.Damage;
             myWeaponController.fireRate = projectileData.Fire_Rate;
             myWeaponController.weaponType = projectileData.Weapon_Type;
-            myWeaponController.turretRotationRate = projectileData.Turret_Rotation_Rate;
-            myWeaponController.turretRotationLimit = projectileData.Turret_Rotation_Limit;
             myWeaponController.energyCost = projectileData.Energy_Cost;
             myWeaponController.projectilesPerShot = projectileData.Projectiles_per_Shot;
             myWeaponController.maxAmmo = projectileData.Ammo_Capacity;

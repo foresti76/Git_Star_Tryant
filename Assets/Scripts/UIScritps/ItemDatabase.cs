@@ -4,6 +4,7 @@ using System.IO;
 using LitJson;
 using UnityEngine;
 
+[System.Serializable]
 public class ItemDatabase : MonoBehaviour {
     public List<Equipment> equipmentDatabase = new List<Equipment>();
     public List<EngineData> engineDatabase = new List<EngineData>();
@@ -20,7 +21,7 @@ public class ItemDatabase : MonoBehaviour {
     public List<MissileData> missileDatabase = new List<MissileData>();
     //public List<MineData> mineDatabase = new List<MineData>();
     public List<SubsystemData> subsystemDatabase = new List<SubsystemData>();
-
+    
     private JsonData equipmentData;
      //todo subsystems, consumable, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon
 
@@ -86,20 +87,21 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Ship")
             {
-                shipDatabase.Add(new HullData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(), 
-                                                                       equipmentData[i]["title"].ToString(), 
-                                                                       equipmentData[i]["description"].ToString(), 
-                                                                       (int)equipmentData[i]["cost"], 
-                                                                       equipmentData[i]["size"].ToString(), 
-                                                                       (int)equipmentData[i]["mass"], 
-                                                                       (int)equipmentData[i]["hullpoints"], 
-                                                                       (int)equipmentData[i]["cargospace"], 
-                                                                       (int)equipmentData[i]["armor"], 
-                                                                       (int)equipmentData[i]["subsystems"], 
-                                                                       (int)equipmentData[i]["sm_hardpoints"], 
-                                                                       (int)equipmentData[i]["med_hardpoints"], 
-                                                                       (int)equipmentData[i]["lg_hardpoints"], 
-                                                                       equipmentData[i]["slug"].ToString()));
+                shipDatabase.Add(new HullData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
+                                                                       equipmentData[i]["title"].ToString(),
+                                                                       equipmentData[i]["description"].ToString(),
+                                                                       (int)equipmentData[i]["cost"],
+                                                                       equipmentData[i]["size"].ToString(),
+                                                                       (int)equipmentData[i]["mass"],
+                                                                       (int)equipmentData[i]["hullpoints"],
+                                                                       (int)equipmentData[i]["cargospace"],
+                                                                       (int)equipmentData[i]["armor"],
+                                                                       (int)equipmentData[i]["subsystems"],
+                                                                       (int)equipmentData[i]["sm_hardpoints"],
+                                                                       (int)equipmentData[i]["med_hardpoints"],
+                                                                       (int)equipmentData[i]["lg_hardpoints"],
+                                                                       equipmentData[i]["slug"].ToString()),
+                                                                       Turret[] turrets = equipmentData[i]["turrets"]);
             }
         }
     }
@@ -254,8 +256,6 @@ public class ItemDatabase : MonoBehaviour {
                                                                                (int)equipmentData[i]["cost"],
                                                                                (int)equipmentData[i]["mount_size"],
                                                                                equipmentData[i]["weapon_type"].ToString(),
-                                                                               (int)equipmentData[i]["turret_rotation_rate"],
-                                                                               (int)equipmentData[i]["turret_rotation_limit"],
                                                                                (int)equipmentData[i]["damage"],
                                                                                (int)equipmentData[i]["projectiles_per_shot"],
                                                                                (int)equipmentData[i]["ammo_capacity"],
@@ -282,8 +282,6 @@ public class ItemDatabase : MonoBehaviour {
                                                                                (int)equipmentData[i]["cost"],
                                                                                (int)equipmentData[i]["mount_size"],
                                                                                equipmentData[i]["weapon_type"].ToString(),
-                                                                               (int)equipmentData[i]["turret_rotation_rate"],
-                                                                               (int)equipmentData[i]["turret_rotation_limit"],
                                                                                (int)equipmentData[i]["damage"],
                                                                                (int)equipmentData[i]["laser_length"],
                                                                                (int)equipmentData[i]["fire_rate"],
@@ -309,8 +307,6 @@ public class ItemDatabase : MonoBehaviour {
                                                                                (int)equipmentData[i]["cost"],
                                                                                (int)equipmentData[i]["mount_size"],
                                                                                equipmentData[i]["weapon_type"].ToString(),
-                                                                               (int)equipmentData[i]["turret_rotation_rate"],
-                                                                               (int)equipmentData[i]["turret_rotation_limit"],
                                                                                (int)equipmentData[i]["damage"],
                                                                                (int)equipmentData[i]["ammo_capacity"],
                                                                                (int)equipmentData[i]["fire_rate"],
@@ -325,25 +321,22 @@ public class ItemDatabase : MonoBehaviour {
     }
 
     /*
-    void ConstructMineDatabase()
+    void ConstructDroneDatabase()
     {
         for (int i = 0; i < equipmentData.Count; i++)
         {
             if (equipmentData[i]["type"].ToString() == "Weapon")
             {
-                if (equipmentData[i]["type"].ToString() == "mine")
+                if (equipmentData[i]["type"].ToString() == "drone")
                 {
-                    weaponDatabase.Add(new MineData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
+                    weaponDatabase.Add(new DroneData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
                                                                                equipmentData[i]["title"].ToString(),
                                                                                equipmentData[i]["description"].ToString(),
                                                                                (int)equipmentData[i]["cost"],
                                                                                equipmentData[i]["mount_size"].ToString(),
                                                                                equipmentData[i]["weapon_type"].ToString(),
-                                                                               (int)equipmentData[i]["turret_rotation_rate"],
-                                                                               (int)equipmentData[i]["turret_rotation_limit"],
                                                                                (int)equipmentData[i]["damage"],
                                                                                (int)equipmentData[i]["projectiles_per_shot"],
-                                                                               (int)equipmentData[i]["laser_length"],
                                                                                (int)equipmentData[i]["ammo_capacity"],
                                                                                (int)equipmentData[i]["fire_rate"],
                                                                                (int)equipmentData[i]["energy_cost"],
@@ -636,7 +629,7 @@ public class EngineData
         //todo add in reference to 3d model from slug see equipment sprit reference
         }
     }
-
+[SerializeField]
 public class HullData
 {
     public int ID { get; set; }
@@ -654,6 +647,7 @@ public class HullData
     public int Med_Hardpoints { get; set; }
     public int Lg_Hardpoints { get; set; }
     public string Slug { get; set; }
+    public Turret[] Turrets { get; set; }
 
     public HullData(int id, string type, string title, string description, int cost, 
                                                                        string size, 
@@ -665,7 +659,8 @@ public class HullData
                                                                        int sm_hardpoints, 
                                                                        int med_hardpoints, 
                                                                        int lg_hardpoints, 
-                                                                       string slug)
+                                                                       string slug,
+                                                                       Turret[] turrets)
     {
         this.ID = id;
         this.Type = type;
@@ -682,6 +677,7 @@ public class HullData
         this.Med_Hardpoints = med_hardpoints;
         this.Lg_Hardpoints = lg_hardpoints;
         this.Slug = slug;
+        this.Turrets = turrets;
         //todo add in reference to 3d model from slug see equipment sprit reference
     }
 }
@@ -942,8 +938,6 @@ public class ProjectileData
     public int Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
-    public int Turret_Rotation_Rate { get; set; }
-    public int Turret_Rotation_Limit { get; set; }
     public int Projectiles_per_Shot { get; set; }
     public int Ammo_Capacity { get; set; }
     public float Fire_Rate { get; set; }
@@ -953,8 +947,6 @@ public class ProjectileData
 
     public ProjectileData(int id, string type, string title, string description, int cost, int mount_size,
                                                                                     string weapon_type,
-                                                                                    int turret_rotation_rate,
-                                                                                    int turret_rotation_limit,
                                                                                     int damage,
                                                                                     int projectiles_per_shot,
                                                                                     int ammo_capacity,
@@ -970,8 +962,6 @@ public class ProjectileData
         this.Description = description;
         this.Mount_Size = mount_size;
         this.Weapon_Type = weapon_type;
-        this.Turret_Rotation_Rate = turret_rotation_rate;
-        this.Turret_Rotation_Limit = turret_rotation_limit;
         this.Damage = damage;
         this.Projectiles_per_Shot = projectiles_per_shot;
         this.Ammo_Capacity = ammo_capacity;
@@ -994,8 +984,6 @@ public class LaserData
     public int Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
-    public int Turret_Rotation_Rate { get; set; }
-    public int Turret_Rotation_Limit { get; set; }
     public int Laser_Length { get; set; }
     public int Fire_Rate { get; set; }
     public int Energy_Cost { get; set; }
@@ -1004,8 +992,6 @@ public class LaserData
 
     public LaserData(int id, string type, string title, string description, int cost, int mount_size,
                                                                                     string weapon_type,
-                                                                                    int turret_rotation_rate,
-                                                                                    int turret_rotation_limit,
                                                                                     int damage,
                                                                                     int laser_length,
                                                                                     int fire_rate,
@@ -1020,8 +1006,6 @@ public class LaserData
         this.Description = description;
         this.Mount_Size = mount_size;
         this.Weapon_Type = weapon_type;
-        this.Turret_Rotation_Rate = turret_rotation_rate;
-        this.Turret_Rotation_Limit = turret_rotation_limit;
         this.Damage = damage;
         this.Laser_Length = laser_length;
         this.Fire_Rate = fire_rate;
@@ -1041,8 +1025,6 @@ public class MissileData
     public int Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
-    public int Turret_Rotation_Rate { get; set; }
-    public int Turret_Rotation_Limit { get; set; }
     public int Ammo_Capacity { get; set; }
     public int Fire_Rate { get; set; }
     public float Speed { get; set; }
@@ -1053,8 +1035,6 @@ public class MissileData
 
     public MissileData(int id, string type, string title, string description, int cost, int mount_size,
                                                                                     string weapon_type,
-                                                                                    int turret_rotation_rate,
-                                                                                    int turret_rotation_limit,
                                                                                     int damage,
                                                                                     int ammo_capacity,
                                                                                     int fire_rate,
@@ -1071,8 +1051,6 @@ public class MissileData
         this.Description = description;
         this.Mount_Size = mount_size;
         this.Weapon_Type = weapon_type;
-        this.Turret_Rotation_Rate = turret_rotation_rate;
-        this.Turret_Rotation_Limit = turret_rotation_limit;
         this.Damage = damage;
         this.Ammo_Capacity = ammo_capacity;
         this.Fire_Rate = fire_rate;
@@ -1084,7 +1062,7 @@ public class MissileData
         //todo add in reference to 3d model from slug see equipment sprite reference
     }
 }
-public class MineData
+public class DroneData
 {
     public int ID { get; set; }
     public string Type { get; set; }
@@ -1094,8 +1072,6 @@ public class MineData
     public int Mount_Size { get; set; }
     public string Weapon_Type { get; set; }
     public int Damage { get; set; }
-    public int Turret_Rotation_Rate { get; set; }
-    public int Turret_Rotation_Limit { get; set; }
     public int Projectiles_per_Shot { get; set; }
     public int Ammo_Capacity { get; set; }
     public int Fire_Rate { get; set; }
@@ -1104,10 +1080,8 @@ public class MineData
     public int Signature { get; set; }
     public string Slug { get; set; }
 
-    public MineData(int id, string type, string title, string description, int cost, int mount_size,
+    public DroneData(int id, string type, string title, string description, int cost, int mount_size,
                                                                                     string weapon_type,
-                                                                                    int turret_rotation_rate,
-                                                                                    int turret_rotation_limit,
                                                                                     int damage,
                                                                                     int projectiles_per_shot,
                                                                                     int ammo_capacity,
@@ -1124,8 +1098,6 @@ public class MineData
         this.Description = description;
         this.Mount_Size = mount_size;
         this.Weapon_Type = weapon_type;
-        this.Turret_Rotation_Rate = turret_rotation_rate;
-        this.Turret_Rotation_Limit = turret_rotation_limit;
         this.Damage = damage;
         this.Projectiles_per_Shot = projectiles_per_shot;
         this.Ammo_Capacity = ammo_capacity;

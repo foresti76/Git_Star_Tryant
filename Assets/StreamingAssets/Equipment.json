@@ -16,7 +16,18 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_01"
+		"slug": "ship_01",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
 	},
 	{
 		"id" : 1,
@@ -35,7 +46,18 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_02"
+		"slug": "ship_02",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
 	},
 		{
 		"id" : 2,
@@ -54,7 +76,18 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_03"
+		"slug": "ship_03",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
 	},
 		{
 		"id" : 3,
@@ -73,7 +106,19 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_04"
+		"slug": "ship_04",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
+
 	},
 		{
 		"id" : 4,
@@ -92,7 +137,18 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_05"
+		"slug": "ship_05",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
 	},
 		{
 		"id" : 5,
@@ -111,7 +167,18 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_06"
+		"slug": "ship_06",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
 	},
 		{
 		"id" : 6,
@@ -130,7 +197,18 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_07"
+		"slug": "ship_07",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
 	},
 		{
 		"id" : 7,
@@ -149,7 +227,18 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_08"
+		"slug": "ship_08",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
 	},
 		{
 		"id" : 8,
@@ -168,7 +257,18 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_09"
+		"slug": "ship_09",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
 	},
 		{
 		"id" : 9,
@@ -187,7 +287,18 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_10"
+		"slug": "ship_10",
+		"turrets":
+			[
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				},
+				{		
+				"turret_rotation_rate": 50,
+				"turret_rotation_limit": 30,
+				}
+			]
 	},
 	{
 		"id" : 10,
@@ -1988,7 +2099,7 @@
 		"cost": 0,
 		"stackable": false,
 		"mount_size": 0,
-		"weapon_type": "mine",
+		"weapon_type": "mine,
 		"turret_rotation_rate": 50,
 		"turret_rotation_limit": 30,
 		"damage": 30,
