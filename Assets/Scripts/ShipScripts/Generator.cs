@@ -15,7 +15,6 @@ public class Generator : MonoBehaviour {
     }   
 	// Update is called once per frame
 	void LateUpdate () {
-        Debug.Log(currentPower);
 		if (currentPower < maxPower)
         {
             currentPower += regenRate;

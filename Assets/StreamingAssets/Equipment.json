@@ -21,11 +21,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 	},
@@ -51,11 +51,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 	},
@@ -81,11 +81,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 	},
@@ -111,11 +111,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 
@@ -142,11 +142,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 	},
@@ -172,11 +172,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 	},
@@ -202,11 +202,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 	},
@@ -232,11 +232,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 	},
@@ -262,11 +262,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 	},
@@ -292,11 +292,11 @@
 			[
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				},
 				{		
 				"turret_rotation_rate": 50,
-				"turret_rotation_limit": 30,
+				"turret_rotation_limit": 30
 				}
 			]
 	},
@@ -2099,7 +2099,7 @@
 		"cost": 0,
 		"stackable": false,
 		"mount_size": 0,
-		"weapon_type": "mine,
+		"weapon_type": "mine",
 		"turret_rotation_rate": 50,
 		"turret_rotation_limit": 30,
 		"damage": 30,

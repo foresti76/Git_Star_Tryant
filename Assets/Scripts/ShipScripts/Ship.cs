@@ -107,7 +107,7 @@ public class Ship : MonoBehaviour {
         Generator generatorScript = this.GetComponent<Generator>();
         GeneratorData generatorData = itemDatabase.FetchGeneratorByID(id);
         //set up all the things that are controlled by the radarData
-        if (generatorScript != null)
+        if (generatorData != null)
         {
             generatorScript.maxPower = generatorData.Storage_Capacity;
             generatorScript.regenRate = generatorData.Energy_Generation;
@@ -121,14 +121,14 @@ public class Ship : MonoBehaviour {
         Hull hull = this.GetComponent<Hull>();
         HullData hullData = itemDatabase.FetchShipByID(id);
 
-        if (hull != null)
+        if (hullData != null)
         {
             hull.maxHull = hullData.Hullpoints;
             hull.armor = hullData.Armor;
             foreach (WeaponController weaponControler in weaponControllerList)
             {
-                weaponControler.turretRotationRate = hullData.Turret[weaponControler.slotID].Turret_Rotation_Rate;
-                weaponControler.turretRotationLimit = hullData.Turret[weaponControler.slotID].Turret_Rotation_Limit;
+                // weaponControler.turretRotationRate = hullData.Turret[weaponControler.slotID].Turret_Rotation_Rate;
+               // weaponControler.turretRotationLimit = hullData.Turret[weaponControler.slotID].Turret_Rotation_Limit;
             }
 
             // todo change the ship model to match the current ship using slug.
@@ -261,8 +261,6 @@ public class Ship : MonoBehaviour {
             myWeaponController.shotDamage = laserData.Damage;
             myWeaponController.fireRate = laserData.Fire_Rate;
             myWeaponController.weaponType = laserData.Weapon_Type;
-            myWeaponController.turretRotationRate = laserData.Turret_Rotation_Rate;
-            myWeaponController.turretRotationLimit = laserData.Turret_Rotation_Limit;
             myWeaponController.energyCost = laserData.Energy_Cost;
             myWeaponController.laserLength = laserData.Laser_Length;
             myWeaponController.maxAmmo = 1;
@@ -274,22 +272,18 @@ public class Ship : MonoBehaviour {
             myWeaponController.shotDamage = missileData.Damage;
             myWeaponController.fireRate = missileData.Fire_Rate;
             myWeaponController.weaponType = missileData.Weapon_Type;
-            myWeaponController.turretRotationRate = missileData.Turret_Rotation_Rate;
-            myWeaponController.turretRotationLimit = missileData.Turret_Rotation_Limit;
             myWeaponController.energyCost = missileData.Energy_Cost;
             myWeaponController.speed = missileData.Speed;
             myWeaponController.seek_rate = missileData.Seek_Rate;
             myWeaponController.maxAmmo = missileData.Ammo_Capacity;
         }
-        /*else if (weaponData.Weapon_Type == "Mine")
+        /*else if (weaponData.Weapon_Type == "Drone")
         {
             MineData mineData = itemDatabase.FetchMineByID(id);
 
             myWeaponController.shotDamage = mineData.Damage;
             myWeaponController.fireRate = mineData.Fire_Rate;
             myWeaponController.weaponType = mineData.Weapon_Type;
-            myWeaponController.turretRotationRate = mineData.Turret_Rotation_Rate;
-            myWeaponController.turretRotationLimit = mineData.Turret_Rotation_Limit;
             myWeaponController.energyCost = mineData.Energy_Cost;
         }
         */

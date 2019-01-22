@@ -4,7 +4,6 @@ using System.IO;
 using LitJson;
 using UnityEngine;
 
-[System.Serializable]
 public class ItemDatabase : MonoBehaviour {
     public List<Equipment> equipmentDatabase = new List<Equipment>();
     public List<EngineData> engineDatabase = new List<EngineData>();
@@ -19,18 +18,16 @@ public class ItemDatabase : MonoBehaviour {
     public List<ProjectileData> projectileDatabase = new List<ProjectileData>();
     public List<LaserData> laserDatabase = new List<LaserData>();
     public List<MissileData> missileDatabase = new List<MissileData>();
-    //public List<MineData> mineDatabase = new List<MineData>();
+    //public List<DroneData> droneDatabase = new List<DroneData>();
     public List<SubsystemData> subsystemDatabase = new List<SubsystemData>();
-    
     private JsonData equipmentData;
-     //todo subsystems, consumable, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon
+    //todo subsystems, consumable, energy weapon, missile weapon, mine weapon and change weapon to projectile weapon
 
     void Start()
     {
         equipmentData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Equipment.json"));
         ConstructEquipmentDatabase();
         ConstructEngineDatabase();
-        ConstructShipDatabase();
         ConstructShieldDatabase();
         ConstructRCSDatabase();
         ConstructGeneratorDatabase();
@@ -43,6 +40,7 @@ public class ItemDatabase : MonoBehaviour {
         ConstructMissileDatabase();
         //ConstructMineDatabase();
         ConstructSubsystemDatabase();
+        ConstructShipDatabase();
         //todo  subsystems, comsumable
         // Debug.Log(engineDatabase.Count);
         //Debug.Log(equipmentDatabase[1].ID);
@@ -100,8 +98,9 @@ public class ItemDatabase : MonoBehaviour {
                                                                        (int)equipmentData[i]["sm_hardpoints"],
                                                                        (int)equipmentData[i]["med_hardpoints"],
                                                                        (int)equipmentData[i]["lg_hardpoints"],
-                                                                       equipmentData[i]["slug"].ToString()),
-                                                                       Turret[] turrets = equipmentData[i]["turrets"]);
+                                                                       equipmentData[i]["slug"].ToString(),
+                                                                       JsonMapper.ToObject<Turret[]>(equipmentData[i]["turrets"].ToString())
+                                                                       ));
             }
         }
     }
@@ -629,7 +628,7 @@ public class EngineData
         //todo add in reference to 3d model from slug see equipment sprit reference
         }
     }
-[SerializeField]
+[System.Serializable]
 public class HullData
 {
     public int ID { get; set; }
