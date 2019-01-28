@@ -120,15 +120,14 @@ public class Ship : MonoBehaviour {
     {
         Hull hull = this.GetComponent<Hull>();
         HullData hullData = itemDatabase.FetchShipByID(id);
-
         if (hullData != null)
         {
             hull.maxHull = hullData.Hullpoints;
             hull.armor = hullData.Armor;
             foreach (WeaponController weaponControler in weaponControllerList)
             {
-                // weaponControler.turretRotationRate = hullData.Turret[weaponControler.slotID].Turret_Rotation_Rate;
-               // weaponControler.turretRotationLimit = hullData.Turret[weaponControler.slotID].Turret_Rotation_Limit;
+               weaponControler.turretRotationRate = hullData.Turrets[weaponControler.slotID].rotationRate;
+               weaponControler.turretRotationLimit = hullData.Turrets[weaponControler.slotID].rotationLimit;
             }
 
             // todo change the ship model to match the current ship using slug.
