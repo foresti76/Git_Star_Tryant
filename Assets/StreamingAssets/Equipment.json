@@ -50,7 +50,7 @@
 		"turrets":
 			[
 				{		
-				"turret_rotation_rate": 50,
+				"turret_rotation_rate": 60,
 				"turret_rotation_limit": 30
 				},
 				{		

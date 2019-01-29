@@ -89,11 +89,19 @@ public class ItemDatabase : MonoBehaviour {
         {
             if (equipmentData[i]["type"].ToString() == "Ship")
             {
-                Debug.Log(equipmentData[i]["turrets"][0].ToJson().ToString());
-                Turret testTurret = JsonUtility.FromJson<Turret>(equipmentData[i]["turrets"][0].ToJson());
-                Debug.Log("TestTurret " + testTurret.rotationLimit);
+                //todo there must be a better way to do this.
+                List<Turret> turrets = new List<Turret>(JsonMapper.ToObject<List<Turret>>(equipmentData[i]["turrets"].ToJson()));
 
-                HullData hullData = new HullData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
+                int j = 0;
+                foreach (Turret turret in turrets)
+                {
+                    turrets[j].rotationRate = int.Parse(equipmentData[i]["turrets"][0]["turret_rotation_rate"].ToJson().ToString());
+                    turrets[j].rotationLimit = int.Parse(equipmentData[i]["turrets"][0]["turret_rotation_limit"].ToJson().ToString()); 
+                    j++;
+                }
+
+
+                shipDatabase.Add(new HullData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
                                                                        equipmentData[i]["title"].ToString(),
                                                                        equipmentData[i]["description"].ToString(),
                                                                        (int)equipmentData[i]["cost"],
@@ -107,19 +115,10 @@ public class ItemDatabase : MonoBehaviour {
                                                                        (int)equipmentData[i]["med_hardpoints"],
                                                                        (int)equipmentData[i]["lg_hardpoints"],
                                                                        equipmentData[i]["slug"].ToString(),
-                                                                       JsonMapper.ToObject<List<Turret>>(equipmentData[i]["turrets"].ToJson())
-                                                                       );
-                int j = 0;
-                foreach(Turret turret in hullData.Turrets)
-                {
-                    hullData.Turrets[j] = JsonMapper.ToObject<Turret>(JsonUtility.ToJson(equipmentData[i]["turrets"][j]).ToString());
-                    Debug.Log("Turret :" + j + " " + hullData.Turrets[j].rotationLimit);
-                    j++;
-                    
-                }
+                                                                       turrets
+                                                                       ));
 
 
-                shipDatabase.Add(hullData);
             }
         }
         
