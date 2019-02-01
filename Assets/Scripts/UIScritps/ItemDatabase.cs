@@ -5,7 +5,7 @@ using LitJson;
 using UnityEngine;
 using System;
 
-[Serializable]
+
 public class ItemDatabase : MonoBehaviour {
     public List<Equipment> equipmentDatabase = new List<Equipment>();
     public List<EngineData> engineDatabase = new List<EngineData>();
@@ -42,7 +42,7 @@ public class ItemDatabase : MonoBehaviour {
         ConstructProjectileDatabase();
         ConstructMissileDatabase();
         //ConstructMineDatabase();
-        ConstructShipDatabase();
+        ConstructHullDatabase();
         ConstructSubsystemDatabase();
         
         //todo  subsystems, comsumable
@@ -83,7 +83,7 @@ public class ItemDatabase : MonoBehaviour {
         }
     }
 
-    void ConstructShipDatabase()
+    void ConstructHullDatabase()
     {
         for (int i = 0; i < equipmentData.Count; i++)
         {
