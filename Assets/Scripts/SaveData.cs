@@ -34,6 +34,7 @@ public class SaveData : MonoBehaviour
     {
         if (ship != null)
         {
+            //todo only read in the data that is needed for the ship. dont overwrite the common stuff.
             string jsonString = File.ReadAllText(filePath);
             JsonUtility.FromJsonOverwrite(jsonString, ship);
            // ship.BuildShip();
