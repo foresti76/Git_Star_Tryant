@@ -19,41 +19,46 @@ public class Ship : MonoBehaviour {
 
     public bool playerShip;
     //todo remove these as they are replaced with direct data
-    RCSSlot rcsSlot;
-    RadarSlot radarSlot;
-    ECMSlot ecmSlot;
-    TractorBeamSlot tractorBeamSlot;
-    GameObject weaponsLayout;
-    GameObject subsystemsLayout;
-    Inventory inv;
-    ItemDatabase itemDatabase;
-    HUD HUDscript;
 
-    List<WeaponController> weaponControllerList;
-    WeaponSlot[] weaponSlotArray;
+    public GameObject weaponsLayout;
+    //public GameObject subsystemsLayout;
+    public Inventory inv;
+    public ItemDatabase itemDatabase;
+    public HUD HUDscript;
+
+    public List<WeaponController> weaponControllerList;
+    public WeaponSlot[] weaponSlotArray;
 
     private void Start()
     {
+
+        if (playerShip == true)
+        {
+            SaveData saveData = GameObject.Find("SaveLoad").GetComponent<SaveData>();
+            saveData.Load();
+            weaponsLayout = GameObject.Find("WeaponsLayout");
+            HUDscript = GameObject.Find("HUD").GetComponent<HUD>();
+        }
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
         itemDatabase = inv.GetComponent<ItemDatabase>();
 
         weaponControllerList = new List<WeaponController>(GetComponentsInChildren<WeaponController>());
-        if (playerShip == true)
-        {
-            weaponsLayout = GameObject.Find("WeaponsLayout");
-            HUDscript = GameObject.Find("HUD").GetComponent<HUD>();
-            SaveData saveData = GameObject.Find("SaveLoad").GetComponent<SaveData>();
-            saveData.Load();
-        }
 
-        BuildShip();
+        if (itemDatabase != null)
+        {
+            BuildShip();
+        } else
+        {
+            Debug.Log(this.name + " Can't find itemDatabase ");
+        }
+        
     }
 
     // todo I need a different way to build the ship info for AI ships that do not have the UI components.
     public void BuildShip()
     {
 
-        UpdateHull(hullID);
+        
         UpdateGenerator(generator);
         UpdateEngine(engine);
         UpdateShield(shield);
@@ -61,6 +66,7 @@ public class Ship : MonoBehaviour {
         UpdateECM(ecm);
         UpdateRadar(radar);
         UpdateTractorBeam(tractorbeam);
+        UpdateHull(hullID);
         UpdateWeaponContollers();
         if (playerShip)
         { 
@@ -119,7 +125,8 @@ public class Ship : MonoBehaviour {
     public void UpdateHull(int id)
     {
         Hull hull = this.GetComponent<Hull>();
-        HullData hullData = itemDatabase.FetchShipByID(id);
+        HullData hullData = itemDatabase.FetchHullByID(id);
+        Debug.Log(hullData.ID);
         if (hullData != null)
         {
             hull.maxHull = hullData.Hullpoints;

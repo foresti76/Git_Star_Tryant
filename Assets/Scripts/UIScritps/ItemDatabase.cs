@@ -9,7 +9,7 @@ using System;
 public class ItemDatabase : MonoBehaviour {
     public List<Equipment> equipmentDatabase = new List<Equipment>();
     public List<EngineData> engineDatabase = new List<EngineData>();
-    public List<HullData> shipDatabase = new List<HullData>();
+    public List<HullData> hullDatabase = new List<HullData>();
     public List<ShieldData> shieldDatabase = new List<ShieldData>();
     public List<RCSData> rcsDatabase = new List<RCSData>();
     public List<GeneratorData> generatorDatabase = new List<GeneratorData>();
@@ -87,7 +87,7 @@ public class ItemDatabase : MonoBehaviour {
     {
         for (int i = 0; i < equipmentData.Count; i++)
         {
-            if (equipmentData[i]["type"].ToString() == "Ship")
+            if (equipmentData[i]["type"].ToString() == "Hull")
             {
                 //todo there must be a better way to do this.
                 List<Turret> turrets = new List<Turret>(JsonMapper.ToObject<List<Turret>>(equipmentData[i]["turrets"].ToJson()));
@@ -101,7 +101,7 @@ public class ItemDatabase : MonoBehaviour {
                 }
 
 
-                shipDatabase.Add(new HullData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
+                hullDatabase.Add(new HullData((int)equipmentData[i]["id"], equipmentData[i]["type"].ToString(),
                                                                        equipmentData[i]["title"].ToString(),
                                                                        equipmentData[i]["description"].ToString(),
                                                                        (int)equipmentData[i]["cost"],
@@ -420,14 +420,12 @@ public class ItemDatabase : MonoBehaviour {
         return null;
     }
 
-    public HullData FetchShipByID(int id)
+    public HullData FetchHullByID(int id)
     {
-        for (int i = 0; i < shipDatabase.Count; i++)
+        HullData hullData = hullDatabase.Find(obj => obj.ID == id);
+        if (hullData != null)
         {
-            if (shipDatabase[i].ID == id)
-            {
-                return shipDatabase[i];
-            }
+            return hullData;
         }
         return null;
     }
@@ -647,7 +645,7 @@ public class EngineData
         //todo add in reference to 3d model from slug see equipment sprit reference
         }
     }
-[Serializable]
+
 public class HullData
 {
     public int ID { get; set; }
@@ -665,10 +663,9 @@ public class HullData
     public int Med_Hardpoints { get; set; }
     public int Lg_Hardpoints { get; set; }
     public string Slug { get; set; }
-    [SerializeField]
+
     public List<Turret> Turrets { get; set; }
 
-    [SerializeField]
     public HullData(int id, string type, string title, string description, int cost, 
                                                                        string size, 
                                                                        int mass, 

@@ -32,7 +32,6 @@ public class WeaponController : MonoBehaviour
     FiringMode firingMode;
     private float nextFire;
     private Generator myShipGenerator;
-    LineRenderer currentLaser;
     //LayerMask myLayerMask;  I might want this back if I am dynamically setting the layermask.
     private Radar myRadar;
     private int shotsLeft;

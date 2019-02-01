@@ -1,9 +1,9 @@
 [
 		{
 		"id" : 0,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Shuttle",
-		"description": "This is the ship you were given by your uncle.",
+		"description": "This is the Hull you were given by your uncle.",
 		"cost": 0,
 		"stackable": false,
 		"size": "Tiny",
@@ -16,7 +16,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_01",
+		"slug": "Hull_01",
 		"turrets":
 			[
 				{		
@@ -31,9 +31,9 @@
 	},
 	{
 		"id" : 1,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Runabout",
-		"description": "This is federation scout ship.",
+		"description": "This is federation scout Hull.",
 		"cost": 10,
 		"stackable": false,
 		"size": "Tiny",
@@ -46,7 +46,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_02",
+		"slug": "Hull_02",
 		"turrets":
 			[
 				{		
@@ -61,9 +61,9 @@
 	},
 		{
 		"id" : 2,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Runabout",
-		"description": "This is federation scout ship.",
+		"description": "This is federation scout Hull.",
 		"cost": 10,
 		"stackable": false,
 		"size": "Tiny",
@@ -76,7 +76,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_03",
+		"slug": "Hull_03",
 		"turrets":
 			[
 				{		
@@ -91,9 +91,9 @@
 	},
 		{
 		"id" : 3,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Runabout",
-		"description": "This is federation scout ship.",
+		"description": "This is federation scout Hull.",
 		"cost": 10,
 		"stackable": false,
 		"size": "Tiny",
@@ -106,7 +106,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_04",
+		"slug": "Hull_04",
 		"turrets":
 			[
 				{		
@@ -122,9 +122,9 @@
 	},
 		{
 		"id" : 4,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Runabout",
-		"description": "This is federation scout ship.",
+		"description": "This is federation scout Hull.",
 		"cost": 10,
 		"stackable": false,
 		"size": "Tiny",
@@ -137,7 +137,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_05",
+		"slug": "Hull_05",
 		"turrets":
 			[
 				{		
@@ -152,9 +152,9 @@
 	},
 		{
 		"id" : 5,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Runabout",
-		"description": "This is federation scout ship.",
+		"description": "This is federation scout Hull.",
 		"cost": 10,
 		"stackable": false,
 		"size": "Tiny",
@@ -167,7 +167,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_06",
+		"slug": "Hull_06",
 		"turrets":
 			[
 				{		
@@ -182,9 +182,9 @@
 	},
 		{
 		"id" : 6,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Runabout",
-		"description": "This is federation scout ship.",
+		"description": "This is federation scout Hull.",
 		"cost": 10,
 		"stackable": false,
 		"size": "Tiny",
@@ -197,7 +197,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_07",
+		"slug": "Hull_07",
 		"turrets":
 			[
 				{		
@@ -212,9 +212,9 @@
 	},
 		{
 		"id" : 7,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Runabout",
-		"description": "This is federation scout ship.",
+		"description": "This is federation scout Hull.",
 		"cost": 10,
 		"stackable": false,
 		"size": "Tiny",
@@ -227,7 +227,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_08",
+		"slug": "Hull_08",
 		"turrets":
 			[
 				{		
@@ -242,9 +242,9 @@
 	},
 		{
 		"id" : 8,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Runabout",
-		"description": "This is federation scout ship.",
+		"description": "This is federation scout Hull.",
 		"cost": 10,
 		"stackable": false,
 		"size": "Tiny",
@@ -257,7 +257,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_09",
+		"slug": "Hull_09",
 		"turrets":
 			[
 				{		
@@ -272,9 +272,9 @@
 	},
 		{
 		"id" : 9,
-		"type": "Ship",
+		"type": "Hull",
 		"title": "Runabout",
-		"description": "This is federation scout ship.",
+		"description": "This is federation scout Hull.",
 		"cost": 10,
 		"stackable": false,
 		"size": "Tiny",
@@ -287,7 +287,7 @@
 		"med_hardpoints": 0,
 		"lg_hardpoints": 0,
 		"faction": "all",
-		"slug": "ship_10",
+		"slug": "Hull_10",
 		"turrets":
 			[
 				{		
@@ -1324,7 +1324,7 @@
 		"id" : 80,
 		"type": "Weapon",
 		"title": "Light Machine Gun",		
-		"description": "Basic machine gun for smaller ships.",
+		"description": "Basic machine gun for smaller Hulls.",
 		"cost": 0,
 		"stackable": false,
 		"mount_size": 0,
@@ -1344,7 +1344,7 @@
 		"id" : 81,
 		"type": "Weapon",
 		"title": "Light Cannon",		
-		"description": "Basic Cannon for smaller ships.",
+		"description": "Basic Cannon for smaller Hulls.",
 		"cost": 20,
 		"stackable": false,
 		"mount_size": 0,
@@ -1364,7 +1364,7 @@
 		"id" : 82,
 		"type": "Weapon",
 		"title": "Light Scatershot",		
-		"description": "The lightest version of the scatershot for small ships",
+		"description": "The lightest version of the scatershot for small Hulls",
 		"cost": 30,
 		"stackable": false,
 		"mount_size": 0,
@@ -1384,7 +1384,7 @@
 		"id" : 83,
 		"type": "Weapon",
 		"title": "Machine Gun",		
-		"description": "Machine Gun suitable for medium ships",
+		"description": "Machine Gun suitable for medium Hulls",
 		"cost": 100,
 		"stackable": false,
 		"mount_size": 1,
@@ -1444,7 +1444,7 @@
 		"id" : 86,
 		"type": "Weapon",
 		"title": "Heavy Machinegun",		
-		"description": "Heavy machinegun for large ships.",
+		"description": "Heavy machinegun for large Hulls.",
 		"cost": 1000,
 		"stackable": false,
 		"mount_size": 2,
