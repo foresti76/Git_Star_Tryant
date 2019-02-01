@@ -19,6 +19,55 @@ public class ShipSpawner : MonoBehaviour
         ConstructShipDatabase();
     }
 
+    private void Update()
+    {
+        //debug code to test this function
+        if (Input.GetKeyDown(KeyCode.G)){
+            Vector3 location = new Vector3(-2f, -1.75f , 2f);
+
+            SpawnShip(1, location);
+        }
+    }
+
+    public GameObject SpawnShip(int shipID, Vector3 location)
+    {
+        //get the data for the ship you want to spawn from the database
+        ShipData newShipData = FetchShipDataByID(shipID);
+        
+        //create the ship and put in the place you want it to be.
+        GameObject shipToSpawn = Instantiate(shipPrefabs.Find(obj => obj.name == newShipData.Prefab));
+        shipToSpawn.transform.position = location;
+
+        //setup all the data values for the new ship
+        Ship shipScript = shipToSpawn.GetComponent<Ship>();
+        shipScript.inv = FindObjectOfType<Inventory>();
+        shipScript.itemDatabase = FindObjectOfType<ItemDatabase>();
+        shipScript.hullID = newShipData.HullID;
+        shipScript.shield = newShipData.Shield;
+        shipScript.engine = newShipData.Engine;
+        shipScript.ecm = newShipData.Ecm;
+        shipScript.radar = newShipData.Radar;
+        shipScript.rcs = newShipData.Rcs;
+        shipScript.generator = newShipData.Generator;
+        shipScript.lootTable = newShipData.LootTable;
+        shipScript.lootAmount = newShipData.LootAmmount;
+        shipScript.weaponList = newShipData.Weapons;
+        shipScript.BuildShip();
+
+        return shipToSpawn;
+    }
+
+    public ShipData FetchShipDataByID(int id)
+    {
+        for (int i = 0; i < shipDatabase.Count; i++)
+        {
+            if (shipDatabase[i].ID == id)
+            {
+                return shipDatabase[i];
+            }
+        }
+        return null;
+    }
     void ConstructShipDatabase()
     {
         for (int i = 0; i < shipData.Count; i++)
