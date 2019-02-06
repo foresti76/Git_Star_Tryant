@@ -96,7 +96,7 @@ public class Controls : MonoBehaviour {
     public void ShowShipCustomization()
     {
         ShowInventory();
-        SetInventoryPosition(604.0f, 103.0f);
+        SetInventoryPosition(604.0f, 22.51f);
         shipCustomizationPanel.SetActive(true);
         shipCustomizationOpen = true;
         Pause();
