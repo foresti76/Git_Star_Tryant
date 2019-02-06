@@ -16,6 +16,7 @@ public class LootObject : MonoBehaviour
         tractorBeam = GameObject.FindGameObjectWithTag("Player").GetComponent<TractorBeam>();
         lootPanel = GameObject.Find("LootPanelControl").GetComponent<LootPanel>();
         lootTable = GameObject.Find("LootTable").GetComponent<LootTable>();
+        
     }
 
     private void OnCollisionEnter(Collision other)
@@ -41,6 +42,7 @@ public class LootObject : MonoBehaviour
         List<int> lootList = new List<int>();
         foreach (LootTable.Loot loot in lootTable.lootTableLookup[chosenLootTable])
         {
+            
             int addtimes = 0;
             if (loot.Rarity == "common")
             {
@@ -68,7 +70,7 @@ public class LootObject : MonoBehaviour
             }
         }
         // now add the actual loot to this loot objects list
-        myLoot = new List<int>();
+        myLoot.Clear();
         for (int i = 0; i < amount; i++)
         {
             myLoot.Add(lootList[Random.Range(0, lootList.Count - 1)]);

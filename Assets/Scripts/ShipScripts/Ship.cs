@@ -126,7 +126,6 @@ public class Ship : MonoBehaviour {
     {
         Hull hull = this.GetComponent<Hull>();
         HullData hullData = itemDatabase.FetchHullByID(id);
-        Debug.Log(hullData.ID);
         if (hullData != null)
         {
             hull.maxHull = hullData.Hullpoints;

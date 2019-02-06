@@ -193,7 +193,7 @@ public class Controls : MonoBehaviour {
         starBaseShopPanel.SetActive(true);
         //todo procedually enter the shop name here
         starBaseTitleText.text = "Welcome to this Shop";
-        SetInventoryPosition(-180.5f, 150.20f);
+        SetInventoryPosition(-180.5f, 39.20f);
         ShowInventory();
     }
 
