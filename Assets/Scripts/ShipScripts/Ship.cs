@@ -74,7 +74,7 @@ public class Ship : MonoBehaviour {
             HUDscript.CreateWeaponAmmoDisplayElements();
         }
 
-        for (int i = 0; i < weaponControllerList.Count - 1; i++)
+        for (int i = 0; i < weaponControllerList.Count; i++)
         {
             UpdateWeapon(weaponList[i], weaponControllerList[i]);
         }
