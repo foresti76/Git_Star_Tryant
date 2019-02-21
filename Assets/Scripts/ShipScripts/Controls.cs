@@ -32,11 +32,16 @@ public class Controls : MonoBehaviour {
         miniMap = GameObject.Find("Minimap");
         saveData = FindObjectOfType<SaveData>();
         playerControls = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
+
         HideShipCustomization();
         HideStarbaseScreen();
         HideDockingPrompt();
     }
 	
+    public void Init()
+    {
+        playerControls = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
+    }
 	// Update is called once per frame
 	void Update () {
         //call scripts based on keyboard input
@@ -53,12 +58,12 @@ public class Controls : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.LeftControl & KeyCode.S))
         {
                 saveData.Save();
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.RightControl & KeyCode.L))
         {
             saveData.Load();
         }

@@ -45,6 +45,24 @@ public class PlayerControls : MonoBehaviour {
         combatModeActive = false;
     }
 
+    public void Init()
+    {
+        playerShip = GameObject.FindGameObjectWithTag("Player");
+        shipMovement = playerShip.GetComponent<ShipMovement>();
+        // todo set up fire groups
+        myWeaponControllers = playerShip.GetComponentsInChildren<WeaponController>();
+        //miningLaser = GetComponent<MiningLaser>();
+        myRadar = GetComponent<Radar>();
+        selectionText = GameObject.Find("PlayerSelectionText").GetComponent<Text>();
+        selectionObject = GameObject.Find("SelectionCanvas");
+        miniMapSelectionObject = GameObject.Find("MiniMapSelectionCanvas");
+        selectionObjectMover = selectionObject.GetComponent<SelectionMover>();
+        miniMapSelectionObjectMover = miniMapSelectionObject.GetComponent<SelectionMover>();
+        myTractorBeam = playerShip.GetComponent<TractorBeam>();
+        HUDScript = GameObject.Find("HUD").GetComponent<HUD>();
+        combatModeActive = false;
+    }
+
     // Update is called once per frame
     void Update () {
         if (combatModeActive)
@@ -237,7 +255,7 @@ public class PlayerControls : MonoBehaviour {
         }
     }
 
-    void initateCombatMode()
+    public void initateCombatMode()
     {
         combatModeActive = true;
         Cursor.visible = false;
@@ -245,7 +263,7 @@ public class PlayerControls : MonoBehaviour {
         // todo make the turrets come out and change the UI to combat configuration
     }
 
-    void deactivateCombatMode()
+    public void deactivateCombatMode()
     {
         combatModeActive = false;
         selectionObjectMover.NonCombatTargeting();
@@ -261,10 +279,8 @@ public class PlayerControls : MonoBehaviour {
         selectionText.text = selection.name;
         selectionObjectMover.parent = selection.transform;
         selectionObjectMover.NonCombatTargeting();
-        selectionObject.SetActive(true);
         miniMapSelectionObjectMover.parent = selection.gameObject.transform.Find("MiniMapIcon").transform;
         miniMapSelectionObjectMover.NonCombatTargeting();
-        miniMapSelectionObject.SetActive(true);
     }
 
     public void SetCombatTargetSelection(GameObject target)
@@ -275,10 +291,8 @@ public class PlayerControls : MonoBehaviour {
         selectionText.text = target.name;
         selectionObjectMover.parent = target.transform;
         selectionObjectMover.CombatTargeting();
-        selectionObject.SetActive(true);
         miniMapSelectionObjectMover.parent = target.gameObject.transform.Find("MiniMapIcon").transform;
         miniMapSelectionObjectMover.CombatTargeting();
-        miniMapSelectionObject.SetActive(true);
     }
 
     public void RemoveSelection()

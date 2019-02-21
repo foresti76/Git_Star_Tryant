@@ -20,5 +20,14 @@ public class CameraControl : MonoBehaviour
         { 
         transform.position =new Vector3(playerShip.transform.position.x, offset.y, playerShip.transform.position.z);
         }
+        else
+        {
+            Invoke("FindPlayer", 1.0f);
+        }
+    }
+
+    public void FindPlayer()
+    {
+        playerShip = GameObject.FindGameObjectWithTag("Player");
     }
 }

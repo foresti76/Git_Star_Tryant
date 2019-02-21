@@ -11,14 +11,14 @@ public class HUD : MonoBehaviour {
     public GameObject ammoPrefab;
     public Transform ammoLayout;
 
-    GameObject player;
-    Hull hull;
-    Generator generator;
-    Shield shield;
+    public GameObject player;
+    public Hull hull;
+    public Generator generator;
+    public Shield shield;
     public List<GameObject> ammoDisplays = new List<GameObject>(); 
-    float shieldDisplayValue;
-    float hullDisplayValue;
-    float powerDisplayValue;
+    public float shieldDisplayValue;
+    public float hullDisplayValue;
+    public float powerDisplayValue;
 
     // Use this for initialization
     void Start() {
@@ -29,11 +29,23 @@ public class HUD : MonoBehaviour {
         HideAmmoDisplay();
 	}
 	
+    public void Init()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        hull = player.GetComponent<Hull>();
+        generator = player.GetComponent<Generator>();
+        shield = player.GetComponentInChildren<Shield>();
+        CreateWeaponAmmoDisplayElements();
+    }
 	// Update is called once per frame
 	void Update () {
-        playerHullHUD.value = hull.curHull / hull.maxHull;
-        playerPowerHUD.value = generator.currentPower / generator.maxPower;
-        playerShieldHUD.value = shield.currentShield / shield.maxShield;
+        if (player)
+        {
+            playerHullHUD.value = hull.curHull / hull.maxHull;
+            playerPowerHUD.value = generator.currentPower / generator.maxPower;
+            playerShieldHUD.value = shield.currentShield / shield.maxShield;
+        }
+
 	}
 
     public void CreateWeaponAmmoDisplayElements()

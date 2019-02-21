@@ -22,11 +22,13 @@ public class ShipSpawner : MonoBehaviour
     private void Update()
     {
         //debug code to test this function
+        /*
         if (Input.GetKeyDown(KeyCode.G)){
             Vector3 location = new Vector3(-2f, -1.75f , 2f);
 
             SpawnShip(1, location);
         }
+        */
     }
 
     public GameObject SpawnShip(int shipID, Vector3 location)
@@ -52,6 +54,11 @@ public class ShipSpawner : MonoBehaviour
         shipScript.lootTable = newShipData.LootTable;
         shipScript.lootAmount = newShipData.LootAmmount;
         shipScript.weaponList = newShipData.Weapons;
+        if(newShipData.PlayerShip == true)
+        {
+            shipScript.HUDscript = GameObject.Find("HUD").GetComponent<HUD>();
+            shipScript.saveData = GameObject.Find("SaveLoad").GetComponent<SaveData>();
+        }
         shipScript.BuildShip();
 
         return shipToSpawn;
@@ -94,61 +101,10 @@ public class ShipSpawner : MonoBehaviour
                                                                                  (int)shipData[i]["Generator"],
                                                                                  shipData[i]["LootTable"].ToString(),
                                                                                  (int)shipData[i]["LootAmmount"],
+                                                                                 (bool)shipData[i]["PlayerShip"],
                                                                                  weapons
                                                                                  ));
 
-        }
-    }
-
-    [Serializable]
-    public class ShipData
-    {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public string Faction { get; set; }
-        public string Prefab { get; set; }
-        public int HullID { get; set; }
-        public int Shield { get; set; }
-        public int Engine { get; set; }
-        public int Ecm { get; set; }
-        public int Radar { get; set; }
-        public int Rcs { get; set; }
-        public int Tractorbeam { get; set; }
-        public int Generator { get; set; }
-        public string LootTable { get; set; }
-        public int LootAmmount { get; set; }
-        [SerializeField]
-        public List<int> Weapons { get; set; }
-
-        [SerializeField]
-        public ShipData(int id, string title, string faction, string prefab, int hullID,
-                                                                           int shield,
-                                                                           int engine,
-                                                                           int ecm,
-                                                                           int radar,
-                                                                           int rcs,
-                                                                           int tractorbeam,
-                                                                           int generator,
-                                                                           string lootTable,
-                                                                           int lootAmmount,
-                                                                           List<int> weapons)
-        {
-            this.ID = id;
-            this.Title = title;
-            this.Faction = faction;
-            this.Prefab = prefab;
-            this.HullID = hullID;
-            this.Shield = shield;
-            this.Engine = engine;
-            this.Ecm = ecm;
-            this.Radar = radar;
-            this.Rcs = rcs;
-            this.Tractorbeam = tractorbeam;
-            this.Generator = generator;
-            this.LootTable = lootTable;
-            this.LootAmmount = lootAmmount;
-            this.Weapons = weapons;
-            //todo add in reference to 3d model from slug see equipment sprit reference
         }
     }
 }

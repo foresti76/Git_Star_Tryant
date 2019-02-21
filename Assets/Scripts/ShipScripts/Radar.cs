@@ -25,18 +25,22 @@ public class Radar : MonoBehaviour {
     Transform miniMapSelectionBox;
     Transform mapSelectionBox;
     int angle = 0;
+    GameObject miniMapSelectionParent;
+    GameObject selectionParent;
 
     Camera minimapCamera;
 	// Use this for initialization
 	void Start () {
+        miniMapSelectionParent = GameObject.Find("MiniMapSelectionCanvas");
+        selectionParent = GameObject.Find("SelectionCanvas");
         minimapCamera = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
         radarTrigger = transform.Find("RadarTrigger").GetComponent<SphereCollider>();
         myShip = GetComponent<Ship>();
         if (CheckIfPlayer())
         {
             targetDisplayText = GameObject.Find("PlayerTargetText").GetComponent<Text>();
-            miniMapSelectionBox = GameObject.Find("MiniMapSelectionBox").transform;
-            mapSelectionBox = GameObject.Find("SelectionBox").transform;
+            miniMapSelectionBox = miniMapSelectionParent.transform.Find("MiniMapSelectionBox").transform;
+            mapSelectionBox = selectionParent.transform.Find("SelectionBox").transform;
         }
     }
 
@@ -51,7 +55,16 @@ public class Radar : MonoBehaviour {
 
     public void UpdateMinimap()
     {
-        minimapCamera.orthographicSize = range + miniMapSizeScaler;
+        if (minimapCamera)
+        {
+            minimapCamera.orthographicSize = range + miniMapSizeScaler;
+        }
+        else
+        {
+            minimapCamera = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
+            minimapCamera.orthographicSize = range + miniMapSizeScaler;
+        }
+
         radarTrigger.radius = range;
     }
 

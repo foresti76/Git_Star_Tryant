@@ -21,13 +21,14 @@ public class SelectionMover : MonoBehaviour {
         if (parent)
         {
             transform.position = parent.transform.position;
-           // Vector3 parentBounds = parent.GetComponent<Renderer>().bounds.size;
-          //  Debug.Log(parentBounds);
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            // Vector3 parentBounds = parent.GetComponent<Renderer>().bounds.size;
+            //  Debug.Log(parentBounds);
             // todo scale the selection box to the appropriate size dynamically  this.transform.localScale = new Vector3(parentBounds.x, parentBounds.z, 1);
         }
         else
         {
-            this.gameObject.SetActive(false);
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 

@@ -1,1 +1,1 @@
-{"hullID":0,"shield":20,"engine":60,"ecm":51,"radar":41,"rcs":30,"tractorbeam":70,"generator":10,"lootTable":"lootTable_0","lootAmount":0,"weaponList":[82,82],"subsystemList":[],"playerShip":true,"weaponsLayout":{"instanceID":7802},"inv":{"instanceID":0},"itemDatabase":{"instanceID":0},"HUDscript":{"instanceID":7800},"weaponControllerList":[],"weaponSlotArray":[]}
+{"playerMoney":10000,"playerLastPosition":{"x":0.9686656594276428,"y":-1.75,"z":0.587580680847168}}

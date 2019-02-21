@@ -74,7 +74,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     public void OnEndDrag(PointerEventData eventData)
     {
         //todo differnatiate between inv, loot and ship customiaztion panel and set correct parent
-        if (slotType == "Ship")
+        if (slotType == "Hull")
         {
             this.transform.SetParent(hullSlot.transform);
             this.transform.position = hullSlot.transform.position;
@@ -174,7 +174,7 @@ public class EquipmentData : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     public void OnPointerUp(PointerEventData eventData)
     {
         //todo differnatiate between inv, loot and ship customiaztion panel and set correct parent
-        if (slotType == "Ship")
+        if (slotType == "Hull")
         {
             this.transform.SetParent(hullSlot.transform);
             this.transform.position = hullSlot.transform.position;

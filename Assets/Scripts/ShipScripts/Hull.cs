@@ -25,7 +25,9 @@ public class Hull : MonoBehaviour {
             Instantiate(explosion, transform.position, transform.rotation);
             Instantiate(lootObject, transform.position, transform.rotation);
             lootObject.GetComponentInChildren<LootObject>().CreateLoot(myShip.lootTable, myShip.lootAmount);
-            lootObject.name = "Loot (" + this.name + ")"; 
+            lootObject.name = "Loot (" + this.name + ")";
+            GameObject.FindObjectOfType<PlayerRecord>().playerLastPosition = transform.position;
+            GameObject.FindObjectOfType<PlayerControls>().deactivateCombatMode();
             Destroy(gameObject);
         }
 	}

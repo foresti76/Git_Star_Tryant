@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerRecord : MonoBehaviour {
     //GameObject playership;
     public int playerMoney;
-    
+    public Vector3 playerLastPosition;
     Text moneyDisplay;
 	// Use this for initialization
 	void Start () {

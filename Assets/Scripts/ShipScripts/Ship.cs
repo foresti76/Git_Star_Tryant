@@ -20,23 +20,20 @@ public class Ship : MonoBehaviour {
     public bool playerShip;
     //todo remove these as they are replaced with direct data
 
-    public GameObject weaponsLayout;
-    //public GameObject subsystemsLayout;
     public Inventory inv;
     public ItemDatabase itemDatabase;
     public HUD HUDscript;
 
     public List<WeaponController> weaponControllerList;
-    public WeaponSlot[] weaponSlotArray;
-
+    //public WeaponSlot[] weaponSlotArray;
+    //public SubsystemSlot[] subsystemSlots;
+    public SaveData saveData;
     private void Start()
     {
 
         if (playerShip == true)
         {
-            SaveData saveData = GameObject.Find("SaveLoad").GetComponent<SaveData>();
-            saveData.Load();
-            weaponsLayout = GameObject.Find("WeaponsLayout");
+            saveData = GameObject.Find("SaveLoad").GetComponent<SaveData>();
             HUDscript = GameObject.Find("HUD").GetComponent<HUD>();
         }
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
@@ -57,8 +54,6 @@ public class Ship : MonoBehaviour {
     // todo I need a different way to build the ship info for AI ships that do not have the UI components.
     public void BuildShip()
     {
-
-        
         UpdateGenerator(generator);
         UpdateEngine(engine);
         UpdateShield(shield);
@@ -70,7 +65,11 @@ public class Ship : MonoBehaviour {
         UpdateWeaponContollers();
         if (playerShip)
         { 
-            UpdateWeaponSlotList();
+            //UpdateWeaponSlotList();
+            if(HUDscript.player == null)
+            {
+                HUDscript.Init();
+            } else
             HUDscript.CreateWeaponAmmoDisplayElements();
         }
 
@@ -82,6 +81,7 @@ public class Ship : MonoBehaviour {
         if (playerShip)
         {
             HUDscript.CreateWeaponAmmoDisplayElements();
+            saveData.Save();
         }
 
         /* todo remove this once I have implemented subsystems
@@ -94,18 +94,9 @@ public class Ship : MonoBehaviour {
                 j++;
             }
         }
-        */
+        */      
     }
 
-    public void UpdateWeaponSlotList()
-    {
-        weaponSlotArray = weaponsLayout.GetComponentsInChildren<WeaponSlot>();
-
-        foreach (WeaponSlot weaponSlot in weaponSlotArray)
-        {
-            weaponList.Add(weaponSlot.GetComponentInChildren<EquipmentData>().equipment.ID);
-        }
-    }
 
     public void UpdateGenerator(int id)
     {

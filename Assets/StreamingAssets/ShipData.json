@@ -1,6 +1,34 @@
 [
 {
 		"id" : 0,
+		"title": "player",
+		"faction": "all",
+		"prefab": "vehicle_AIship",
+		"HullID": 0,
+		"Shield": 0,
+		"Engine": 0,
+		"Ecm": 0,
+		"Radar": 0,
+		"Rcs": 0,
+		"Tractorbeam": 0,
+		"Generator": 0,
+		"LootTable": "lootTable_0",
+		"LootAmmount": 0,
+		"PlayerShip": true,
+		"Weapons":
+			[
+				{		
+				"WeaponID": 0
+				},
+				{		
+				"WeaponID": 0
+				}
+			]
+
+	},
+
+{
+		"id" : 1,
 		"title": "Shuttle",
 		"faction": "all",
 		"prefab": "vehicle_AIship",
@@ -14,6 +42,7 @@
 		"Generator": 11,
 		"LootTable": "lootTable_0",
 		"LootAmmount": 2,
+		"PlayerShip": false,
 		"Weapons":
 			[
 				{		
@@ -25,7 +54,7 @@
 			]
 	},
 	{
-		"id" : 1,
+		"id" : 2,
 		"title": "Runner",
 		"faction": "all",
 		"prefab": "vehicle_AIship_Passive",
@@ -39,6 +68,7 @@
 		"Generator": 11,
 		"LootTable": "lootTable_1",
 		"LootAmmount": 2,
+		"PlayerShip": false,
 		"Weapons":
 			[
 				{		
