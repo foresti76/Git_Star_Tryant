@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         playerPosition = GameObject.FindObjectOfType<PlayerRecord>().playerLastPosition;
         shipSpawner.SpawnShip(0, playerPosition);
-        arenaManager.arenaLevel = 0;
+        arenaManager.arenaRound = 0;
         player = GameObject.FindGameObjectWithTag("Player");
         controls.Init();
         //hud.Init();
