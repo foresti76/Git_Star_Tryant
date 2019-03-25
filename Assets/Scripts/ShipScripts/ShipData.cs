@@ -40,22 +40,22 @@ public class ShipData
                                                                        bool playership,
                                                                        List<int> weapons)
     {
-        this.ID = id;
-        this.Title = title;
-        this.Faction = faction;
-        this.Prefab = prefab;
-        this.HullID = hullID;
-        this.Shield = shield;
-        this.Engine = engine;
-        this.Ecm = ecm;
-        this.Radar = radar;
-        this.Rcs = rcs;
-        this.Tractorbeam = tractorbeam;
-        this.Generator = generator;
-        this.LootTable = lootTable;
-        this.LootAmmount = lootAmmount;
-        this.PlayerShip = playership;
-        this.Weapons = weapons;
+        ID = id;
+        Title = title;
+        Faction = faction;
+        Prefab = prefab;
+        HullID = hullID;
+        Shield = shield;
+        Engine = engine;
+        Ecm = ecm;
+        Radar = radar;
+        Rcs = rcs;
+        Tractorbeam = tractorbeam;
+        Generator = generator;
+        LootTable = lootTable;
+        LootAmmount = lootAmmount;
+        PlayerShip = playership;
+        Weapons = weapons;
         //todo add in reference to 3d model from slug see equipment sprit reference
     }
 }

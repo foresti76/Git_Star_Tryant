@@ -1,1 +1,1 @@
-{"playerMoney":10000,"playerLastPosition":{"x":0.9686656594276428,"y":-1.75,"z":0.587580680847168}}
+{"playerMoney":10000,"playerLastPosition":{"x":0.0,"y":0.0,"z":0.0}}

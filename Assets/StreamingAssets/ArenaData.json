@@ -1,0 +1,67 @@
+[
+{
+		"RoundID" : 0,
+		"RoundReward": 0,
+		"Waves":
+			[
+				{		
+				"ShipID": 1
+				},
+				{		
+				"Count": 1
+				}
+			],
+			[
+				{		
+				"ShipID": 2
+				},
+				{		
+				"Count": 2
+				}
+			]
+
+},
+{
+		"RoundID" : 1,
+		"RoundReward": 0,
+		"Waves":
+			[
+				{		
+				"ShipID": 1
+				},
+				{		
+				"Count": 1
+				}
+			],
+			[
+				{		
+				"ShipID": 2
+				},
+				{		
+				"Count": 2
+				}
+			]
+
+},
+{
+		"RoundID" : 2,
+		"RoundReward": 0,
+		"Waves":
+			[
+				{		
+				"ShipID": 1
+				},
+				{		
+				"Count": 1
+				}
+			],
+			[
+				{		
+				"ShipID": 2
+				},
+				{		
+				"Count": 2
+				}
+			]
+}
+]

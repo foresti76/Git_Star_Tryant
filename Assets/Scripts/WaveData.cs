@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class WaveData 
 {
-        public int shipID;
-        public int count;    
+        public int ShipID;
+        public int Count;
+    
+    public WaveData(int shipID, int count)
+    {
+        ShipID = shipID;
+        Count = count;
+    }
 }
