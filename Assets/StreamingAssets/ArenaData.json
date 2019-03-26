@@ -1,67 +1,49 @@
 [
 {
 		"RoundID" : 0,
-		"RoundReward": 0,
+		"RoundReward": 10,
 		"Waves":
-			[
-				{		
-				"ShipID": 1
-				},
-				{		
+			[	
+			{
+				"ShipID": 1,		
 				"Count": 1
-				}
-			],
-			[
-				{		
-				"ShipID": 2
-				},
-				{		
+			},
+			{
+				"ShipID": 1,		
 				"Count": 2
-				}
+			}
 			]
 
 },
 {
 		"RoundID" : 1,
-		"RoundReward": 0,
+		"RoundReward": 20,
 		"Waves":
 			[
-				{		
-				"ShipID": 1
-				},
-				{		
-				"Count": 1
-				}
-			],
-			[
-				{		
-				"ShipID": 2
-				},
-				{		
+			{
+				"ShipID": 1,		
 				"Count": 2
-				}
+			},
+			{
+				"ShipID": 2,		
+				"Count": 2
+			}
 			]
 
 },
 {
 		"RoundID" : 2,
-		"RoundReward": 0,
+		"RoundReward": 30,
 		"Waves":
 			[
-				{		
-				"ShipID": 1
-				},
-				{		
-				"Count": 1
-				}
-			],
-			[
-				{		
-				"ShipID": 2
-				},
-				{		
-				"Count": 2
-				}
+			{
+				"ShipID": 1,		
+				"Count": 
+			},
+			{
+				"ShipID": 2,		
+				"Count": 3
+			}
 			]
 }
 ]

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArenaRound : MonoBehaviour
+public class ArenaRound
 {
     public int RoundID;
     public List<WaveData> Waves;

@@ -12,4 +12,9 @@ public class WaveData
         ShipID = shipID;
         Count = count;
     }
+
+    public WaveData()
+    {
+
+    }
 }

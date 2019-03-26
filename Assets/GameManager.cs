@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    public bool isArenaMode;
     public ArenaManager arenaManager;
     public GameObject player;
     public ShipSpawner shipSpawner;
@@ -60,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         playerPosition = GameObject.FindObjectOfType<PlayerRecord>().playerLastPosition;
         shipSpawner.SpawnShip(0, playerPosition);
-        arenaManager.arenaRound = 0;
+        arenaManager.arenaRoundNumber = 0;
         player = GameObject.FindGameObjectWithTag("Player");
         controls.Init();
         //hud.Init();

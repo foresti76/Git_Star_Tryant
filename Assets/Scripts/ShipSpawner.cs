@@ -10,13 +10,15 @@ public class ShipSpawner : MonoBehaviour
 
     public List<ShipData> shipDatabase = new List<ShipData>();
     public List<GameObject> shipPrefabs;
-
+    public ArenaManager arenaManager;
     public JsonData shipData;
+
     // Start is called before the first frame update
     void Start()
     {
         shipData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/ShipData.json"));
         ConstructShipDatabase();
+        arenaManager = GameObject.FindObjectOfType<ArenaManager>();
     }
 
     private void Update()
@@ -61,6 +63,12 @@ public class ShipSpawner : MonoBehaviour
         }
         shipScript.BuildShip();
 
+        if (arenaManager.arenaActive && shipScript.playerShip == false)
+        {
+            arenaManager.currentWave.Add(shipToSpawn);
+            GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
+            shipToSpawn.GetComponent<AIBehavior>().UpdateTarget(playerShip);
+        }
         return shipToSpawn;
     }
 
