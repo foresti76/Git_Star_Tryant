@@ -63,7 +63,7 @@ public class ShipSpawner : MonoBehaviour
         }
         shipScript.BuildShip();
 
-        if (arenaManager.arenaActive && shipScript.playerShip == false)
+        if (arenaManager.arenaActive == true && shipScript.playerShip == false)
         {
             arenaManager.currentWave.Add(shipToSpawn);
             GameObject playerShip = GameObject.FindGameObjectWithTag("Player");

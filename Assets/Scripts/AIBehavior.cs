@@ -27,11 +27,14 @@ public class AIBehavior : MonoBehaviour {
     public void UpdateTarget(GameObject newTarget)
     {
         target = newTarget;
-        anim.SetBool("IsAggro", true);
     }
     // Update is called once per frame
     void Update()
     {
+        if (target)
+        {
+            anim.SetBool("IsAggro", true);
+        }
 
         if(target && hull.curHull / hull.maxHull <= fleeValue)
         {

@@ -17,62 +17,57 @@ public class ArenaManager : MonoBehaviour
     public List<GameObject> currentWave = new List<GameObject>();
     public bool arenaActive = true;
     public PlayerRecord playerRecord;
+    public bool waveActive = false;
     // Start is called before the first frame update
     void Start()
     {
         arenaWaveData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/ArenaData.json"));
         ConstructWaveList();
         shipSpawner = GameObject.FindObjectOfType<ShipSpawner>();
-        finalRound = arenaWaveDatabase.Count - 1;
+        finalRound = arenaWaveDatabase.Count;
         spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         playerRecord = GameObject.FindObjectOfType<PlayerRecord>();
+        Invoke("SpawnWave", 1.0f);
     }
 
     void LateUpdate()
     {
-        foreach(GameObject enemy in currentWave)
+       currentWave.RemoveAll(GameObject => GameObject == null);
+
+        if (currentWave.Count == 0 && waveActive == true)
         {
-            if (enemy == null)
-            {
-                currentWave.Remove(enemy);
-            }
-        }
-        if(currentWave.Count == 0)
-        {
+            waveActive = false;
             Debug.Log("Round " + arenaRoundNumber + " complete giving rewards and starting the next round");
             playerRecord.GiveMoney(arenaWaveDatabase[arenaRoundNumber].RoundReward);
             arenaRoundNumber++;
-            if (arenaRoundNumber >= finalRound)
-            {
-                arenaActive = false;
-            }
-            else
+            if (arenaRoundNumber < finalRound)
             {
                 SpawnWave();
             }
-            
+            else
+            {
+                arenaActive = false;
+                arenaRoundNumber = 0;
+            }
         }
     }
     public void SpawnWave()
     {
-        foreach (ArenaRound arenaRound in arenaWaveDatabase)
+        ArenaRound arenaRound = arenaWaveDatabase[arenaRoundNumber];
+
+        foreach (WaveData wave in arenaRound.Waves)
         {
-            if (arenaRound.RoundID == arenaRoundNumber)
+            for (int i = 0; i < wave.Count; i++)
             {
-                foreach(WaveData wave in arenaRound.Waves)
+                shipSpawner.SpawnShip(wave.ShipID, spawnpoints[currentSpawnPoint].transform.position);
+                currentSpawnPoint++;
+                if (currentSpawnPoint == spawnpoints.Length - 1)
                 {
-                    for (int i = 0; i < wave.Count; i++)
-                    {
-                        shipSpawner.SpawnShip(wave.ShipID, spawnpoints[currentSpawnPoint].transform.position);
-                        currentSpawnPoint++ ;
-                        if(currentSpawnPoint == spawnpoints.Length - 1)
-                        {
-                            currentSpawnPoint = 0;
-                        }
-                    }
+                    currentSpawnPoint = 0;
                 }
             }
         }
+        waveActive = true;
     }
 
     void ConstructWaveList()

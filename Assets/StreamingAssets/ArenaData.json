@@ -9,8 +9,8 @@
 				"Count": 1
 			},
 			{
-				"ShipID": 1,		
-				"Count": 2
+				"ShipID": 2,		
+				"Count": 1
 			}
 			]
 
@@ -22,11 +22,11 @@
 			[
 			{
 				"ShipID": 1,		
-				"Count": 2
+				"Count": 1
 			},
 			{
 				"ShipID": 2,		
-				"Count": 2
+				"Count": 1
 			}
 			]
 
