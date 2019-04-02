@@ -18,9 +18,12 @@ public class ArenaManager : MonoBehaviour
     public bool arenaActive = true;
     public PlayerRecord playerRecord;
     public bool waveActive = false;
+    public bool betweenWaves = false;
+    public GameObject betweenWavesUI;
     // Start is called before the first frame update
     void Start()
     {
+        betweenWavesUI.SetActive(false);
         arenaWaveData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/ArenaData.json"));
         ConstructWaveList();
         shipSpawner = GameObject.FindObjectOfType<ShipSpawner>();
@@ -37,22 +40,30 @@ public class ArenaManager : MonoBehaviour
         if (currentWave.Count == 0 && waveActive == true)
         {
             waveActive = false;
-            Debug.Log("Round " + arenaRoundNumber + " complete giving rewards and starting the next round");
             playerRecord.GiveMoney(arenaWaveDatabase[arenaRoundNumber].RoundReward);
+
+            //todo clear out the shop and add in the things from that arena round
             arenaRoundNumber++;
             if (arenaRoundNumber < finalRound)
             {
-                SpawnWave();
+                betweenWaves = true;
             }
             else
             {
                 arenaActive = false;
                 arenaRoundNumber = 0;
             }
+            if (betweenWaves)
+            {
+                betweenWavesUI.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
     }
     public void SpawnWave()
     {
+        betweenWaves = false;
+        betweenWavesUI.SetActive(false);
         ArenaRound arenaRound = arenaWaveDatabase[arenaRoundNumber];
 
         foreach (WaveData wave in arenaRound.Waves)

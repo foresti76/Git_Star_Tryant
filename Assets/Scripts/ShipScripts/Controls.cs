@@ -22,13 +22,14 @@ public class Controls : MonoBehaviour {
     public bool inventoryOpen;
     public bool shipCustomizationOpen;
 
+    ArenaManager arenaManager;
     GameObject miniMap;
     SaveData saveData;
     public PlayerControls playerControls;
 
     void Start () {
         //find the objects with those scripts
-
+        arenaManager = FindObjectOfType<ArenaManager>();
         miniMap = GameObject.Find("Minimap");
         saveData = FindObjectOfType<SaveData>();
         playerControls = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
@@ -121,7 +122,15 @@ public class Controls : MonoBehaviour {
         starBasePanel.SetActive(true);
         //todo procedually enter the starbase name here
         starBaseTitleText.text = "Welcome to Starbase";
-        ShowStarbaseNewsScreen();
+        if(arenaManager.arenaActive == true)
+        {
+            ShowStarbaseShopScreen();
+            //todo hide the buttons that are not allowed in arena mode
+        }
+        else
+        {
+            ShowStarbaseNewsScreen();
+        }
         miniMap.SetActive(false);
         Pause();
     }
@@ -133,6 +142,10 @@ public class Controls : MonoBehaviour {
         if (inventoryOpen)
         {
             HideInventory();
+        }
+        if (shipCustomizationOpen)
+        {
+            HideShipCustomization();
         }
         ShowDockingPrompt();
         UnPause();
@@ -228,7 +241,10 @@ public class Controls : MonoBehaviour {
 
     public void ShowDockingPrompt()
     {
-        dockingPrompt.SetActive(true);
+        if (arenaManager.arenaActive == false)
+        {
+            dockingPrompt.SetActive(true);
+        }
     }
 
     public void HideDockingPrompt()
