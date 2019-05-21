@@ -18,6 +18,7 @@ public class Controls : MonoBehaviour {
     public GameObject starBaseCommanderPanel;
     public GameObject dockingPrompt;
     public GameObject starBaseShopPanel;
+    public GameObject arenaPanel;
     public Text starBaseTitleText;
     public bool inventoryOpen;
     public bool shipCustomizationOpen;
@@ -88,7 +89,8 @@ public class Controls : MonoBehaviour {
         inventoryPanel.SetActive(true);
         inventoryOpen = true;
         miniMap.SetActive(false);
-        Pause();
+        if(!starBasePanel.activeInHierarchy)
+            Pause();
     }
 
     public void HideInventory()
@@ -96,7 +98,8 @@ public class Controls : MonoBehaviour {
         inventoryPanel.SetActive(false);
         inventoryOpen = false;
         miniMap.SetActive(true);
-        UnPause();
+        if (!starBasePanel.activeInHierarchy)
+            UnPause();
     }
 
     public void ShowShipCustomization()
@@ -105,7 +108,8 @@ public class Controls : MonoBehaviour {
         SetInventoryPosition(604.0f, 22.51f);
         shipCustomizationPanel.SetActive(true);
         shipCustomizationOpen = true;
-        Pause();
+        if (!starBasePanel.activeInHierarchy)
+           Pause();
     }
 
     public void HideShipCustomization()
@@ -113,7 +117,8 @@ public class Controls : MonoBehaviour {
         inventoryPanel.SetActive(false);
         shipCustomizationPanel.SetActive(false);
         shipCustomizationOpen = false;
-        UnPause();
+        if (!starBasePanel.activeInHierarchy)
+            UnPause();
     }
 
     public void ShowStarbaseScreen()
@@ -154,6 +159,7 @@ public class Controls : MonoBehaviour {
     public void ShowStarbaseNewsScreen()
     {
         HideStarbaseShopScreen();
+        HideStarbaseArenaScreen();
         HideStarbaseCantinaScreen();
         HideStarbaseCommanderScreen();
         HideStarbaseShipyardScreen();
@@ -162,6 +168,7 @@ public class Controls : MonoBehaviour {
         //todo procedually enter the staerbase name here
         starBaseTitleText.text = "Welcome to Starbase Name";
     }
+
 
     public void HideStarbaseNewsScreen()
     {
@@ -172,6 +179,7 @@ public class Controls : MonoBehaviour {
     {
         HideStarbaseNewsScreen();
         HideStarbaseShopScreen();
+        HideStarbaseArenaScreen();
         HideStarbaseCommanderScreen();
         HideStarbaseShipyardScreen();
         starBaseCantinaPanel.SetActive(true);
@@ -189,6 +197,7 @@ public class Controls : MonoBehaviour {
     {
         HideStarbaseNewsScreen();
         HideStarbaseCantinaScreen();
+        HideStarbaseArenaScreen();
         HideStarbaseShopScreen();
         HideStarbaseShipyardScreen();
         starBaseCommanderPanel.SetActive(true);
@@ -206,6 +215,7 @@ public class Controls : MonoBehaviour {
     {
         HideStarbaseNewsScreen();
         HideStarbaseCantinaScreen();
+        HideStarbaseArenaScreen();
         HideStarbaseCommanderScreen();
         HideStarbaseShipyardScreen();
         starBaseShopPanel.SetActive(true);
@@ -224,6 +234,7 @@ public class Controls : MonoBehaviour {
     public void ShowStarbaseShipyardScreen()
     {
         HideStarbaseNewsScreen();
+        HideStarbaseArenaScreen();
         HideStarbaseShopScreen();
         HideStarbaseCantinaScreen();
         HideStarbaseCommanderScreen();
@@ -237,6 +248,22 @@ public class Controls : MonoBehaviour {
     {
         starBaseShipyardPanel.SetActive(false);
         HideShipCustomization();
+    }
+
+    public void ShowStarbaseArenaScreen()
+    {
+        HideStarbaseShopScreen();
+        HideStarbaseNewsScreen();
+        HideStarbaseCantinaScreen();
+        HideStarbaseCommanderScreen();
+        HideStarbaseShipyardScreen();
+        HideStarbaseShopScreen();
+        arenaPanel.SetActive(true);
+    }
+
+    public void HideStarbaseArenaScreen()
+    {
+        arenaPanel.SetActive(false);
     }
 
     public void ShowDockingPrompt()

@@ -30,7 +30,7 @@ public class ArenaManager : MonoBehaviour
         finalRound = arenaWaveDatabase.Count;
         spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         playerRecord = GameObject.FindObjectOfType<PlayerRecord>();
-        Invoke("SpawnWave", 1.0f);
+        //Invoke("SpawnWave", 1.0f);
     }
 
     void LateUpdate()

@@ -66,6 +66,7 @@ public class WeaponController : MonoBehaviour
             firingMode();
         }
         Update_Rotation_Y();
+       // Debug.DrawRay(shotSpawn.position, shotSpawn.up, Color.red);
     }
 
     public void SetFiringType()
