@@ -25,8 +25,7 @@
 				}
 			]
 
-	},
-
+},
 {
 		"id" : 1,
 		"title": "Shuttle",
@@ -52,8 +51,8 @@
 				"WeaponID": 80
 				}
 			]
-	},
-	{
+},
+{
 		"id" : 2,
 		"title": "Runner",
 		"faction": "all",
@@ -78,5 +77,84 @@
 				"WeaponID": 90
 				}
 			]
-	}
+}
+,
+{
+		"id" : 3,
+		"title": "Runner",
+		"faction": "all",
+		"prefab": "vehicle_playerShip",
+		"HullID": 1,
+		"Shield": 21,
+		"Engine": 61,
+		"Ecm": 52,
+		"Radar": 42,
+		"Rcs": 31,
+		"Tractorbeam": 71,
+		"Generator": 11,
+		"LootTable": "lootTable_1",
+		"LootAmmount": 2,
+		"PlayerShip": true,
+		"Weapons":
+			[
+				{		
+				"WeaponID": 80
+				},
+				{		
+				"WeaponID": 80
+				}
+			]
+},
+{
+		"id" : 4,
+		"title": "Runner",
+		"faction": "all",
+		"prefab": "vehicle_playerShip",
+		"HullID": 1,
+		"Shield": 21,
+		"Engine": 61,
+		"Ecm": 52,
+		"Radar": 42,
+		"Rcs": 31,
+		"Tractorbeam": 71,
+		"Generator": 11,
+		"LootTable": "lootTable_1",
+		"LootAmmount": 2,
+		"PlayerShip": true,
+		"Weapons":
+			[
+				{		
+				"WeaponID": 90
+				},
+				{		
+				"WeaponID": 90
+				}
+			]
+},
+{
+		"id" : 5,
+		"title": "Runner",
+		"faction": "all",
+		"prefab": "vehicle_playerShip",
+		"HullID": 1,
+		"Shield": 21,
+		"Engine": 61,
+		"Ecm": 52,
+		"Radar": 42,
+		"Rcs": 31,
+		"Tractorbeam": 71,
+		"Generator": 11,
+		"LootTable": "lootTable_1",
+		"LootAmmount": 2,
+		"PlayerShip": true,
+		"Weapons":
+			[
+				{		
+				"WeaponID": 100
+				},
+				{		
+				"WeaponID": 100
+				}
+			]
+}
 ]
