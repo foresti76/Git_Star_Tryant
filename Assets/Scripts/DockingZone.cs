@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DockingZone : MonoBehaviour {
+
+    public int starbaseID;
     Controls uIControls;
     ArenaManager arenaManager;
 
@@ -17,6 +19,7 @@ public class DockingZone : MonoBehaviour {
         if(other.tag == "Player" && arenaManager.arenaActive == false)
         {
             uIControls.ShowDockingPrompt();
+            //todo setup the UI to have this stations information in the starbase screen.
         }
     }
 
@@ -25,6 +28,7 @@ public class DockingZone : MonoBehaviour {
         if (other.tag == "Player")
         {
             uIControls.HideDockingPrompt();
+            
         }
     }
 }

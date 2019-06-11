@@ -21,7 +21,6 @@ public class ShipData
     public bool PlayerShip { get; set; }
     public List<int> Weapons { get; set; }
 
-
     public ShipData()
     {
 

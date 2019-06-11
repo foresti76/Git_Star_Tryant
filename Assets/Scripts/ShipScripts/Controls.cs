@@ -259,6 +259,7 @@ public class Controls : MonoBehaviour {
         HideStarbaseShipyardScreen();
         HideStarbaseShopScreen();
         arenaPanel.SetActive(true);
+        arenaPanel.GetComponent<ArenaScreenController>().InitalizeShipSelect();
     }
 
     public void HideStarbaseArenaScreen()

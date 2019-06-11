@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour {
     public GameObject inventoryItem;
     public PlayerRecord playerRecord;
 
-    ItemDatabase equipmentDatbase;
+    public ItemDatabase equipmentDatbase;
     private int slotAmmount;
 
 
