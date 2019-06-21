@@ -42,7 +42,12 @@ public class Controls : MonoBehaviour {
 	
     public void Init()
     {
-        playerControls = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
+        Debug.Log("initalizing player controls");
+        playerControls = arenaManager.gameManager.player.GetComponent<PlayerControls>();
+        if (playerControls == null)
+        {
+            Debug.Log("Failed to find player object to set controls for.");
+        }
     }
 	// Update is called once per frame
 	void Update () {

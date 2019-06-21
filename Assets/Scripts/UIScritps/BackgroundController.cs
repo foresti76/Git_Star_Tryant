@@ -35,5 +35,9 @@ public class BackgroundController : MonoBehaviour {
         {
             this.transform.position = new Vector3(playerShip.transform.position.x,-2 , playerShip.transform.position.z); // Keep the background with the players ship
         }
+        else
+        {
+            playerShip = GameObject.FindGameObjectWithTag("Player");
+        }
     }
 }

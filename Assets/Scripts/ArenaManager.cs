@@ -15,11 +15,14 @@ public class ArenaManager : MonoBehaviour
     public JsonData arenaWaveData;
     int currentSpawnPoint = 0;
     public List<GameObject> currentWave = new List<GameObject>();
-    public bool arenaActive = true;
+    public bool arenaActive = false;
     public PlayerRecord playerRecord;
     public bool waveActive = false;
     public bool betweenWaves = false;
     public GameObject betweenWavesUI;
+    public Transform areaStartLocation;
+    public GameObject arenaWalls;
+    public int arenaShipID;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,36 +33,48 @@ public class ArenaManager : MonoBehaviour
         finalRound = arenaWaveDatabase.Count;
         spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         playerRecord = GameObject.FindObjectOfType<PlayerRecord>();
+        arenaWalls.SetActive(false);
         //Invoke("SpawnWave", 1.0f);
     }
 
     void LateUpdate()
     {
-       currentWave.RemoveAll(GameObject => GameObject == null);
-
-        if (currentWave.Count == 0 && waveActive == true)
+        if (arenaActive)
         {
-            waveActive = false;
-            playerRecord.GiveMoney(arenaWaveDatabase[arenaRoundNumber].RoundReward);
+           currentWave.RemoveAll(GameObject => GameObject == null);
 
-            //todo clear out the shop and add in the things from that arena round
-            arenaRoundNumber++;
-            if (arenaRoundNumber < finalRound)
+            if (currentWave.Count == 0 && waveActive == true)
             {
-                betweenWaves = true;
-            }
-            else
-            {
-                arenaActive = false;
-                arenaRoundNumber = 0;
-            }
-            if (betweenWaves)
-            {
-                betweenWavesUI.SetActive(true);
-                Time.timeScale = 0;
+                waveActive = false;
+                playerRecord.GiveMoney(arenaWaveDatabase[arenaRoundNumber].RoundReward);
+
+                //todo clear out the shop and add in the things from that arena round
+                arenaRoundNumber++;
+                if (arenaRoundNumber < finalRound)
+                {
+                    betweenWaves = true;
+                }
+                else
+                {
+                    arenaActive = false;
+                    arenaRoundNumber = 0;
+                }
+                if (betweenWaves)
+                {
+                    betweenWavesUI.SetActive(true);
+                    Time.timeScale = 0;
+                }
             }
         }
     }
+
+    public void StartArea()
+    {
+        gameManager.ArenaSpawnPlayer(arenaShipID);
+        arenaWalls.SetActive(true);
+        Invoke("SpawnWave", 3.0f);
+    }
+
     public void SpawnWave()
     {
         betweenWaves = false;
@@ -77,6 +92,18 @@ public class ArenaManager : MonoBehaviour
                     currentSpawnPoint = 0;
                 }
             }
+        }
+        foreach (GameObject enemy in currentWave)
+        {
+            if (gameManager.player != null)
+            {
+                enemy.GetComponent<AIBehavior>().UpdateTarget(gameManager.player);
+            }
+            else
+            {
+                Debug.Log(" Gamemanager.player not found");
+            }
+
         }
         waveActive = true;
     }

@@ -66,8 +66,6 @@ public class ShipSpawner : MonoBehaviour
         if (arenaManager.arenaActive == true && shipScript.playerShip == false)
         {
             arenaManager.currentWave.Add(shipToSpawn);
-            GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
-            shipToSpawn.GetComponent<AIBehavior>().UpdateTarget(playerShip);
         }
         return shipToSpawn;
     }
