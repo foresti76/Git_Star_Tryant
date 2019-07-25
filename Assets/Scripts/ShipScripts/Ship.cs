@@ -66,10 +66,6 @@ public class Ship : MonoBehaviour {
         if (playerShip)
         { 
             //UpdateWeaponSlotList();
-            if(HUDscript.player == null)
-            {
-                HUDscript.Init();
-            } else
             HUDscript.CreateWeaponAmmoDisplayElements();
         }
 
@@ -120,6 +116,7 @@ public class Ship : MonoBehaviour {
         if (hullData != null)
         {
             hull.maxHull = hullData.Hullpoints;
+            hull.curHull = hullData.Hullpoints;
             hull.armor = hullData.Armor;
             foreach (WeaponController weaponControler in weaponControllerList)
             {

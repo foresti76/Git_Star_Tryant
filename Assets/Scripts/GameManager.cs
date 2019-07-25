@@ -63,14 +63,12 @@ public class GameManager : MonoBehaviour
         arenaManager.arenaRoundNumber = 0;
         player = GameObject.FindGameObjectWithTag("Player");
         controls.Init();
-        //hud.Init();
     }
 
     public void ArenaSpawnPlayer(int id)
     {
         Destroy(player);
         player = null;
-        Debug.Log("creating a new player");
         player = shipSpawner.SpawnShip(id, arenaManager.areaStartLocation.position).gameObject;
         arenaManager.arenaRoundNumber = 0;
         Debug.Log("finding the player again after they are created");
@@ -79,11 +77,12 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Can't find the player");
         }
-        controls.Init();
         Debug.Log("setting up the player controls");
+        controls.playerControls = player.GetComponent<PlayerControls>();
+        controls.playerControls.shipMovement = player.GetComponent<ShipMovement>();
         controls.playerControls.combatModeActive = true;
         arenaManager.arenaActive = true;
         playerRespawnMessage.SetActive(false);
-        //hud.Init();
+        // this isnt working probably need to set these things directly.
     }
 }

@@ -29,14 +29,7 @@ public class HUD : MonoBehaviour {
         HideAmmoDisplay();
 	}
 	
-    public void Init()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        hull = player.GetComponent<Hull>();
-        generator = player.GetComponent<Generator>();
-        shield = player.GetComponentInChildren<Shield>();
-        CreateWeaponAmmoDisplayElements();
-    }
+
 	// Update is called once per frame
 	void Update () {
         if (player)
@@ -44,6 +37,14 @@ public class HUD : MonoBehaviour {
             playerHullHUD.value = hull.curHull / hull.maxHull;
             playerPowerHUD.value = generator.currentPower / generator.maxPower;
             playerShieldHUD.value = shield.currentShield / shield.maxShield;
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            hull = player.GetComponent<Hull>();
+            generator = player.GetComponent<Generator>();
+            shield = player.GetComponentInChildren<Shield>();
+            CreateWeaponAmmoDisplayElements();
         }
 
 	}

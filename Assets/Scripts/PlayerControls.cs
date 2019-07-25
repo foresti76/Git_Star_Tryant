@@ -13,8 +13,8 @@ public class PlayerControls : MonoBehaviour {
     public Texture combatCursor;  // Your cursor texture
 
     Text selectionText;
-    GameObject playerShip;
-    ShipMovement shipMovement;
+    public GameObject playerShip;
+    public ShipMovement shipMovement;
     WeaponController[] myWeaponControllers;
     //MiningLaser miningLaser;
     Radar myRadar;
@@ -65,6 +65,11 @@ public class PlayerControls : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        if(shipMovement == null)
+        {
+            Start();
+        }
         if (combatModeActive)
         {
             Vector3 v3Pos;
