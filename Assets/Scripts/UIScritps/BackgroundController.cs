@@ -38,6 +38,7 @@ public class BackgroundController : MonoBehaviour {
         else
         {
             playerShip = GameObject.FindGameObjectWithTag("Player");
+            myRigidbody = playerShip.GetComponent<Rigidbody>();
         }
     }
 }

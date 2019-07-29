@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
         arenaManager.arenaRoundNumber = 0;
         player = GameObject.FindGameObjectWithTag("Player");
         controls.Init();
+        controls.playerControls.DeactivateCombatMode();
     }
 
     public void ArenaSpawnPlayer(int id)
@@ -71,18 +72,24 @@ public class GameManager : MonoBehaviour
         player = null;
         player = shipSpawner.SpawnShip(id, arenaManager.areaStartLocation.position).gameObject;
         arenaManager.arenaRoundNumber = 0;
-        Debug.Log("finding the player again after they are created");
         //player = GameObject.FindGameObjectWithTag("Player");
         if (!player)
         {
             Debug.Log("Can't find the player");
         }
-        Debug.Log("setting up the player controls");
+     
         controls.playerControls = player.GetComponent<PlayerControls>();
         controls.playerControls.shipMovement = player.GetComponent<ShipMovement>();
-        controls.playerControls.combatModeActive = true;
+        
         arenaManager.arenaActive = true;
         playerRespawnMessage.SetActive(false);
+        StartCoroutine(StartCombatModeAfterTime(1.0f));
         // this isnt working probably need to set these things directly.
+    }
+
+    IEnumerator StartCombatModeAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        controls.playerControls.InitateCombatMode();
     }
 }

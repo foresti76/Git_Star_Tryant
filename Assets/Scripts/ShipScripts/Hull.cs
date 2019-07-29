@@ -30,7 +30,7 @@ public class Hull : MonoBehaviour {
             if(myShip.playerShip == true)
             {
                 GameObject.FindObjectOfType<PlayerRecord>().playerLastPosition = transform.position;
-                GameObject.FindObjectOfType<PlayerControls>().deactivateCombatMode();
+                GameObject.FindObjectOfType<PlayerControls>().DeactivateCombatMode();
             }
 
             Destroy(gameObject);

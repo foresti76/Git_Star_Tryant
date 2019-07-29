@@ -21,7 +21,7 @@ public class PlayerControls : MonoBehaviour {
     TractorBeam myTractorBeam;
     SelectionMover selectionObjectMover;
     SelectionMover miniMapSelectionObjectMover;
-    HUD HUDScript;
+    public HUD HUDScript;
     float fAngle; //angle to rotate the combat cursor.
 
     float cursorSizeX = 32.0f;  // Your cursor size x
@@ -42,7 +42,8 @@ public class PlayerControls : MonoBehaviour {
         miniMapSelectionObjectMover = miniMapSelectionObject.GetComponent<SelectionMover>();
         myTractorBeam = playerShip.GetComponent<TractorBeam>();
         HUDScript = GameObject.Find("HUD").GetComponent<HUD>();
-        combatModeActive = false;
+        //Debug.Log("Playercontrols turning off combat mode");
+        //combatModeActive = false;
     }
 
     public void Init()
@@ -193,11 +194,11 @@ public class PlayerControls : MonoBehaviour {
             {
                 if(combatModeActive == false)
                 {
-                    initateCombatMode();
+                    InitateCombatMode();
                 }
                 else
                 {
-                    deactivateCombatMode();
+                    DeactivateCombatMode();
                 }
             }
 
@@ -206,7 +207,7 @@ public class PlayerControls : MonoBehaviour {
             {
                 if(combatModeActive == false)
                 {
-                    initateCombatMode();
+                    InitateCombatMode();
                 }
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
@@ -260,7 +261,7 @@ public class PlayerControls : MonoBehaviour {
         }
     }
 
-    public void initateCombatMode()
+    public void InitateCombatMode()
     {
         combatModeActive = true;
         Cursor.visible = false;
@@ -268,7 +269,7 @@ public class PlayerControls : MonoBehaviour {
         // todo make the turrets come out and change the UI to combat configuration
     }
 
-    public void deactivateCombatMode()
+    public void DeactivateCombatMode()
     {
         combatModeActive = false;
         selectionObjectMover.NonCombatTargeting();
