@@ -11,6 +11,7 @@ public class AIBehavior : MonoBehaviour {
 
     Hull hull;
     Animator anim;
+    Radar myRadar;
 
     // Use this for initialization
     void Start()
@@ -19,6 +20,7 @@ public class AIBehavior : MonoBehaviour {
         anim = GetComponent<Animator>();
         anim.SetBool("IsPatrolling", true);
         hull = GetComponent<Hull>();
+        myRadar = GetComponent<Radar>();
         GameObject myHealthbar = Instantiate(healthbarPrefab, transform.position, Quaternion.Euler(90f,0.0f,0.0f));
         myHealthbar.GetComponentInChildren<NPCHealthBar>().myShip = this.gameObject;
         
@@ -31,7 +33,7 @@ public class AIBehavior : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (target)
+        if (target && myRadar.detections.Contains(target))
         {
             anim.SetBool("IsAggro", true);
         }

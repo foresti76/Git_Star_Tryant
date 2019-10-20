@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class WaveData 
 {
-        public int ShipID;
-        public int Count;
+    [SerializeField]
+    public int ShipID;
+    [SerializeField]
+    public int Count;
     
     public WaveData(int shipID, int count)
     {

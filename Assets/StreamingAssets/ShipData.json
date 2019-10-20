@@ -1,3 +1,4 @@
+
 [
 {
 		"id" : 0,
@@ -5,23 +6,23 @@
 		"faction": "all",
 		"prefab": "vehicle_AIship",
 		"HullID": 0,
-		"Shield": 0,
-		"Engine": 0,
-		"Ecm": 0,
-		"Radar": 0,
-		"Rcs": 0,
-		"Tractorbeam": 0,
-		"Generator": 0,
+		"Shield": 20,
+		"Engine": 60,
+		"Ecm": 51,
+		"Radar": 41,
+		"Rcs": 30,
+		"Tractorbeam": 70,
+		"Generator": 10,
 		"LootTable": "lootTable_0",
 		"LootAmmount": 0,
 		"PlayerShip": true,
 		"Weapons":
 			[
 				{		
-				"WeaponID": 0
+				"WeaponID": 82
 				},
 				{		
-				"WeaponID": 0
+				"WeaponID": 82
 				}
 			]
 
@@ -33,7 +34,7 @@
 		"prefab": "vehicle_AIship",
 		"HullID": 0,
 		"Shield": 21,
-		"Engine": 61,
+		"Engine": 60,
 		"Ecm": 51,
 		"Radar": 41,
 		"Rcs": 31,
@@ -59,7 +60,7 @@
 		"prefab": "vehicle_AIship_Passive",
 		"HullID": 1,
 		"Shield": 21,
-		"Engine": 61,
+		"Engine": 60,
 		"Ecm": 52,
 		"Radar": 42,
 		"Rcs": 31,
@@ -85,7 +86,7 @@
 		"prefab": "vehicle_playerShip",
 		"HullID": 1,
 		"Shield": 21,
-		"Engine": 61,
+		"Engine": 60,
 		"Ecm": 52,
 		"Radar": 42,
 		"Rcs": 31,
@@ -111,7 +112,7 @@
 		"prefab": "vehicle_playerShip",
 		"HullID": 1,
 		"Shield": 21,
-		"Engine": 61,
+		"Engine": 60,
 		"Ecm": 52,
 		"Radar": 42,
 		"Rcs": 31,
@@ -137,7 +138,7 @@
 		"prefab": "vehicle_playerShip",
 		"HullID": 1,
 		"Shield": 21,
-		"Engine": 61,
+		"Engine": 60,
 		"Ecm": 52,
 		"Radar": 42,
 		"Rcs": 31,

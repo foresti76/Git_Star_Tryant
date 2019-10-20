@@ -114,11 +114,10 @@ public class ArenaManager : MonoBehaviour
         {
             List<WaveData> waveDataList = new List<WaveData>(JsonMapper.ToObject<List<WaveData>>(arenaWaveData[i]["Waves"].ToJson()));
 
-            int j = 0;
-            foreach (WaveData waveData in waveDataList)
+            
+            for (int j = 0; j < waveDataList.Count; j++)
             {
                 waveDataList[j] = new WaveData(int.Parse(arenaWaveData[i]["Waves"][j]["ShipID"].ToJson().ToString()), int.Parse(arenaWaveData[i]["Waves"][j]["Count"].ToJson().ToString()));
-                j++;
             }
 
             arenaWaveDatabase.Add(new ArenaRound((int)arenaWaveData[i]["RoundID"], waveDataList, (int)arenaWaveData[i]["RoundReward"]));

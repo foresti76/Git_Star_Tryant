@@ -20,12 +20,13 @@ public class Attack : NPCBaseFSM {
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
         if (target)
         {
             Vector3 directionToTarget = target.transform.position - NPC.transform.position;
             float targetAngle = Vector3.Angle(NPC.transform.forward, directionToTarget);
             //Debug.Log("Angle: " + angle);
-            if (targetAngle >= accuracy)
+            if (targetAngle >= accuracy && Vector3.Distance(NPC.transform.position, target.transform.position) <= rangeToTarget)
             {
                 var rotateDir = Vector3.Cross(NPC.transform.forward, directionToTarget).y;
                 //Debug.Log("Rotate Dir " + rotateDir);

@@ -7,10 +7,11 @@ using System;
 
 public class ShipSpawner : MonoBehaviour
 {
-
-    public List<ShipData> shipDatabase = new List<ShipData>();
+    [SerializeField]
+    public List<ShipData> shipDatabase  = new List<ShipData>();
     public List<GameObject> shipPrefabs;
     public ArenaManager arenaManager;
+    [SerializeField]
     public JsonData shipData;
 
     // Start is called before the first frame update
@@ -87,11 +88,10 @@ public class ShipSpawner : MonoBehaviour
         {
             List<int> weapons = new List<int>(JsonMapper.ToObject<List<int>>(shipData[i]["Weapons"].ToJson()));
 
-            int j = 0;
-            foreach (int weapon in weapons)
+            
+            for (int j = 0; j < weapons.Count; j++)
             {
                 weapons[j] = int.Parse(shipData[i]["Weapons"][j]["WeaponID"].ToJson().ToString());
-                j++;
             }
 
             shipDatabase.Add(new ShipData((int)shipData[i]["id"], shipData[i]["title"].ToString(),

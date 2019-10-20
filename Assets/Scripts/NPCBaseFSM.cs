@@ -10,6 +10,7 @@ public class NPCBaseFSM : StateMachineBehaviour {
     public bool IsPatrolling;
     public GameObject target;
     public float accuracy;
+    public float rangeToTarget = 50.0f;
     public AIBehavior Ai;
     public bool speedingUp;
     public bool turningLeft;

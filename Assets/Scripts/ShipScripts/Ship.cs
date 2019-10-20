@@ -77,7 +77,7 @@ public class Ship : MonoBehaviour {
         if (playerShip)
         {
             HUDscript.CreateWeaponAmmoDisplayElements();
-            saveData.Save();
+            //saveData.Save();
         }
 
         /* todo remove this once I have implemented subsystems
